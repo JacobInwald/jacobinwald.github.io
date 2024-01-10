@@ -1,3 +1,4 @@
+import { HashRouter } from "react-router-dom";
 import Header from "./components/header/Header";
 import InfoCardList from "./components/infocard/InfoCardList";
 import { TSMap } from "typescript-map";
@@ -16,11 +17,13 @@ function App() {
   );
 
   return (
-    <div className="bg-primary">
-      <Header title={title} headings={headings} />
-      <a style={{ height: "100x" }} />
-      <InfoCardList data={content} />
-    </div>
+    <HashRouter>
+      <div className="bg-primary">
+        <Header title={title} headings={headings} />
+        <a style={{ height: "100x" }} />
+        <InfoCardList data={content} />
+      </div>
+    </HashRouter>
   );
 }
 

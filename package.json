@@ -1,6 +1,6 @@
 {
   "name": "jacobinwald.github.io",
-  "private": true,
+  "private": false,
   "version": "0.0.0",
   "type": "module",
   "homepage": "https://jacobinwald.github.io",
@@ -9,12 +9,15 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "start": "react-script start"
   },
   "dependencies": {
     "bootstrap": "^5.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.1",
+    "react-script": "^2.0.5",
     "typescript-map": "^0.1.0"
   },
   "devDependencies": {
