@@ -1,17 +1,14 @@
 import { TSMap } from "typescript-map";
 import "./infocard.css";
-import { data } from "./test.json";
 
 interface Props {
-  title: string;
   content: TSMap<string, string>[];
 }
 
-function InfoCard() {
-  const title = "About Me";
-  const content = data.map((m) => new TSMap().fromJSON(m));
+function InfoCard({ content }: Props) {
+  const title: string = content[0].get("content");
 
-  function contentToHTML(item: TSMap<any, any>, id: string) {
+  function contentToHTML(item: TSMap<string, string>, id: string) {
     // Used for defaults
     function getOrElse<A>(map: TSMap<A, A>, key: A, value: A): A {
       return map.has(key) ? map.get(key) : value;
