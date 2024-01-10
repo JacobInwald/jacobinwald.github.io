@@ -1,0 +1,106 @@
+/* Navbar container */
+.navbar {
+  background-color: inherit;
+  font-family: inherit;
+}
+
+/* Links inside the navbar */
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: antiquewhite;
+  text-align: center;
+  padding: 14px 16px;
+  border-radius: 2px;
+  text-decoration: none;
+}
+
+/* Navbar title */
+.navbar .title {
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  color: antiquewhite;
+  padding: 12px 30px;
+  background-color: inherit;
+  font-family: inherit; /* Important for vertical align on mobile phones */
+  margin: 2px; /* Important for vertical align on mobile phones */
+}
+
+/* The dropdown container */
+.dropdown {
+  float: left;
+}
+
+/* Dropdown button */
+.dropdown .dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: antiquewhite;
+  padding: 14px 16px;
+  background-color: inherit;
+  border-radius: 0px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  font-family: inherit; /* Important for vertical align on mobile phones */
+  margin: 0; /* Important for vertical align on mobile phones */
+}
+
+/* Add a red background color to navbar links on hover */
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+  background-color: rgb(206, 129, 129);
+}
+
+/* Style the dropdown menu */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Style the dropdown content */
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  z-index: 1;
+  align-items: center;
+
+  background-color: rgb(206, 129, 129);
+  opacity: 0;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+
+  transition: transform 0.15s ease-in;
+  transform: scale(0, 0);
+  transform-origin: 0 0;
+
+  display: grid;
+  grid-template-columns: 100px 100px;
+  grid-template-rows: auto auto auto;
+  gap: 2px;
+
+  border-radius: 5px;
+  border-top-left-radius: 0px;
+}
+
+/* Style the dropdown links */
+.dropdown-content a {
+  color: antiquewhite;
+  padding: 5px 8px;
+  max-height: 50px;
+  margin: 2px;
+  border-radius: 2px;
+  text-decoration: none;
+}
+
+/* Change color on hover */
+.dropdown-content a:hover {
+  background-color: darksalmon;
+}
+
+/* Show the dropdown content when hovering over the dropdown */
+.dropdown:hover .dropdown-content {
+  opacity: 1;
+  transform: scale(1, 1);
+}

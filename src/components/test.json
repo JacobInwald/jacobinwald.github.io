@@ -1,0 +1,14 @@
+{
+  "data": [
+    {
+      "tag": "p",
+      "content": "From a young age, I have sought out problems to solve. I got my first Raspberry Pi at 9 and I have not stopped programming since, learning C++ and Java to create games and Python to sketch out programming concepts. I find that problem-solving is the most enjoyable and stimulating way to apply myself and I believe that the diversity of my project focuses shows this. I excel in high-pressure and dynamic environments, as I have had to vie for excellence in many such environments - evidenced by my competitive experience in climbing."
+    },
+    {
+      "tag": "img",
+      "src": "src/assets/profile.jpeg",
+      "class": "circular-item",
+      "style": "300px"
+    }
+  ]
+}

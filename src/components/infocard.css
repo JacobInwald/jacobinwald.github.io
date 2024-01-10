@@ -1,0 +1,50 @@
+.infocard {
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding-top: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top: 20px;
+
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-items: center;
+  align-items: center;
+  column-gap: 50px;
+  row-gap: 10px;
+}
+
+/* General Rules for info-card children */
+.infocard * {
+  vertical-align: center;
+}
+
+.circular-item {
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+}
+
+/* Images in infocards */
+.infocard img {
+  object-fit: cover;
+  box-shadow: 0px 0px 0px 0px #ce8181;
+  transition: box-shadow 1s;
+}
+
+.infocard img:hover {
+  box-shadow: 0px 0px 4px 4px #ce8181;
+}
+
+/* Infocard Writing */
+
+.infocard h1 {
+  font-size: xx-large;
+  font-weight: bold;
+  color: #595f39;
+}
+
+.infocard p {
+  font-size: x-large;
+  color: #595f39;
+}

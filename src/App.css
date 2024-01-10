@@ -1,0 +1,13 @@
+.bg-primary {
+  /* #e4e4de */
+  background-color: antiquewhite !important;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.bg-secondary {
+  background-color: #595f39 !important;
+}
+
+.highlight {
+  color: #ce8181 !important;
+}
