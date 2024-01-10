@@ -1,15 +1,15 @@
 {
-  "name": "jacobinwald.co.uk",
+  "name": "jacobinwald.github.io",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://jacobinwald.github.io/jacobinwald.github.io",
+  "homepage": "https://jacobinwald.github.io",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "bootstrap": "^5.3.2",

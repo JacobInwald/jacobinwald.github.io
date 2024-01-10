@@ -9,7 +9,7 @@ function HeaderButton({ headings }: Props) {
     for (let [k, v] of headings) yield <a href={v}>{k}</a>;
   }
   let [...headingHTML] = constructHeading();
-  return headingHTML;
+  return <>{headingHTML}</>;
 }
 
 export default HeaderButton;
