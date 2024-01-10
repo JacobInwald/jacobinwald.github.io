@@ -1,7 +1,7 @@
 import Header from "./components/header/Header";
 import InfoCardList from "./components/infocard/InfoCardList";
 import { TSMap } from "typescript-map";
-import { data } from "./data/about-me.json";
+import { list_data } from "./data/infocards.json";
 import "./App.css";
 
 function App() {
@@ -10,7 +10,8 @@ function App() {
     ["Home", "#home"],
     ["About Me", "#about_me"],
   ];
-  const content = data.map((a) =>
+  // Parse List data
+  const content = list_data.map((a) =>
     a.map((m) => new TSMap<string, string>().fromJSON(m))
   );
 
