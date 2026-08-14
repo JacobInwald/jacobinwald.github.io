@@ -122,16 +122,28 @@
       </div>
     </div>
 
-    <!-- Lualine Status Bar at Bottom -->
+    <!-- Powerline Lualine Status Bar matching user screenshot -->
     <footer class="lualine-bar">
-      <div class="lualine-pill pill-mode" id="lualine-mode">-- NORMAL --</div>
-      <div class="lualine-pill pill-git"><i class="fa-solid fa-code-branch"></i> main</div>
-      <div class="lualine-pill" style="color: var(--fg-bright);">{{ active_page }}.buffer</div>
-      
-      <div class="lualine-right-group">
-        <div class="lualine-pill" style="color: var(--gruv-aqua);">utf-8</div>
-        <div class="lualine-pill pill-pos" id="lualine-pos">Ln 1, Top</div>
-        <div class="lualine-pill pill-time" id="lualine-time"><i class="fa-regular fa-clock"></i> 19:25</div>
+      <div class="lualine-section-left">
+        <div class="lualine-mode-block" id="lualine-mode">NORMAL</div>
+        <div class="lualine-branch-block">
+          <i class="fa-solid fa-code-branch"></i> jacob/main/nvim
+        </div>
+        <div class="lualine-file-block">
+          <i class="fa-solid fa-bars-staggered"></i> {{ active_page }}.buffer
+        </div>
+      </div>
+
+      <div class="lualine-section-right">
+        <div class="lualine-stat-block">
+          <span style="color: var(--gruv-red); font-weight: bold;">a</span>
+          <span style="color: var(--fg-muted);">&lt;</span>
+          <span style="color: var(--gruv-orange);"><i class="fa-solid fa-box"></i> 31</span>
+        </div>
+        <div class="lualine-pos-block" id="lualine-pos">Top 1:1</div>
+        <div class="lualine-time-block" id="lualine-time">
+          <i class="fa-regular fa-clock"></i> 19:26
+        </div>
       </div>
     </footer>
   </div>

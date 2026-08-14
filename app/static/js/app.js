@@ -18,15 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const gutter = document.getElementById('line-numbers-gutter');
   const editorBody = document.querySelector('.editor-body');
 
-  // 1. Calculate Line Numbers Strictly Based on Content Height Without Feedback Loops
+  // 1. Line Numbers Calculation
   function generateLineNumbers() {
     if (!gutter || !editorBody) return;
 
     const contentHeight = editorBody.clientHeight;
-    const lineHeight = 28.8; // Exact height per line
+    const lineHeight = 28.8;
     const exactLineCount = Math.max(1, Math.round(contentHeight / lineHeight));
     
-    // Only update innerHTML if line count actually changed to prevent DOM thrashing
     if (gutter.children.length === exactLineCount) return;
 
     const currentScrollLine = Math.min(
@@ -45,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
   generateLineNumbers();
   window.addEventListener('resize', generateLineNumbers);
 
-  // 2. Sidebar Toggle Logic
+  // 2. Sidebar Toggle
   function toggleSidebar() {
     if (!explorer) return;
     explorer.classList.toggle('collapsed');
@@ -56,8 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (localStorage.getItem('explorer-collapsed') === 'true' && explorer) {
     explorer.classList.add('collapsed');
   }
-  
-  // Remove pre-render class after initial state is applied to allow smooth user toggling
+
   requestAnimationFrame(() => {
     document.documentElement.classList.remove('explorer-is-collapsed');
   });
@@ -66,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sidebarToggleBtn.addEventListener('click', toggleSidebar);
   }
 
-  // 3. Live Time Update
+  // 3. Time Update
   function updateTime() {
     if (!timeEl) return;
     const now = new Date();
@@ -77,16 +75,16 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(updateTime, 10000);
   updateTime();
 
-  // 4. Statusline & Mode Handling
+  // 4. Statusline Mode & Scroll Pos (Matching screenshot: 39% 189:16)
   function setMode(newMode) {
     mode = newMode;
     if (!modeEl) return;
-    modeEl.textContent = `-- ${mode} --`;
+    modeEl.textContent = mode;
     if (mode === 'SEARCH') {
-      modeEl.style.background = 'var(--gruv-yellow)';
+      modeEl.style.background = '#fabd2f';
       modeEl.style.color = '#1d2021';
     } else {
-      modeEl.style.background = 'var(--gruv-green)';
+      modeEl.style.background = '#a89984';
       modeEl.style.color = '#1d2021';
     }
   }
@@ -102,9 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
     else if (pct >= 99) label = 'Bot';
 
     const line = Math.floor(current / 28.8) + 1;
-    posEl.textContent = `Ln ${line}, ${label}`;
+    posEl.textContent = `${label} ${line}:1`;
 
-    // Highlight current line number in gutter
     if (gutter && gutter.children.length > 0) {
       const lineDivs = gutter.children;
       const targetIdx = Math.min(lineDivs.length - 1, line - 1);
@@ -121,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', updateScrollPos);
   updateScrollPos();
 
-  // 5. Explorer Sidebar Live Search
+  // 5. Live Search
   if (explorerSearch) {
     explorerSearch.addEventListener('focus', () => setMode('SEARCH'));
     explorerSearch.addEventListener('blur', () => setMode('NORMAL'));
@@ -142,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 6. Vim Keyboard Engine (<Space> e + j/k + 1..5)
+  // 6. Vim Shortcuts
   document.addEventListener('keydown', (e) => {
     const isEditing = ['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName);
 
@@ -162,7 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isEditing) return;
 
     if (mode === 'NORMAL') {
-      // Check <Space> e key combination
       if (e.code === 'Space') {
         e.preventDefault();
         spacePressed = true;
@@ -212,7 +208,6 @@ document.addEventListener('DOMContentLoaded', () => {
           toggleHelpModal();
           break;
 
-        // Quick Buffer Nav 1..5
         case '1':
           window.location.href = '/';
           break;
@@ -232,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 7. Help Modal Controls
+  // 7. Modal
   function toggleHelpModal() {
     if (!helpModal) return;
     helpModal.style.display = helpModal.style.display === 'flex' ? 'none' : 'flex';

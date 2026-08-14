@@ -142,7 +142,7 @@ a:hover {
 /* Fixed / Sticky Left Sidebar Explorer */
 .nvim-explorer {
   width: 280px;
-  height: calc(100vh - 74px);
+  height: calc(100vh - 70px);
   position: sticky;
   top: 42px;
   background: var(--bg-hard);
@@ -240,7 +240,7 @@ html.explorer-is-collapsed .nvim-explorer {
   background: var(--bg-normal);
   display: flex;
   min-width: 0;
-  align-items: flex-start; /* Prevents gutter from stretching parent height */
+  align-items: flex-start;
   position: relative;
 }
 
@@ -255,7 +255,7 @@ html.explorer-is-collapsed .nvim-explorer {
   background: var(--bg-normal);
   border-right: 1px solid rgba(255, 255, 255, 0.03);
   flex-shrink: 0;
-  overflow: hidden; /* Stops line elements from stretching height */
+  overflow: hidden;
   pointer-events: none;
 }
 
@@ -277,52 +277,102 @@ html.explorer-is-collapsed .nvim-explorer {
   margin: 0 auto;
 }
 
-/* Lualine Status Bar at Bottom */
+/* Authentic Powerline Lualine Status Bar matching screenshot */
 .lualine-bar {
   display: flex;
   align-items: center;
-  height: 32px;
-  background: var(--bg-status);
+  height: 28px;
+  background: #282828;
   font-size: 0.85rem;
+  font-family: var(--font-mono);
   user-select: none;
   border-top: 1px solid var(--border-color);
   position: sticky;
   bottom: 0;
   z-index: 100;
+  overflow: hidden;
 }
 
-.lualine-pill {
-  padding: 0 1.25rem;
+.lualine-section-left {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.lualine-mode-block {
+  background: #a89984;
+  color: #1d2021;
+  font-weight: 800;
+  padding: 0 1.25rem 0 0.85rem;
   height: 100%;
   display: flex;
   align-items: center;
-  font-weight: bold;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
+  z-index: 3;
 }
 
-.pill-mode {
-  background: var(--gruv-green);
-  color: #1d2021;
+.lualine-branch-block {
+  background: #3c3836;
+  color: #ebdbb2;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1.5rem 0 1.25rem;
+  margin-left: -8px;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
+  z-index: 2;
 }
 
-.pill-git {
-  background: var(--bg-status);
-  color: var(--fg-bright);
+.lualine-file-block {
+  background: #282828;
+  color: #a89984;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1rem;
+  z-index: 1;
 }
 
-.lualine-right-group {
+.lualine-section-right {
   margin-left: auto;
   display: flex;
+  align-items: center;
   height: 100%;
 }
 
-.pill-pos {
-  background: var(--gruv-yellow);
-  color: #1d2021;
+.lualine-stat-block {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0 0.85rem;
+  font-size: 0.85rem;
 }
 
-.pill-time {
-  background: var(--bg-status);
-  color: var(--fg-muted);
+.lualine-pos-block {
+  background: #3c3836;
+  color: #ebdbb2;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 1.25rem 0 1.5rem;
+  margin-right: -8px;
+  clip-path: polygon(10px 0, 100% 0, 100% 100%, 10px 100%, 0 50%);
+  z-index: 2;
+}
+
+.lualine-time-block {
+  background: #a89984;
+  color: #1d2021;
+  font-weight: 800;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0 0.85rem 0 1.25rem;
+  clip-path: polygon(10px 0, 100% 0, 100% 100%, 10px 100%, 0 50%);
+  z-index: 3;
 }
 
 /* Cards & Content Components */
