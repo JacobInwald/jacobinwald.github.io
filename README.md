@@ -1,6 +1,7 @@
 # Jacob Inwald &mdash; Personal Website & Portfolio
 
-![CI Pipeline](https://github.com/JacobInwald/jacobinwald.github.io/actions/workflows/ci.yml/badge.svg)
+![Multi-Stage Verification](https://github.com/JacobInwald/jacobinwald.github.io/actions/workflows/verification.yml/badge.svg)
+![Build Status](https://github.com/JacobInwald/jacobinwald.github.io/actions/workflows/build.yml/badge.svg)
 ![Deploy Status](https://github.com/JacobInwald/jacobinwald.github.io/actions/workflows/deploy.yml/badge.svg)
 ![Python Version](https://img.shields.io/badge/python-3.11%2B-blue.svg)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.110%2B-009688.svg)
@@ -18,13 +19,13 @@ A modern, high-performance **Python Web Application** powering [jacobinwald.gith
 - 🔄 **Dual Deployment Architecture**:
   - **Dynamic Web Server**: Run as a containerized Python web application (`python run.py`).
   - **Static Site Generator (SSG)**: Render routes to static HTML/CSS/JS artifacts (`python build.py`) for hosting on GitHub Pages.
-- 🎨 **Besproke Design System**: Sleek glassmorphism UI, custom dark/light theme switcher, responsive layouts, and Google Fonts (Inter & Fira Code).
+- 🎨 **Bespoke Design System**: Sleek glassmorphism UI, custom dark/light theme switcher, responsive layouts, and Google Fonts (Inter & Fira Code).
 - 🏷️ **Dynamic Project Showcase**: Interactive filtering by tech category and live client-side search.
 - 📝 **Markdown Blog Engine**: Render Markdown posts with frontmatter metadata, syntax styling, and tag filtering.
 - ⏳ **Interactive Career Timeline**: Visual work experience & technical skills matrix.
 - 📬 **Contact API Endpoint**: Async contact form handler with client validation.
 - 📡 **Automated SEO & RSS**: Built-in dynamic generators for `sitemap.xml` and `rss.xml`.
-- 🤖 **Automated CI/CD Pipelines**: GitHub Actions workflows for linting, pytest suites, and GitHub Pages deployment.
+- 🤖 **Multi-Stage CI & Manual Pipelines**: Staged GitHub Actions workflows for Ruff linting, MyPy type checking (allow failure), Pytest, static builds, and manual deployment.
 
 ---
 
@@ -46,8 +47,10 @@ jacobinwald.github.io/
 ├── tests/                  # Pytest test suite (route tests & SSG build verification)
 ├── .github/
 │   └── workflows/
-│       ├── ci.yml          # CI workflow (Ruff linting, Pytest, build validation)
-│       └── deploy.yml      # CD workflow (Builds & deploys dist/ to GitHub Pages)
+│       ├── verification.yml # Staged CI pipeline (Ruff, MyPy, Pytest, Build check)
+│       ├── build.yml        # Dedicated static build & artifact pipeline
+│       ├── deploy.yml       # Automated deployment to GitHub Pages
+│       └── deploy-manual.yml# Manual trigger deployment (workflow_dispatch)
 ├── build.py                # Python Static Site Generator script
 ├── run.py                  # Dev server runner script
 ├── pyproject.toml          # uv package configuration & project metadata
@@ -58,70 +61,7 @@ jacobinwald.github.io/
 
 ---
 
-## 🚀 Quickstart Guide
-
-### Prerequisites
-
-Ensure you have Python 3.11+ and [`uv`](https://github.com/astral-sh/uv) installed:
-
-```bash
-# Install uv (if not already installed)
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-### 1. Installation
-
-Clone the repository and sync the virtual environment:
-
-```bash
-git clone https://github.com/JacobInwald/jacobinwald.github.io.git
-cd jacobinwald.github.io
-
-# Create virtualenv and install dependencies
-uv sync
-```
-
-### 2. Run Local Development Server
-
-Launch the live FastAPI server with auto-reload at `http://127.0.0.1:8000`:
-
-```bash
-uv run python run.py
-# or using Makefile
-make dev
-```
-
-### 3. Build Static Site (SSG)
-
-Compile all Python web application routes into static HTML files inside `dist/`:
-
-```bash
-uv run python build.py
-# or using Makefile
-make build
-```
-
-### 4. Run Tests & Linter
-
-Execute the test suite and code quality checks:
-
-```bash
-# Run pytest with code coverage
-uv run pytest
-
-# Check linting with Ruff
-uv run ruff check .
-
-# Or run all checks via Makefile
-make test
-make lint
-```
-
----
-
-## 🛠️ Makefile Shortcuts
-
-For convenience, a `Makefile` is included with standard task targets:
+## 🛠️ Makefile Commands
 
 | Command | Action |
 | :--- | :--- |
@@ -131,40 +71,26 @@ For convenience, a `Makefile` is included with standard task targets:
 | `make test` | Run test suite with pytest and code coverage |
 | `make lint` | Check formatting and lint rules with Ruff |
 | `make format` | Automatically fix and format code with Ruff |
+| `make mypy` | Run static type checking with MyPy (allows non-zero exit) |
+| `make verify` | Run full local verification pipeline (lint, mypy, test, build) |
 | `make clean` | Clean up build artifacts and temporary files |
 | `make docker-build` | Build Docker container image |
 
 ---
 
-## 📝 Managing Content
+## ⚙️ Pipelines & Verification Stages
 
-Updating content on the site is simple and code-free:
+The repository includes four distinct GitHub Actions workflows:
 
-1. **Profile & Bio**: Edit `app/data/profile.json` to update skills, social links, and stats.
-2. **Projects**: Edit `app/data/projects.json` to add or update showcase projects.
-3. **Career Timeline**: Edit `app/data/experience.json` to update work history.
-4. **Blog Posts**: Create a `.md` file in `app/data/posts/` with YAML frontmatter:
+1. **Multi-Stage Verification Pipeline (`verification.yml`)**:
+   - **Stage 1**: Linting & Formatting Check with Ruff (`ruff check .` & `ruff format --check .`).
+   - **Stage 2**: Static Type Checking with MyPy (`continue-on-error: true` - failure allowed).
+   - **Stage 3**: Automated Unit Testing with Pytest and coverage.
+   - **Stage 4**: Build Verification (`python build.py`).
+2. **Build Pipeline (`build.yml`)**: Dedicated workflow to compile static site output and upload the `dist/` artifact.
+3. **Automated Deploy (`deploy.yml`)**: Triggers on push to `main` to build and publish to GitHub Pages.
+4. **Manual Deploy Pipeline (`deploy-manual.yml`)**: Triggers on demand via GitHub's `workflow_dispatch` button, allowing manual target environment selection and deployment to GitHub Pages.
 
-```markdown
----
-title: My New Blog Post
-date: 2026-08-14
-summary: A brief description of the post.
-tags: [Python, Web, Architecture]
-read_time: 4 min read
----
-
-## Article Heading
-
-Your markdown content goes here...
-```
-
----
-
-## 🚢 CI/CD Pipelines
-
-- **CI Pipeline (`.github/workflows/ci.yml`)**: Runs on every pull request and push. Installs dependencies using `uv`, executes `ruff check`, runs `pytest`, and validates `python build.py`.
-- **Deployment Pipeline (`.github/workflows/deploy.yml`)**: Triggers on push to `main`. Executes `python build.py` to compile the static site and deploys `dist/` directly to GitHub Pages via official GitHub Actions.
 
 ---
 

@@ -1,0 +1,115 @@
+name: Multi-Stage Verification Pipeline
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # Stage 1: Code Linting & Formatting Check
+  stage-1-lint-and-format:
+    name: "Stage 1: Lint & Formatting (Ruff)"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Dependencies
+        run: uv sync
+
+      - name: Run Ruff Lint Check
+        run: uv run ruff check .
+
+      - name: Run Ruff Format Check
+        run: uv run ruff format --check .
+
+  # Stage 2: Type Checking (MyPy - Allowed to fail)
+  stage-2-type-check:
+    name: "Stage 2: Type Checking (MyPy)"
+    needs: stage-1-lint-and-format
+    runs-on: ubuntu-latest
+    continue-on-error: true # Allow failure as explicitly requested
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Dependencies
+        run: uv sync
+
+      - name: Run MyPy Type Check
+        run: uv run mypy app build.py run.py
+
+  # Stage 3: Automated Testing
+  stage-3-testing:
+    name: "Stage 3: Testing (Pytest)"
+    needs: stage-1-lint-and-format
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Dependencies
+        run: uv sync
+
+      - name: Run Pytest Test Suite
+        run: uv run pytest --cov=app
+
+  # Stage 4: Static Build Verification
+  stage-4-build-verification:
+    name: "Stage 4: Build Verification"
+    needs: [stage-1-lint-and-format, stage-3-testing]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Dependencies
+        run: uv sync
+
+      - name: Verify Build Output
+        run: uv run python build.py
