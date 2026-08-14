@@ -1,104 +1,99 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- Alpha-Nvim / Neovim Banner -->
-<section class="nvim-banner">
-  <div class="ascii-art">
-   _   ___     _____ __  __   _  ___     _____  _    _ ____  
-  | \ | \ \   / /_ _|  \/  | | |/ / \   / /_ _|| \  / |  _ \ 
-  |  \| |\ \ / / | || |\/| | | ' / \ \ / / | | |  \/  | |_) |
-  | |\  | \ V /  | || |  | | | . \  \ V /  | | | |\/| |  _ < 
-  |_| \_|  \_/  |___|_|  |_| |_|\_\  \_/  |___||_|  |_|_| \_\
-  </div>
-  
-  <div class="banner-title">
-    <span class="text-orange">def</span> <span class="text-yellow">welcome</span>(<span class="text-blue">visitor</span>):
-  </div>
-  
-  <p style="font-size: 1.25rem; color: var(--fg-normal); max-width: 800px; margin-bottom: 1.5rem;">
-    I'm <strong class="text-green">{{ profile.name }}</strong> &mdash; {{ profile.title }}. {{ profile.bio }}
+<div style="margin-bottom: 2rem;">
+  <div><span class="code-keyword">import</span> fastapi</div>
+  <div><span class="code-keyword">from</span> pydantic <span class="code-keyword">import</span> BaseModel</div>
+  <br>
+  <div><span class="code-comment"># Personal Profile Definition</span></div>
+  <div><span class="code-var">profile</span> = {</div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"name"</span>: <span class="code-string">"{{ profile.name }}"</span>,</div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"title"</span>: <span class="code-string">"{{ profile.title }}"</span>,</div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"location"</span>: <span class="code-string">"{{ profile.location }}"</span>,</div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"status"</span>: <span class="code-string">"{{ profile.status }}"</span>,</div>
+  <div>}</div>
+</div>
+
+<div class="content-card">
+  <h1 style="font-size: 2.2rem; color: var(--fg-bright); margin-bottom: 0.5rem;">
+    <span class="text-orange">def</span> <span class="text-yellow">about_me</span>():
+  </h1>
+  <p style="font-size: 1.15rem; color: var(--fg-normal); margin-bottom: 1.5rem;">
+    {{ profile.bio }}
   </p>
 
   <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-    <a href="/projects" class="nvim-btn nvim-btn-primary" id="btn-projects">:2 open projects.json</a>
-    <a href="/blog" class="nvim-btn" id="btn-blog">:3 read blog.md</a>
-    <a href="/contact" class="nvim-btn" id="btn-contact">:5 execute contact.sh</a>
+    <a href="/projects" class="action-btn">:open projects.json (press 2)</a>
+    <a href="/blog" class="action-btn">:read blog.md (press 3)</a>
+    <a href="/contact" class="action-btn">:execute contact.sh (press 5)</a>
   </div>
-</section>
+</div>
 
-<!-- Quick Stats / Registers -->
-<section class="section-box">
-  <div class="section-header">
-    <h2 style="margin: 0;">Registers &amp; Metrics</h2>
-    <span class="text-purple">-- [STATISTICS] --</span>
-  </div>
+<!-- Metrics / Statistics Box -->
+<div style="margin-bottom: 2.5rem;">
+  <h2 style="font-size: 1.4rem; color: var(--gruv-yellow); margin-bottom: 1rem;">
+    <span class="text-purple">--</span> Registers &amp; Metrics <span class="text-purple">--</span>
+  </h2>
 
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem;">
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
     {% for stat in profile.stats %}
-    <div style="background: var(--bg-soft); border: 1px solid var(--border-color); padding: 1.25rem; border-radius: var(--radius-sm); text-align: center;">
+    <div style="background: var(--bg-hard); border: 1px solid var(--border-color); padding: 1.25rem; border-radius: 4px; text-align: center;">
       <div style="font-size: 2.2rem; font-weight: 800; color: var(--gruv-yellow);">{{ stat.value }}</div>
-      <div style="font-size: 0.95rem; color: var(--fg-muted);">{{ stat.label }}</div>
+      <div style="font-size: 0.9rem; color: var(--fg-muted);">{{ stat.label }}</div>
     </div>
     {% endfor %}
   </div>
-</section>
+</div>
 
-<!-- Featured Projects Buffer -->
-<section class="section-box">
-  <div class="section-header">
-    <h2 style="margin: 0;">Featured Buffers &amp; Projects</h2>
-    <a href="/projects" class="text-blue" style="font-size: 1rem;">View All Projects (press 2) &rarr;</a>
+<!-- Featured Projects -->
+<div style="margin-bottom: 2.5rem;">
+  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+    <h2 style="font-size: 1.4rem; color: var(--gruv-yellow); margin: 0;">Featured Projects</h2>
+    <a href="/projects" class="text-blue">:projects &rarr;</a>
   </div>
 
-  <div class="grid-cards">
-    {% for project in projects %}
-    <div class="nvim-card">
-      <span class="card-badge">{{ project.category }}</span>
-      <h3 class="card-title-text">{{ project.title }}</h3>
-      <p class="card-desc">{{ project.description }}</p>
-
-      <div class="tags-wrap">
-        {% for tag in project.tags %}
-        <span class="tag-pill">{{ tag }}</span>
-        {% endfor %}
-      </div>
-
-      <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: auto;">
-        {% if project.github_url %}
-        <a href="{{ project.github_url }}" target="_blank" rel="noopener" class="text-yellow">[GitHub]</a>
-        {% endif %}
-        {% if project.demo_url %}
-        <a href="{{ project.demo_url }}" target="_blank" rel="noopener" class="text-green">[Live Demo &rarr;]</a>
-        {% endif %}
-      </div>
+  {% for project in projects %}
+  <div class="content-card">
+    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
+      <h3 style="font-size: 1.3rem; color: var(--fg-bright); margin: 0;">{{ project.title }}</h3>
+      <span class="text-purple" style="font-size: 0.85rem;">[{{ project.category }}]</span>
     </div>
-    {% endfor %}
-  </div>
-</section>
+    <p style="color: var(--fg-normal); margin-bottom: 1rem;">{{ project.description }}</p>
 
-<!-- Recent Writings / Markdown Posts -->
-<section class="section-box">
-  <div class="section-header">
-    <h2 style="margin: 0;">Recent Posts &amp; Articles</h2>
-    <a href="/blog" class="text-blue" style="font-size: 1rem;">Browse All Articles (press 3) &rarr;</a>
-  </div>
-
-  <div class="grid-cards">
-    {% for post in posts %}
-    <div class="nvim-card">
-      <div style="font-size: 0.9rem; color: var(--fg-muted); margin-bottom: 0.5rem;">
-        <span class="text-purple">#</span> {{ post.date }} &bull; {{ post.read_time }}
-      </div>
-      <h3 class="card-title-text">
-        <a href="/blog/{{ post.slug }}" class="text-bright">{{ post.title }}</a>
-      </h3>
-      <p class="card-desc">{{ post.summary }}</p>
-      
-      <div style="border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: auto;">
-        <a href="/blog/{{ post.slug }}" class="text-yellow">:open blog/{{ post.slug }}.md &rarr;</a>
-      </div>
+    <div>
+      {% for tag in project.tags %}
+      <span class="badge-tag">{{ tag }}</span>
+      {% endfor %}
     </div>
-    {% endfor %}
+
+    <div style="display: flex; gap: 1.5rem; margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
+      {% if project.github_url %}
+      <a href="{{ project.github_url }}" target="_blank" rel="noopener" class="text-yellow">[GitHub]</a>
+      {% endif %}
+      {% if project.demo_url %}
+      <a href="{{ project.demo_url }}" target="_blank" rel="noopener" class="text-green">[Live Demo &rarr;]</a>
+      {% endif %}
+    </div>
   </div>
-</section>
+  {% endfor %}
+</div>
+
+<!-- Recent Posts -->
+<div>
+  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+    <h2 style="font-size: 1.4rem; color: var(--gruv-yellow); margin: 0;">Recent Articles</h2>
+    <a href="/blog" class="text-blue">:blog &rarr;</a>
+  </div>
+
+  {% for post in posts %}
+  <div class="content-card">
+    <div style="font-size: 0.85rem; color: var(--fg-muted); margin-bottom: 0.35rem;">
+      # {{ post.date }} &bull; {{ post.read_time }}
+    </div>
+    <h3 style="font-size: 1.25rem; margin: 0 0 0.5rem;"><a href="/blog/{{ post.slug }}" class="text-bright">{{ post.title }}</a></h3>
+    <p style="color: var(--fg-muted); margin-bottom: 0.75rem;">{{ post.summary }}</p>
+    <a href="/blog/{{ post.slug }}" class="text-yellow">:open blog/{{ post.slug }}.md &rarr;</a>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}

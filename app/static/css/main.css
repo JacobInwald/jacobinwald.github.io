@@ -1,71 +1,27 @@
-/* Gruvbox Dark Neovim Design System */
+/* Gruvbox Neovim Web IDE Theme */
 :root {
-  /* Gruvbox Dark Palette */
-  --bg-hard: #1d2021;
-  --bg-normal: #282828;
-  --bg-soft: #32302f;
-  --bg-gutter: #1d2021;
-  --bg-status: #3c3836;
-  --bg-status-active: #504945;
-  --bg-card: #282828;
-  --bg-card-hover: #3c3836;
+  --bg-hard: #1d2021;      /* Explorer & gutter background */
+  --bg-normal: #282828;    /* Main editor background */
+  --bg-soft: #32302f;      /* Hover & card background */
+  --bg-status: #3c3836;    /* Lualine & search input background */
+  --bg-select: #504945;    /* Tree item selected line */
   
-  --fg-bright: #fbf1c7;
-  --fg-normal: #ebdbb2;
-  --fg-dark: #d5c4a1;
-  --fg-muted: #a89984;
-  --fg-dim: #665c54;
+  --fg-bright: #fbf1c7;    /* Bright text */
+  --fg-normal: #ebdbb2;    /* Standard text */
+  --fg-muted: #a89984;     /* Secondary text */
+  --fg-dim: #7c6f64;       /* Line numbers */
 
-  /* Gruvbox Syntax Accents */
-  --gruv-red: #fb4934;
-  --gruv-green: #b8bb26;
+  /* Gruvbox Accents */
   --gruv-yellow: #fabd2f;
+  --gruv-orange: #fe8019;
+  --gruv-green: #b8bb26;
   --gruv-blue: #83a598;
   --gruv-purple: #d3869b;
   --gruv-aqua: #8ec07c;
-  --gruv-orange: #fe8019;
-  --gruv-gray: #928374;
+  --gruv-red: #fb4934;
 
   --border-color: #3c3836;
-  --border-bright: #504945;
-
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Source Code Pro', monospace;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-
-  --font-base-size: 18px;
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-
-  --transition-fast: all 0.15s ease-in-out;
-}
-
-[data-theme="gruvbox-light"] {
-  --bg-hard: #f9f5d7;
-  --bg-normal: #fbf1c7;
-  --bg-soft: #f2e5bc;
-  --bg-gutter: #f9f5d7;
-  --bg-status: #ebdbb2;
-  --bg-status-active: #d5c4a1;
-  --bg-card: #fbf1c7;
-  --bg-card-hover: #f2e5bc;
-
-  --fg-bright: #282828;
-  --fg-normal: #3c3836;
-  --fg-dark: #504945;
-  --fg-muted: #7c6f64;
-  --fg-dim: #928374;
-
-  --gruv-red: #9d0006;
-  --gruv-green: #79740e;
-  --gruv-yellow: #b57614;
-  --gruv-blue: #076678;
-  --gruv-purple: #8f3f71;
-  --gruv-aqua: #427b58;
-  --gruv-orange: #af3a03;
-
-  --border-color: #d5c4a1;
-  --border-bright: #bdae93;
+  --font-mono: 'DroidSansMono Nerd Font', 'Droid Sans Mono', 'Fira Code', monospace;
 }
 
 * {
@@ -74,400 +30,445 @@
   box-sizing: border-box;
 }
 
-html {
+html, body {
+  background-color: var(--bg-hard);
+  color: var(--fg-normal);
   font-family: var(--font-mono);
-  font-size: var(--font-base-size);
-  background-color: var(--bg-hard);
-  color: var(--fg-normal);
-  line-height: 1.6;
-  scroll-behavior: smooth;
-}
-
-body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--bg-hard);
-  color: var(--fg-normal);
-  overflow-x: hidden;
+  font-size: 16px;
+  line-height: 1.7;
 }
 
 a {
-  color: var(--gruv-blue);
+  color: inherit;
   text-decoration: none;
-  transition: var(--transition-fast);
 }
 
 a:hover {
   color: var(--gruv-yellow);
-  text-decoration: underline;
 }
 
-/* Nvim Window Frame */
-.nvim-frame {
+/* Master IDE Workspace Layout */
+.nvim-workspace {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: var(--bg-normal);
-  border: 1px solid var(--border-color);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  background: var(--bg-hard);
 }
 
-/* Nvim Top Bufferline */
-.bufferline {
+/* Top Tab Bar */
+.nvim-tabline {
   display: flex;
   align-items: center;
   background: var(--bg-hard);
   border-bottom: 1px solid var(--border-color);
-  padding: 0 0.5rem;
-  overflow-x: auto;
+  position: sticky;
+  top: 0;
+  z-index: 100;
   user-select: none;
+  height: 42px;
 }
 
-.buffer-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1.2rem;
-  font-size: 0.95rem;
-  color: var(--fg-muted);
-  background: var(--bg-hard);
-  border-right: 1px solid var(--border-color);
-  cursor: pointer;
-  transition: var(--transition-fast);
-  white-space: nowrap;
-}
-
-.buffer-item:hover {
+.sidebar-toggle-btn {
   background: var(--bg-soft);
-  color: var(--fg-normal);
-}
-
-.buffer-item.active {
-  background: var(--bg-normal);
+  border: none;
+  border-right: 1px solid var(--border-color);
   color: var(--gruv-yellow);
-  font-weight: 600;
-  border-top: 2px solid var(--gruv-yellow);
-}
-
-.buffer-num {
-  font-size: 0.8rem;
-  color: var(--gruv-purple);
-  font-weight: 700;
-}
-
-.buffer-icon {
-  color: var(--gruv-aqua);
-}
-
-.bufferline-right {
-  margin-left: auto;
+  font-family: var(--font-mono);
+  font-weight: bold;
+  font-size: 0.9rem;
+  padding: 0 0.85rem;
+  height: 100%;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding-right: 0.75rem;
-  font-size: 0.85rem;
-  color: var(--fg-muted);
-}
-
-/* Main Workspace with Line Numbers Gutter */
-.workspace-container {
-  flex: 1;
-  display: flex;
-  min-height: calc(100vh - 85px);
-}
-
-.gutter-line-numbers {
-  width: 55px;
-  background: var(--bg-gutter);
-  border-right: 1px solid var(--border-color);
-  padding: 2.5rem 0.5rem 4rem 0;
-  text-align: right;
-  font-size: 0.9rem;
-  color: var(--fg-dim);
-  user-select: none;
+  gap: 0.4rem;
+  transition: background 0.15s;
   flex-shrink: 0;
 }
 
-.gutter-line-numbers div {
-  line-height: 1.8;
+.sidebar-toggle-btn:hover {
+  background: var(--gruv-yellow);
+  color: #1d2021;
 }
 
-.gutter-line-numbers div.current-line {
+.tab-list-wrapper {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  height: 100%;
+}
+
+.tab-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.95rem;
+  color: var(--fg-muted);
+  background: var(--bg-hard);
+  border-right: 1px solid var(--border-color);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  height: 100%;
+}
+
+.tab-item:hover {
+  background: var(--bg-soft);
+  color: var(--fg-bright);
+}
+
+.tab-item.active {
+  background: var(--bg-normal);
+  color: var(--gruv-yellow);
+  font-weight: bold;
+  border-top: 2px solid var(--gruv-yellow);
+}
+
+.tab-num {
+  font-size: 0.8rem;
+  color: var(--gruv-purple);
+  font-weight: bold;
+}
+
+/* Main Split Container with Floating Gap */
+.nvim-main-split {
+  display: flex;
+  flex: 1;
+  position: relative;
+  align-items: stretch;
+  gap: 12px;
+  padding: 10px;
+  background: var(--bg-hard);
+}
+
+/* Fixed / Sticky Left Sidebar Explorer with Rounded Corners */
+.nvim-explorer {
+  width: 280px;
+  height: calc(100vh - 94px);
+  position: sticky;
+  top: 52px;
+  background: var(--bg-hard);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow-y: auto;
+  transition: margin-left 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s, box-shadow 0.2s;
+  user-select: none;
+  z-index: 90;
+}
+
+.nvim-explorer.collapsed {
+  margin-left: -292px;
+}
+
+html.explorer-is-collapsed .nvim-explorer {
+  margin-left: -292px !important;
+  transition: none !important;
+}
+
+/* Right Editor Window with Rounded Corners */
+.nvim-editor-pane {
+  flex: 1;
+  background: var(--bg-normal);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  position: relative;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+}
+
+/* Active Window Focus: Highlight EVERY Edge of the Buffer */
+.nvim-explorer.focus-active {
+  border: 2px solid var(--gruv-yellow) !important;
+  box-shadow: 0 0 18px rgba(250, 189, 47, 0.15);
+}
+
+.nvim-editor-pane.focus-active {
+  border: 2px solid var(--gruv-yellow) !important;
+  box-shadow: 0 0 18px rgba(250, 189, 47, 0.15);
+}
+
+/* Suppress active focus border when only the page buffer is open (Explorer collapsed) */
+.nvim-explorer.collapsed ~ .nvim-editor-pane.focus-active,
+html.explorer-is-collapsed .nvim-editor-pane.focus-active {
+  border-color: var(--border-color) !important;
+  box-shadow: none !important;
+}
+
+.explorer-header {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-hard);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.explorer-title {
+  font-size: 0.9rem;
+  color: var(--fg-muted);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.explorer-search-input {
+  width: 100%;
+  padding: 0.4rem 0.65rem;
+  background: var(--bg-status);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--fg-bright);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  outline: none;
+}
+
+.explorer-search-input:focus {
+  border-color: var(--gruv-yellow);
+}
+
+.tree-list {
+  list-style: none;
+  padding: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.tree-section-header {
+  color: var(--gruv-yellow);
+  font-weight: bold;
+  padding: 0.5rem 1rem 0.25rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.tree-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 1rem 0.4rem 1.5rem;
+  color: var(--fg-muted);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  border-left: 3px solid transparent;
+}
+
+.tree-item:hover {
+  background: var(--bg-soft);
+  color: var(--fg-bright);
+}
+
+.tree-item.selected {
+  background: var(--bg-select);
   color: var(--gruv-yellow);
   font-weight: bold;
 }
 
-.buffer-content {
-  flex: 1;
-  padding: 2.5rem 3rem 5rem;
-  max-width: 1200px;
-  width: 100%;
+.tree-item.tree-keyboard-focused {
+  background: var(--bg-soft) !important;
+  border-left: 3px solid var(--gruv-yellow) !important;
+  color: var(--gruv-yellow) !important;
+  font-weight: bold;
 }
 
-/* Nvim Statusline (Lualine style) */
-.lualine-container {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  display: flex;
-  align-items: stretch;
-  height: 32px;
-  background: var(--bg-status);
-  font-size: 0.85rem;
-  font-weight: 600;
+.line-numbers-gutter {
+  width: 55px;
+  padding-top: 2rem;
+  text-align: right;
+  padding-right: 0.6rem;
+  color: var(--fg-dim);
+  font-size: 0.9rem;
   user-select: none;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
+  background: var(--bg-normal);
+  border-right: 1px solid rgba(255, 255, 255, 0.03);
+  flex-shrink: 0;
+  overflow: hidden;
+  pointer-events: none;
 }
 
-.lualine-section {
-  display: flex;
-  align-items: center;
-  padding: 0 1rem;
-  gap: 0.5rem;
+.line-numbers-gutter div {
+  line-height: 1.8;
+  height: 28.8px;
 }
 
-.lualine-mode {
-  background: var(--gruv-green);
-  color: var(--bg-hard);
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  padding: 0 1.25rem;
-  display: flex;
-  align-items: center;
+.line-numbers-gutter div.current {
+  color: var(--gruv-yellow);
+  font-weight: bold;
 }
 
-.lualine-mode.command-mode {
-  background: var(--gruv-orange);
-  color: var(--bg-hard);
-}
-
-.lualine-mode.search-mode {
-  background: var(--gruv-yellow);
-  color: var(--bg-hard);
-}
-
-.lualine-git {
-  background: var(--bg-status-active);
-  color: var(--fg-normal);
-}
-
-.lualine-file {
-  background: var(--bg-status);
-  color: var(--fg-bright);
+.editor-body {
   flex: 1;
+  padding: 2rem 3rem 3rem;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
 }
 
-.lualine-right {
+/* Authentic Powerline Lualine Status Bar */
+.lualine-bar {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  background: #282828;
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+  user-select: none;
+  border-top: 1px solid var(--border-color);
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.lualine-section-left {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.lualine-mode-block {
+  background: #a89984;
+  color: #1d2021;
+  font-weight: 800;
+  padding: 0 1.25rem 0 0.85rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
+  z-index: 3;
+}
+
+.lualine-branch-block {
+  background: #3c3836;
+  color: #ebdbb2;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1.5rem 0 1.25rem;
+  margin-left: -8px;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
+  z-index: 2;
+}
+
+.lualine-file-block {
+  background: #282828;
+  color: #a89984;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1rem;
+  z-index: 1;
+}
+
+.lualine-section-right {
   margin-left: auto;
   display: flex;
+  align-items: center;
+  height: 100%;
 }
 
-.lualine-lsp {
-  background: var(--bg-status-active);
-  color: var(--gruv-aqua);
-}
-
-.lualine-pos {
-  background: var(--gruv-yellow);
-  color: var(--bg-hard);
-  font-weight: 800;
-  padding: 0 1rem;
-}
-
-/* Neovim Dashboard / Cards styling */
-.nvim-banner {
-  background: var(--bg-soft);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 2rem;
-  margin-bottom: 2.5rem;
-  position: relative;
-}
-
-.ascii-art {
-  color: var(--gruv-orange);
-  font-weight: bold;
-  font-size: 1.1rem;
-  line-height: 1.25;
-  margin-bottom: 1.5rem;
-  white-space: pre;
-}
-
-.banner-title {
-  font-size: 2.25rem;
-  color: var(--fg-bright);
-  font-weight: 700;
-  margin-bottom: 0.75rem;
-}
-
-.text-green { color: var(--gruv-green); }
-.text-yellow { color: var(--gruv-yellow); }
-.text-blue { color: var(--gruv-blue); }
-.text-purple { color: var(--gruv-purple); }
-.text-aqua { color: var(--gruv-aqua); }
-.text-orange { color: var(--gruv-orange); }
-.text-red { color: var(--gruv-red); }
-
-/* Larger Text Typography */
-h1 { font-size: 2.5rem; color: var(--fg-bright); margin-bottom: 1rem; }
-h2 { font-size: 1.85rem; color: var(--gruv-yellow); margin: 2rem 0 1rem; }
-h3 { font-size: 1.4rem; color: var(--gruv-blue); margin: 1.5rem 0 0.75rem; }
-p { font-size: 1.1rem; color: var(--fg-normal); margin-bottom: 1.25rem; line-height: 1.7; }
-
-.section-box {
-  margin-bottom: 3rem;
-}
-
-.section-header {
+.lualine-stat-block {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 0.75rem;
-  margin-bottom: 1.75rem;
+  gap: 0.6rem;
+  padding: 0 0.85rem;
+  font-size: 0.85rem;
 }
 
-.grid-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-  gap: 1.75rem;
-}
-
-.nvim-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 1.75rem;
-  transition: var(--transition-fast);
+.lualine-pos-block {
+  background: #3c3836;
+  color: #ebdbb2;
+  height: 100%;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  padding: 0 1.25rem 0 1.5rem;
+  margin-right: -8px;
+  clip-path: polygon(10px 0, 100% 0, 100% 100%, 10px 100%, 0 50%);
+  z-index: 2;
 }
 
-.nvim-card:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--gruv-yellow);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+.lualine-time-block {
+  background: #a89984;
+  color: #1d2021;
+  font-weight: 800;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0 0.85rem 0 1.25rem;
+  clip-path: polygon(10px 0, 100% 0, 100% 100%, 10px 100%, 0 50%);
+  z-index: 3;
 }
 
-.card-badge {
-  display: inline-block;
-  align-self: flex-start;
-  font-size: 0.8rem;
-  padding: 0.25rem 0.6rem;
-  border-radius: var(--radius-sm);
+/* Cards & Content Components */
+.content-card {
   background: var(--bg-soft);
-  color: var(--gruv-aqua);
   border: 1px solid var(--border-color);
-  margin-bottom: 1rem;
+  padding: 1.75rem;
+  border-radius: 8px;
+  margin-bottom: 1.75rem;
+  transition: all 0.2s ease;
 }
 
-.card-title-text {
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: var(--fg-bright);
-  margin-bottom: 0.75rem;
+.content-card:last-child {
+  margin-bottom: 0;
 }
 
-.card-desc {
-  font-size: 1.05rem;
-  color: var(--fg-dark);
-  margin-bottom: 1.25rem;
-  flex: 1;
+.content-card:hover {
+  border-color: var(--gruv-yellow);
+  transform: translateY(-2px);
 }
 
-.tags-wrap {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.25rem;
-}
-
-.tag-pill {
-  font-size: 0.8rem;
-  color: var(--gruv-purple);
+.badge-tag {
+  display: inline-block;
   background: var(--bg-hard);
+  color: var(--gruv-purple);
   border: 1px solid var(--border-color);
-  padding: 0.15rem 0.5rem;
-  border-radius: 3px;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.nvim-btn {
+.action-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: var(--bg-status);
-  color: var(--fg-bright);
+  background: var(--bg-soft);
+  color: var(--gruv-yellow);
   border: 1px solid var(--border-color);
   padding: 0.65rem 1.25rem;
-  border-radius: var(--radius-sm);
+  border-radius: 6px;
   font-family: var(--font-mono);
   font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition-fast);
-}
-
-.nvim-btn:hover {
-  background: var(--gruv-yellow);
-  color: var(--bg-hard);
-  border-color: var(--gruv-yellow);
-}
-
-.nvim-btn-primary {
-  background: var(--gruv-green);
-  color: var(--bg-hard);
-  border-color: var(--gruv-green);
-}
-
-.nvim-btn-primary:hover {
-  background: var(--gruv-yellow);
-  color: var(--bg-hard);
-}
-
-/* Floating Vim Command Bar & Modals */
-.vim-cmd-popup {
-  position: fixed;
-  bottom: 32px;
-  left: 0;
-  right: 0;
-  background: var(--bg-hard);
-  border-top: 2px solid var(--gruv-orange);
-  padding: 0.5rem 1.5rem;
-  display: none;
-  align-items: center;
-  gap: 0.75rem;
-  z-index: 1001;
-}
-
-.vim-cmd-prefix {
-  color: var(--gruv-orange);
   font-weight: bold;
-  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
-.vim-cmd-input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--fg-bright);
-  font-family: var(--font-mono);
-  font-size: 1.1rem;
+.action-btn:hover {
+  background: var(--gruv-yellow);
+  color: #1d2021;
 }
 
-/* Vim Shortcuts Help Modal */
+/* Modal Overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(4px);
   z-index: 2000;
   display: none;
@@ -479,27 +480,18 @@ p { font-size: 1.1rem; color: var(--fg-normal); margin-bottom: 1.25rem; line-hei
 .vim-modal-box {
   background: var(--bg-normal);
   border: 2px solid var(--gruv-yellow);
-  border-radius: var(--radius-md);
-  max-width: 650px;
+  border-radius: 8px;
+  max-width: 600px;
   width: 100%;
   padding: 2rem;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-}
-
-.modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 1rem;
-  margin-bottom: 1.5rem;
 }
 
 .key-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 0;
+  padding: 0.6rem 0;
   border-bottom: 1px solid var(--border-color);
   font-size: 1rem;
 }
@@ -508,14 +500,13 @@ p { font-size: 1.1rem; color: var(--fg-normal); margin-bottom: 1.25rem; line-hei
   background: var(--bg-status);
   color: var(--gruv-yellow);
   border: 1px solid var(--border-color);
-  padding: 0.2rem 0.6rem;
+  padding: 0.2rem 0.65rem;
   border-radius: 4px;
   font-weight: bold;
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .gutter-line-numbers { display: none; }
-  .buffer-content { padding: 1.5rem; }
-  .lualine-git, .lualine-lsp { display: none; }
+@media (max-width: 850px) {
+  .nvim-explorer { display: none; }
+  .editor-body { padding: 1.5rem; }
 }

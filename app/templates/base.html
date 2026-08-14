@@ -1,146 +1,196 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="gruvbox-dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ title }}</title>
   <meta name="description" content="{{ description }}">
   <meta name="author" content="{{ profile.name }}">
-  
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="{{ site_url }}">
-  <meta property="og:title" content="{{ title }}">
-  <meta property="og:description" content="{{ description }}">
 
-  <!-- Fonts: JetBrains Mono & Inter -->
+  <!-- Fonts: Droid Sans Mono & Fira Code -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Droid+Sans+Mono&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Gruvbox Neovim CSS -->
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+
   <link rel="stylesheet" href="/static/css/main.css">
-  
-  <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml">
+
+  <!-- Prevent Explorer Flicker on Page Navigation -->
+  <script>
+    (function() {
+      if (localStorage.getItem('explorer-collapsed') === 'true') {
+        document.documentElement.classList.add('explorer-is-collapsed');
+      }
+    })();
+  </script>
 </head>
 <body>
-  <div class="nvim-frame">
-    <!-- Top Bufferline / Tab Bar -->
-    <header class="bufferline">
-      <a href="/" class="buffer-item {% if active_page == 'home' %}active{% endif %}" id="buf-1">
-        <span class="buffer-num">1</span>
-        <span class="buffer-icon"></span>
-        <span>home.py</span>
-      </a>
-      <a href="/projects" class="buffer-item {% if active_page == 'projects' %}active{% endif %}" id="buf-2">
-        <span class="buffer-num">2</span>
-        <span class="buffer-icon"></span>
-        <span>projects.json</span>
-      </a>
-      <a href="/blog" class="buffer-item {% if active_page == 'blog' %}active{% endif %}" id="buf-3">
-        <span class="buffer-num">3</span>
-        <span class="buffer-icon"></span>
-        <span>blog.md</span>
-      </a>
-      <a href="/experience" class="buffer-item {% if active_page == 'experience' %}active{% endif %}" id="buf-4">
-        <span class="buffer-num">4</span>
-        <span class="buffer-icon"></span>
-        <span>experience.lua</span>
-      </a>
-      <a href="/contact" class="buffer-item {% if active_page == 'contact' %}active{% endif %}" id="buf-5">
-        <span class="buffer-num">5</span>
-        <span class="buffer-icon"></span>
-        <span>contact.sh</span>
-      </a>
+  <div class="nvim-workspace">
+    <!-- Top Tabline -->
+    <div class="nvim-tabline">
+      <button class="sidebar-toggle-btn" id="sidebar-toggle-btn" title="Toggle Explorer (<Space> e)">
+        <i class="fa-solid fa-bars"></i> <span style="font-size: 0.85rem;">Explorer</span>
+      </button>
 
-      <div class="bufferline-right">
-        <button class="nvim-btn" id="help-toggle" title="Vim Shortcuts (?)">? Vim Help</button>
-        <button class="nvim-btn" id="theme-toggle" title="Toggle Theme">:theme</button>
+      <div class="tab-list-wrapper">
+        <a href="/" class="tab-item {% if active_page == 'home' %}active{% endif %}" id="tab-1">
+          <span class="tab-num">1</span>
+          <i class="fa-brands fa-python tab-icon text-yellow"></i> index.py <i class="fa-solid fa-xmark tab-close"></i>
+        </a>
+        <a href="/projects" class="tab-item {% if active_page == 'projects' %}active{% endif %}" id="tab-2">
+          <span class="tab-num">2</span>
+          <i class="fa-solid fa-file-code tab-icon text-orange"></i> projects.json <i class="fa-solid fa-xmark tab-close"></i>
+        </a>
+        <a href="/blog" class="tab-item {% if active_page == 'blog' %}active{% endif %}" id="tab-3">
+          <span class="tab-num">3</span>
+          <i class="fa-brands fa-markdown tab-icon text-purple"></i> blog.md <i class="fa-solid fa-xmark tab-close"></i>
+        </a>
+        <a href="/experience" class="tab-item {% if active_page == 'experience' %}active{% endif %}" id="tab-4">
+          <span class="tab-num">4</span>
+          <i class="fa-solid fa-briefcase tab-icon text-blue"></i> experience.json <i class="fa-solid fa-xmark tab-close"></i>
+        </a>
+        <a href="/contact" class="tab-item {% if active_page == 'contact' %}active{% endif %}" id="tab-5">
+          <span class="tab-num">5</span>
+          <i class="fa-solid fa-terminal tab-icon text-green"></i> contact.sh <i class="fa-solid fa-xmark tab-close"></i>
+        </a>
       </div>
-    </header>
-
-    <!-- Main Workspace Split with Line Numbers Gutter -->
-    <div class="workspace-container">
-      <div class="gutter-line-numbers" id="gutter-lines">
-        <!-- Generated by JS -->
-      </div>
-
-      <main class="buffer-content">
-        {% block content %}{% endblock %}
-      </main>
     </div>
 
-    <!-- Bottom Lualine Status Bar -->
-    <footer class="lualine-container">
-      <div class="lualine-mode" id="lualine-mode">-- NORMAL --</div>
-      <div class="lualine-section lualine-git">
-        <span class="text-green"></span>
-        <span>main</span>
+    <!-- Main Split Window: Floating Gap + Rounded Buffer Splits -->
+    <div class="nvim-main-split">
+      <!-- Left Sidebar Explorer (Rounded Corners, All-Edge Highlight on Focus) -->
+      <aside class="nvim-explorer" id="nvim-explorer">
+        <div class="explorer-header">
+          <div class="explorer-title">
+            <span><strong class="text-yellow"><i class="fa-solid fa-chevron-right"></i> Explorer</strong></span>
+            <button id="help-toggle" style="background: transparent; border: none; color: var(--gruv-yellow); font-family: var(--font-mono); font-weight: bold; cursor: pointer;">
+              <i class="fa-solid fa-keyboard"></i> [? Keys]
+            </button>
+          </div>
+          <input type="text" id="explorer-search" class="explorer-search-input" placeholder="/ filter pages or content..." autocomplete="off">
+        </div>
+
+        <div class="tree-list" id="explorer-tree">
+          <div class="tree-section-header"><i class="fa-solid fa-folder-open"></i> PAGES</div>
+          <a href="/" class="tree-item {% if active_page == 'home' %}selected{% endif %}" data-name="index.py home">
+            <i class="fa-brands fa-python text-yellow"></i> index.py
+          </a>
+          <a href="/projects" class="tree-item {% if active_page == 'projects' %}selected{% endif %}" data-name="projects.json projects">
+            <i class="fa-solid fa-file-code text-orange"></i> projects.json
+          </a>
+          <a href="/blog" class="tree-item {% if active_page == 'blog' %}selected{% endif %}" data-name="blog.md blog posts articles">
+            <i class="fa-brands fa-markdown text-purple"></i> blog.md
+          </a>
+          <a href="/experience" class="tree-item {% if active_page == 'experience' %}selected{% endif %}" data-name="experience.json timeline career skills">
+            <i class="fa-solid fa-briefcase text-blue"></i> experience.json
+          </a>
+          <a href="/contact" class="tree-item {% if active_page == 'contact' %}selected{% endif %}" data-name="contact.sh contact email form">
+            <i class="fa-solid fa-terminal text-green"></i> contact.sh
+          </a>
+
+          <div class="tree-section-header" style="margin-top: 0.75rem;"><i class="fa-solid fa-folder-open"></i> ARTICLES</div>
+          <a href="/blog/welcome-to-my-site" class="tree-item" data-name="welcome to my new python-powered website">
+            <i class="fa-brands fa-markdown text-purple"></i> welcome-to-my-site.md
+          </a>
+          <a href="/blog/building-fast-python-web-apps" class="tree-item" data-name="building high performance web apps python uv fastapi">
+            <i class="fa-brands fa-markdown text-purple"></i> building-fast-python-web-apps.md
+          </a>
+
+          <div class="tree-section-header" style="margin-top: 0.75rem;"><i class="fa-solid fa-folder-open"></i> SYSTEM</div>
+          <a href="/projects" class="tree-item" data-name="makefile">
+            <i class="fa-solid fa-gears text-muted"></i> Makefile
+          </a>
+          <a href="/blog" class="tree-item" data-name="readme.md">
+            <i class="fa-solid fa-file-lines text-muted"></i> README.md
+          </a>
+          <a href="/" class="tree-item" data-name="pyproject.toml">
+            <i class="fa-solid fa-box text-muted"></i> pyproject.toml
+          </a>
+        </div>
+      </aside>
+
+      <!-- Right Editor Pane (Rounded Corners, All-Edge Highlight on Focus) -->
+      <div class="nvim-editor-pane focus-active" id="nvim-editor-pane">
+        <div class="line-numbers-gutter" id="line-numbers-gutter">
+          <!-- Dynamically generated all the way down by JS -->
+        </div>
+        <div class="editor-body">
+          {% block content %}{% endblock %}
+        </div>
       </div>
-      <div class="lualine-section lualine-file">
-        <span class="text-yellow">NVIM</span>
-        <span style="color: var(--fg-muted);">&bull;</span>
-        <span>{{ active_page }}.buffer</span>
+    </div>
+
+    <!-- Powerline Lualine Status Bar -->
+    <footer class="lualine-bar">
+      <div class="lualine-section-left">
+        <div class="lualine-mode-block" id="lualine-mode">NORMAL</div>
+        <div class="lualine-branch-block">
+          <i class="fa-solid fa-code-branch"></i> jacob/main/nvim
+        </div>
+        <div class="lualine-file-block" id="lualine-buffer-info">
+          <i class="fa-solid fa-bars-staggered"></i> {{ active_page }}.buffer
+        </div>
       </div>
 
-      <div class="lualine-right">
-        <div class="lualine-section lualine-lsp">
-          <span class="text-aqua">Pyright</span>
-          <span>[OK]</span>
+      <div class="lualine-section-right">
+        <div class="lualine-stat-block">
+          <span style="color: var(--gruv-red); font-weight: bold;">a</span>
+          <span style="color: var(--fg-muted);">&lt;</span>
+          <span style="color: var(--gruv-orange);"><i class="fa-solid fa-box"></i> 31</span>
         </div>
-        <div class="lualine-section" style="background: var(--bg-status);">
-          <span>utf-8 [unix]</span>
+        <div class="lualine-pos-block" id="lualine-pos">Top 1:1</div>
+        <div class="lualine-time-block" id="lualine-time">
+          <i class="fa-regular fa-clock"></i> 19:26
         </div>
-        <div class="lualine-pos" id="lualine-pos">Ln 1, Top</div>
       </div>
     </footer>
   </div>
 
-  <!-- Floating Vim Command Bar (Triggered by :) -->
-  <div class="vim-cmd-popup" id="vim-cmd-popup">
-    <span class="vim-cmd-prefix">:</span>
-    <input type="text" class="vim-cmd-input" id="vim-cmd-input" placeholder="type a command (e.g. :projects, :blog, :w, :q, :help) and press Enter..." autocomplete="off">
-  </div>
-
-  <!-- Vim Shortcuts Cheat Sheet Modal -->
+  <!-- Vim Shortcuts Modal -->
   <div class="modal-overlay" id="vim-help-modal">
     <div class="vim-modal-box">
       <div class="modal-header">
-        <h2 style="margin: 0; color: var(--gruv-yellow);">:help vim-keybindings</h2>
-        <button class="nvim-btn" id="close-help-btn">:q</button>
+        <h2 style="margin: 0; color: var(--gruv-yellow); font-family: var(--font-mono);"><i class="fa-solid fa-keyboard"></i> Vim Keybindings</h2>
+        <button class="action-btn" id="close-help-btn">Esc</button>
       </div>
-      
+
       <div class="key-row">
-        <span>Scroll Down / Up</span>
-        <div><span class="key-cap">j</span> / <span class="key-cap">k</span></div>
-      </div>
-      <div class="key-row">
-        <span>Jump to Top of Page</span>
-        <div><span class="key-cap">gg</span></div>
+        <span>Switch Tabs Left / Right</span>
+        <div><span class="key-cap">Shift</span> <span class="key-cap">H</span> / <span class="key-cap">Shift</span> <span class="key-cap">L</span></div>
       </div>
       <div class="key-row">
-        <span>Jump to Bottom of Page</span>
-        <div><span class="key-cap">G</span></div>
+        <span>Switch Focus Explorer / Editor</span>
+        <div><span class="key-cap">Ctrl</span> <span class="key-cap">H</span> / <span class="key-cap">Ctrl</span> <span class="key-cap">L</span></div>
       </div>
       <div class="key-row">
-        <span>Switch Buffers (1 to 5)</span>
-        <div><span class="key-cap">1</span> .. <span class="key-cap">5</span></div>
+        <span>Active Buffer Highlight</span>
+        <div>All 4 edges highlighted on active rounded split</div>
       </div>
       <div class="key-row">
-        <span>Open Vim Command Line</span>
-        <div><span class="key-cap">:</span></div>
+        <span>Explorer Mode Nav / Select</span>
+        <div><span class="key-cap">j</span>/<span class="key-cap">k</span> to move, <span class="key-cap">Enter</span> to open</div>
       </div>
       <div class="key-row">
-        <span>Search Projects / Content</span>
+        <span>Editor Mode Scroll</span>
+        <div><span class="key-cap">j</span>/<span class="key-cap">k</span> down/up, <span class="key-cap">gg</span>/<span class="key-cap">G</span> top/bottom</div>
+      </div>
+      <div class="key-row">
+        <span>Toggle Explorer Sidebar</span>
+        <div><span class="key-cap">Space</span> <span class="key-cap">e</span></div>
+      </div>
+      <div class="key-row">
+        <span>Focus Explorer Search</span>
         <div><span class="key-cap">/</span></div>
       </div>
       <div class="key-row">
-        <span>Exit Command / Close Modal</span>
+        <span>Close Modal / Exit Search</span>
         <div><span class="key-cap">Esc</span></div>
       </div>
       
-      <div style="margin-top: 1.5rem; color: var(--fg-muted); font-size: 0.85rem; text-align: center;">
-        Press <span class="key-cap">Esc</span> or type <span class="key-cap">:q</span> to return to buffer.
+      <div style="margin-top: 1.5rem; color: var(--fg-muted); font-size: 0.9rem; text-align: center;">
+        Full Neovim Window Split & Tab Control Active!
       </div>
     </div>
   </div>

@@ -1,56 +1,48 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="section-box">
-  <div style="display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
-    <div>
-      <h1 style="margin-bottom: 0.5rem;"><span class="text-orange">:Telescope</span> projects.json</h1>
-      <p style="font-size: 1.15rem; color: var(--fg-muted);">
-        Interactive showcase of Python web applications, APIs, and cloud repositories.
-      </p>
+<div style="margin-bottom: 2rem;">
+  <div class="code-comment"># projects.json &mdash; Technical Showcase Buffer</div>
+  <h1 style="font-size: 2rem; color: var(--gruv-yellow); margin: 0.5rem 0 1rem;">
+    <span class="text-orange">[Telescope]</span> projects.json
+  </h1>
+
+  <div style="display: flex; gap: 1rem; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 1.5rem;">
+    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+      <button class="action-btn filter-btn active" data-filter="all">:all</button>
+      {% for cat in categories %}
+      <button class="action-btn filter-btn" data-filter="{{ cat }}">:{{ cat.lower().replace(' ', '_') }}</button>
+      {% endfor %}
     </div>
 
-    <!-- Vim Search Command Input -->
-    <div style="min-width: 320px;">
-      <div style="display: flex; align-items: center; background: var(--bg-soft); border: 1px solid var(--border-color); padding: 0.5rem 1rem; border-radius: var(--radius-sm);">
-        <span class="text-yellow" style="font-weight: bold; margin-right: 0.5rem;">/</span>
-        <input type="text" id="project-search" style="background: transparent; border: none; outline: none; color: var(--fg-bright); font-family: var(--font-mono); font-size: 1rem; width: 100%;" placeholder="type search query (or press /)...">
-      </div>
+    <div style="max-width: 300px; width: 100%;">
+      <input type="text" id="project-search" style="width: 100%; padding: 0.5rem 0.85rem; background: var(--bg-hard); border: 1px solid var(--border-color); color: var(--fg-bright); font-family: var(--font-mono); font-size: 0.95rem; border-radius: 4px;" placeholder="/search projects...">
     </div>
-  </div>
-
-  <!-- Filter Pills -->
-  <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2rem;">
-    <button class="nvim-btn filter-btn active" data-filter="all">:all</button>
-    {% for cat in categories %}
-    <button class="nvim-btn filter-btn" data-filter="{{ cat }}">:{{ cat.lower().replace(' ', '_') }}</button>
-    {% endfor %}
-  </div>
-
-  <!-- Projects Grid -->
-  <div class="grid-cards">
-    {% for project in projects %}
-    <div class="nvim-card project-card" data-category="{{ project.category }}">
-      <span class="card-badge">{{ project.category }}</span>
-      <h2 class="card-title-text" style="font-size: 1.4rem;">{{ project.title }}</h2>
-      <p class="card-desc">{{ project.description }}</p>
-      
-      <div class="tags-wrap">
-        {% for tag in project.tags %}
-        <span class="tag-pill">{{ tag }}</span>
-        {% endfor %}
-      </div>
-
-      <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: auto;">
-        {% if project.github_url %}
-        <a href="{{ project.github_url }}" target="_blank" rel="noopener" class="text-yellow">[GitHub]</a>
-        {% endif %}
-        {% if project.demo_url %}
-        <a href="{{ project.demo_url }}" target="_blank" rel="noopener" class="text-green">[Live Demo &rarr;]</a>
-        {% endif %}
-      </div>
-    </div>
-    {% endfor %}
   </div>
 </div>
+
+{% for project in projects %}
+<div class="content-card project-card" data-category="{{ project.category }}">
+  <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
+    <h2 style="font-size: 1.35rem; color: var(--fg-bright); margin: 0;">{{ project.title }}</h2>
+    <span class="text-purple" style="font-size: 0.85rem;">[{{ project.category }}]</span>
+  </div>
+  <p style="color: var(--fg-normal); margin-bottom: 1rem;">{{ project.description }}</p>
+
+  <div>
+    {% for tag in project.tags %}
+    <span class="badge-tag">{{ tag }}</span>
+    {% endfor %}
+  </div>
+
+  <div style="display: flex; gap: 1.5rem; margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
+    {% if project.github_url %}
+    <a href="{{ project.github_url }}" target="_blank" rel="noopener" class="text-yellow">[GitHub]</a>
+    {% endif %}
+    {% if project.demo_url %}
+    <a href="{{ project.demo_url }}" target="_blank" rel="noopener" class="text-green">[Live Demo &rarr;]</a>
+    {% endif %}
+  </div>
+</div>
+{% endfor %}
 {% endblock %}

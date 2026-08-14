@@ -1,34 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="section-box">
-  <h1 style="margin-bottom: 0.5rem;"><span class="text-purple">:buffer</span> blog.md</h1>
-  <p style="font-size: 1.15rem; color: var(--fg-muted); margin-bottom: 2.5rem;">
-    Technical writeups, Python guides, and web architecture posts.
-  </p>
+<div style="margin-bottom: 2rem;">
+  <div class="code-comment"># blog.md &mdash; Articles &amp; Writeups Buffer</div>
+  <h1 style="font-size: 2rem; color: var(--gruv-yellow); margin: 0.5rem 0 1.5rem;">
+    <span class="text-purple">:buffer</span> blog.md
+  </h1>
+</div>
 
-  <div class="grid-cards" style="grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));">
-    {% for post in posts %}
-    <div class="nvim-card">
-      <div style="font-size: 0.9rem; color: var(--fg-muted); margin-bottom: 0.5rem;">
-        <span class="text-purple">#</span> {{ post.date }} &bull; {{ post.read_time }}
-      </div>
-      <h2 class="card-title-text" style="font-size: 1.4rem;">
-        <a href="/blog/{{ post.slug }}" class="text-bright">{{ post.title }}</a>
-      </h2>
-      <p class="card-desc">{{ post.summary }}</p>
+{% for post in posts %}
+<div class="content-card">
+  <div style="font-size: 0.85rem; color: var(--fg-muted); margin-bottom: 0.35rem;">
+    # {{ post.date }} &bull; {{ post.read_time }}
+  </div>
+  <h2 style="font-size: 1.35rem; margin: 0 0 0.5rem;">
+    <a href="/blog/{{ post.slug }}" class="text-bright">{{ post.title }}</a>
+  </h2>
+  <p style="color: var(--fg-muted); margin-bottom: 1rem;">{{ post.summary }}</p>
 
-      <div class="tags-wrap">
-        {% for tag in post.tags %}
-        <span class="tag-pill">{{ tag }}</span>
-        {% endfor %}
-      </div>
-      
-      <div style="border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: auto;">
-        <a href="/blog/{{ post.slug }}" class="text-yellow">:open blog/{{ post.slug }}.md &rarr;</a>
-      </div>
-    </div>
+  <div>
+    {% for tag in post.tags %}
+    <span class="badge-tag">{{ tag }}</span>
     {% endfor %}
   </div>
+
+  <div style="margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
+    <a href="/blog/{{ post.slug }}" class="text-yellow">:open blog/{{ post.slug }}.md &rarr;</a>
+  </div>
 </div>
+{% endfor %}
 {% endblock %}
