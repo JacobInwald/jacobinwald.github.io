@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const now = new Date();
     const hrs = String(now.getHours()).padStart(2, '0');
     const mins = String(now.getMinutes()).padStart(2, '0');
-    timeEl.textContent = `🕒 ${hrs}:${mins}`;
+    timeEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${hrs}:${mins}`;
   }
   setInterval(updateTime, 10000);
   updateTime();

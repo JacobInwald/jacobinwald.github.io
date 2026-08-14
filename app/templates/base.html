@@ -7,11 +7,14 @@
   <meta name="description" content="{{ description }}">
   <meta name="author" content="{{ profile.name }}">
 
-  <!-- Google Fonts: JetBrains Mono & Fira Code -->
+  <!-- Fonts: Droid Sans Mono & Fira Code -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Droid+Sans+Mono&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
   
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+
   <link rel="stylesheet" href="/static/css/main.css">
 
   <!-- Prevent Explorer Flicker on Page Navigation -->
@@ -28,29 +31,29 @@
     <!-- Top Tabline -->
     <div class="nvim-tabline">
       <button class="sidebar-toggle-btn" id="sidebar-toggle-btn" title="Toggle Explorer (<Space> e)">
-        <span>☰</span> <span style="font-size: 0.8rem;">Explorer</span>
+        <i class="fa-solid fa-bars"></i> <span style="font-size: 0.85rem;">Explorer</span>
       </button>
 
       <div class="tab-list-wrapper">
         <a href="/" class="tab-item {% if active_page == 'home' %}active{% endif %}" id="tab-1">
           <span class="tab-num">1</span>
-          <span class="tab-icon text-yellow">🐍</span> index.py <span class="tab-close">✕</span>
+          <i class="fa-brands fa-python tab-icon text-yellow"></i> index.py <i class="fa-solid fa-xmark tab-close"></i>
         </a>
         <a href="/projects" class="tab-item {% if active_page == 'projects' %}active{% endif %}" id="tab-2">
           <span class="tab-num">2</span>
-          <span class="tab-icon text-orange">⚙</span> projects.json <span class="tab-close">✕</span>
+          <i class="fa-solid fa-file-code tab-icon text-orange"></i> projects.json <i class="fa-solid fa-xmark tab-close"></i>
         </a>
         <a href="/blog" class="tab-item {% if active_page == 'blog' %}active{% endif %}" id="tab-3">
           <span class="tab-num">3</span>
-          <span class="tab-icon text-purple">📝</span> blog.md <span class="tab-close">✕</span>
+          <i class="fa-brands fa-markdown tab-icon text-purple"></i> blog.md <i class="fa-solid fa-xmark tab-close"></i>
         </a>
         <a href="/experience" class="tab-item {% if active_page == 'experience' %}active{% endif %}" id="tab-4">
           <span class="tab-num">4</span>
-          <span class="tab-icon text-blue">💼</span> experience.json <span class="tab-close">✕</span>
+          <i class="fa-solid fa-briefcase tab-icon text-blue"></i> experience.json <i class="fa-solid fa-xmark tab-close"></i>
         </a>
         <a href="/contact" class="tab-item {% if active_page == 'contact' %}active{% endif %}" id="tab-5">
           <span class="tab-num">5</span>
-          <span class="tab-icon text-green">⚡</span> contact.sh <span class="tab-close">✕</span>
+          <i class="fa-solid fa-terminal tab-icon text-green"></i> contact.sh <i class="fa-solid fa-xmark tab-close"></i>
         </a>
       </div>
     </div>
@@ -61,47 +64,49 @@
       <aside class="nvim-explorer" id="nvim-explorer">
         <div class="explorer-header">
           <div class="explorer-title">
-            <span><strong class="text-yellow">❯ Explorer</strong></span>
-            <button id="help-toggle" style="background: transparent; border: none; color: var(--gruv-yellow); font-family: var(--font-mono); font-weight: bold; cursor: pointer;">[? Keys]</button>
+            <span><strong class="text-yellow"><i class="fa-solid fa-chevron-right"></i> Explorer</strong></span>
+            <button id="help-toggle" style="background: transparent; border: none; color: var(--gruv-yellow); font-family: var(--font-mono); font-weight: bold; cursor: pointer;">
+              <i class="fa-solid fa-keyboard"></i> [? Keys]
+            </button>
           </div>
           <input type="text" id="explorer-search" class="explorer-search-input" placeholder="/ filter pages or content..." autocomplete="off">
         </div>
 
         <div class="tree-list" id="explorer-tree">
-          <div class="tree-section-header">📁 PAGES</div>
+          <div class="tree-section-header"><i class="fa-solid fa-folder-open"></i> PAGES</div>
           <a href="/" class="tree-item {% if active_page == 'home' %}selected{% endif %}" data-name="index.py home">
-            <span class="text-yellow">🐍</span> index.py
+            <i class="fa-brands fa-python text-yellow"></i> index.py
           </a>
           <a href="/projects" class="tree-item {% if active_page == 'projects' %}selected{% endif %}" data-name="projects.json projects">
-            <span class="text-orange">⚙</span> projects.json
+            <i class="fa-solid fa-file-code text-orange"></i> projects.json
           </a>
           <a href="/blog" class="tree-item {% if active_page == 'blog' %}selected{% endif %}" data-name="blog.md blog posts articles">
-            <span class="text-purple">📝</span> blog.md
+            <i class="fa-brands fa-markdown text-purple"></i> blog.md
           </a>
           <a href="/experience" class="tree-item {% if active_page == 'experience' %}selected{% endif %}" data-name="experience.json timeline career skills">
-            <span class="text-blue">💼</span> experience.json
+            <i class="fa-solid fa-briefcase text-blue"></i> experience.json
           </a>
           <a href="/contact" class="tree-item {% if active_page == 'contact' %}selected{% endif %}" data-name="contact.sh contact email form">
-            <span class="text-green">⚡</span> contact.sh
+            <i class="fa-solid fa-terminal text-green"></i> contact.sh
           </a>
 
-          <div class="tree-section-header" style="margin-top: 0.75rem;">📁 ARTICLES</div>
+          <div class="tree-section-header" style="margin-top: 0.75rem;"><i class="fa-solid fa-folder-open"></i> ARTICLES</div>
           <a href="/blog/welcome-to-my-site" class="tree-item" data-name="welcome to my new python-powered website">
-            <span class="text-purple">📝</span> welcome-to-my-site.md
+            <i class="fa-brands fa-markdown text-purple"></i> welcome-to-my-site.md
           </a>
           <a href="/blog/building-fast-python-web-apps" class="tree-item" data-name="building high performance web apps python uv fastapi">
-            <span class="text-purple">📝</span> building-fast-python-web-apps.md
+            <i class="fa-brands fa-markdown text-purple"></i> building-fast-python-web-apps.md
           </a>
 
-          <div class="tree-section-header" style="margin-top: 0.75rem;">📁 SYSTEM</div>
+          <div class="tree-section-header" style="margin-top: 0.75rem;"><i class="fa-solid fa-folder-open"></i> SYSTEM</div>
           <a href="/projects" class="tree-item" data-name="makefile">
-            <span class="text-muted">🛠</span> Makefile
+            <i class="fa-solid fa-gears text-muted"></i> Makefile
           </a>
           <a href="/blog" class="tree-item" data-name="readme.md">
-            <span class="text-muted">📜</span> README.md
+            <i class="fa-solid fa-file-lines text-muted"></i> README.md
           </a>
           <a href="/" class="tree-item" data-name="pyproject.toml">
-            <span class="text-muted">📦</span> pyproject.toml
+            <i class="fa-solid fa-box text-muted"></i> pyproject.toml
           </a>
         </div>
       </aside>
@@ -120,13 +125,13 @@
     <!-- Lualine Status Bar at Bottom -->
     <footer class="lualine-bar">
       <div class="lualine-pill pill-mode" id="lualine-mode">-- NORMAL --</div>
-      <div class="lualine-pill pill-git"> main</div>
+      <div class="lualine-pill pill-git"><i class="fa-solid fa-code-branch"></i> main</div>
       <div class="lualine-pill" style="color: var(--fg-bright);">{{ active_page }}.buffer</div>
       
       <div class="lualine-right-group">
         <div class="lualine-pill" style="color: var(--gruv-aqua);">utf-8</div>
         <div class="lualine-pill pill-pos" id="lualine-pos">Ln 1, Top</div>
-        <div class="lualine-pill pill-time" id="lualine-time">🕒 19:14</div>
+        <div class="lualine-pill pill-time" id="lualine-time"><i class="fa-regular fa-clock"></i> 19:25</div>
       </div>
     </footer>
   </div>
@@ -135,7 +140,7 @@
   <div class="modal-overlay" id="vim-help-modal">
     <div class="vim-modal-box">
       <div class="modal-header">
-        <h2 style="margin: 0; color: var(--gruv-yellow); font-family: var(--font-mono);">⌨ Vim Keybindings</h2>
+        <h2 style="margin: 0; color: var(--gruv-yellow); font-family: var(--font-mono);"><i class="fa-solid fa-keyboard"></i> Vim Keybindings</h2>
         <button class="action-btn" id="close-help-btn">Esc</button>
       </div>
       
