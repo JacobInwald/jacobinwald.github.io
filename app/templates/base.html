@@ -13,6 +13,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="/static/css/main.css">
+
+  <!-- Prevent Explorer Flicker on Page Navigation -->
+  <script>
+    (function() {
+      if (localStorage.getItem('explorer-collapsed') === 'true') {
+        document.documentElement.classList.add('explorer-is-collapsed');
+      }
+    })();
+  </script>
 </head>
 <body>
   <div class="nvim-workspace">

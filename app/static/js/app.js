@@ -56,6 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (localStorage.getItem('explorer-collapsed') === 'true' && explorer) {
     explorer.classList.add('collapsed');
   }
+  
+  // Remove pre-render class after initial state is applied to allow smooth user toggling
+  requestAnimationFrame(() => {
+    document.documentElement.classList.remove('explorer-is-collapsed');
+  });
 
   if (sidebarToggleBtn) {
     sidebarToggleBtn.addEventListener('click', toggleSidebar);
