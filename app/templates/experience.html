@@ -2,16 +2,15 @@
 
 {% block content %}
 <div style="margin-bottom: 2rem;">
-  <div class="code-comment">-- experience.lua &mdash; Career Timeline Buffer</div>
   <h1 style="font-size: 2rem; color: var(--gruv-yellow); margin: 0.5rem 0 1.5rem;">
-    <span class="text-blue">:lua</span> require('experience')
+    Experience &amp; Skills
   </h1>
 </div>
 
 <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem;">
   <div>
     <h2 style="font-size: 1.3rem; color: var(--gruv-yellow); margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.35rem;">
-      -- [TIMELINE] --
+      Career &amp; Academic Timeline
     </h2>
 
     {% for item in experience %}
@@ -32,7 +31,7 @@
 
   <div>
     <h2 style="font-size: 1.3rem; color: var(--gruv-yellow); margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.35rem;">
-      -- [SKILLS_MATRIX] --
+      Technical Skills
     </h2>
 
     {% for cat in profile.skill_categories %}

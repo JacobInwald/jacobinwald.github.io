@@ -2,11 +2,10 @@
 
 {% block content %}
 <div style="margin-bottom: 2rem;">
-  <div><span class="code-keyword">import</span> fastapi</div>
-  <div><span class="code-keyword">from</span> pydantic <span class="code-keyword">import</span> BaseModel</div>
+  <div><span class="code-keyword">import</span> profile</div>
   <br>
-  <div><span class="code-comment"># Personal Profile Definition</span></div>
-  <div><span class="code-var">profile</span> = {</div>
+  <div><span class="code-comment"># Overview & Background</span></div>
+  <div><span class="code-var">developer</span> = {</div>
   <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"name"</span>: <span class="code-string">"{{ profile.name }}"</span>,</div>
   <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"title"</span>: <span class="code-string">"{{ profile.title }}"</span>,</div>
   <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"location"</span>: <span class="code-string">"{{ profile.location }}"</span>,</div>
@@ -16,29 +15,29 @@
 
 <div class="content-card">
   <h1 style="font-size: 2.2rem; color: var(--fg-bright); margin-bottom: 0.5rem;">
-    <span class="text-orange">def</span> <span class="text-yellow">about_me</span>():
+    {{ profile.name }}
   </h1>
   <p style="font-size: 1.15rem; color: var(--fg-normal); margin-bottom: 1.5rem;">
     {{ profile.bio }}
   </p>
 
   <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-    <a href="/projects" class="action-btn">:open projects.json (press 2)</a>
-    <a href="/blog" class="action-btn">:read blog.md (press 3)</a>
-    <a href="/contact" class="action-btn">:execute contact.sh (press 5)</a>
+    <a href="/projects/" class="action-btn">Projects Showcase (press 2)</a>
+    <a href="/blog/" class="action-btn">Read Articles (press 3)</a>
+    <a href="/contact/" class="action-btn">Get in Touch (press 5)</a>
   </div>
 </div>
 
-<!-- Metrics / Statistics Box -->
+<!-- Overview Metrics Box -->
 <div style="margin-bottom: 2.5rem;">
   <h2 style="font-size: 1.4rem; color: var(--gruv-yellow); margin-bottom: 1rem;">
-    <span class="text-purple">--</span> Registers &amp; Metrics <span class="text-purple">--</span>
+    Key Overview
   </h2>
 
   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
     {% for stat in profile.stats %}
-    <div style="background: var(--bg-hard); border: 1px solid var(--border-color); padding: 1.25rem; border-radius: 4px; text-align: center;">
-      <div style="font-size: 2.2rem; font-weight: 800; color: var(--gruv-yellow);">{{ stat.value }}</div>
+    <div style="background: var(--bg-hard); border: 1px solid var(--border-color); padding: 1.25rem; border-radius: 6px; text-align: center;">
+      <div style="font-size: 1.8rem; font-weight: 800; color: var(--gruv-yellow);">{{ stat.value }}</div>
       <div style="font-size: 0.9rem; color: var(--fg-muted);">{{ stat.label }}</div>
     </div>
     {% endfor %}
@@ -49,7 +48,7 @@
 <div style="margin-bottom: 2.5rem;">
   <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
     <h2 style="font-size: 1.4rem; color: var(--gruv-yellow); margin: 0;">Featured Projects</h2>
-    <a href="/projects" class="text-blue">:projects &rarr;</a>
+    <a href="/projects/" class="text-blue">View All Projects &rarr;</a>
   </div>
 
   {% for project in projects %}
@@ -82,7 +81,7 @@
 <div>
   <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
     <h2 style="font-size: 1.4rem; color: var(--gruv-yellow); margin: 0;">Recent Articles</h2>
-    <a href="/blog" class="text-blue">:blog &rarr;</a>
+    <a href="/blog/" class="text-blue">View All Articles &rarr;</a>
   </div>
 
   {% for post in posts %}
@@ -90,9 +89,9 @@
     <div style="font-size: 0.85rem; color: var(--fg-muted); margin-bottom: 0.35rem;">
       # {{ post.date }} &bull; {{ post.read_time }}
     </div>
-    <h3 style="font-size: 1.25rem; margin: 0 0 0.5rem;"><a href="/blog/{{ post.slug }}" class="text-bright">{{ post.title }}</a></h3>
+    <h3 style="font-size: 1.25rem; margin: 0 0 0.5rem;"><a href="/blog/{{ post.slug }}/" class="text-bright">{{ post.title }}</a></h3>
     <p style="color: var(--fg-muted); margin-bottom: 0.75rem;">{{ post.summary }}</p>
-    <a href="/blog/{{ post.slug }}" class="text-yellow">:open blog/{{ post.slug }}.md &rarr;</a>
+    <a href="/blog/{{ post.slug }}/" class="text-yellow">Read Article &rarr;</a>
   </div>
   {% endfor %}
 </div>

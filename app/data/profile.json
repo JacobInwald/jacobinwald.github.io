@@ -1,15 +1,15 @@
 {
   "name": "Jacob Inwald",
-  "title": "Software Engineer & Systems Architect",
-  "headline": "Building elegant, scalable web applications & cloud software solutions.",
-  "location": "London, United Kingdom",
-  "bio": "I am a passionate software engineer specializing in Python, modern web development, API design, and cloud workflows. I design high-performance applications with clean architecture and delightful user experiences.",
-  "status": "Open to new engineering challenges & collaborations",
+  "title": "Software Engineer & Computer Science Graduate",
+  "headline": "Computer Science BSc graduate from the University of Edinburgh.",
+  "location": "Edinburgh, United Kingdom",
+  "bio": "Software engineer with a background in Computer Science from the University of Edinburgh (2021–2025). Interested in systems programming, high-performance computing, security research, and machine learning.",
+  "status": "Available for software engineering roles and projects",
   "stats": [
-    { "label": "Years Experience", "value": "5+" },
-    { "label": "Projects Completed", "value": "30+" },
-    { "label": "Code Commits", "value": "2.5k+" },
-    { "label": "Uptime", "value": "99.9%" }
+    { "label": "University", "value": "Edinburgh" },
+    { "label": "Degree", "value": "BSc CompSci" },
+    { "label": "Repositories", "value": "22+" },
+    { "label": "Primary Language", "value": "Python & C" }
   ],
   "social": {
     "github": "https://github.com/JacobInwald",
@@ -18,20 +18,20 @@
   },
   "skill_categories": [
     {
-      "name": "Backend & Core",
-      "skills": ["Python", "FastAPI", "Flask", "Django", "REST APIs", "AsyncIO", "Pydantic"]
+      "name": "Languages & Core",
+      "skills": ["Python", "C", "Objective-C / Metal", "JavaScript", "SQL", "HTML/CSS"]
     },
     {
-      "name": "Frontend & Design",
-      "skills": ["HTML5", "CSS3 / Vanilla CSS", "JavaScript (ES6+)", "Responsive Design", "Jinja2", "UI/UX"]
+      "name": "Systems & Security",
+      "skills": ["Linux", "Docker", "GPU Acceleration", "Exploit Analysis", "Cryptography", "Git"]
     },
     {
-      "name": "DevOps & Cloud",
-      "skills": ["Docker", "GitHub Actions", "uv / Package Management", "Linux", "CI/CD Pipelines", "Git"]
+      "name": "Web & Backend",
+      "skills": ["FastAPI", "REST APIs", "Jinja2", "AsyncIO", "uv", "GitHub Actions"]
     },
     {
-      "name": "Databases & Tools",
-      "skills": ["PostgreSQL", "SQLite", "Redis", "pytest", "Ruff", "VS Code"]
+      "name": "Machine Learning & Algorithms",
+      "skills": ["Neural Networks", "Genetic Algorithms", "Dynamic Programming", "Computer Vision", "OCR"]
     }
   ]
 }

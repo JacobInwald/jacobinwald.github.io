@@ -2,21 +2,20 @@
 
 {% block content %}
 <div style="margin-bottom: 2rem;">
-  <div class="code-comment"># projects.json &mdash; Technical Showcase Buffer</div>
   <h1 style="font-size: 2rem; color: var(--gruv-yellow); margin: 0.5rem 0 1rem;">
-    <span class="text-orange">[Telescope]</span> projects.json
+    Projects Showcase
   </h1>
 
   <div style="display: flex; gap: 1rem; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 1.5rem;">
     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-      <button class="action-btn filter-btn active" data-filter="all">:all</button>
+      <button class="action-btn filter-btn active" data-filter="all">All</button>
       {% for cat in categories %}
-      <button class="action-btn filter-btn" data-filter="{{ cat }}">:{{ cat.lower().replace(' ', '_') }}</button>
+      <button class="action-btn filter-btn" data-filter="{{ cat }}">{{ cat }}</button>
       {% endfor %}
     </div>
 
     <div style="max-width: 300px; width: 100%;">
-      <input type="text" id="project-search" style="width: 100%; padding: 0.5rem 0.85rem; background: var(--bg-hard); border: 1px solid var(--border-color); color: var(--fg-bright); font-family: var(--font-mono); font-size: 0.95rem; border-radius: 4px;" placeholder="/search projects...">
+      <input type="text" id="project-search" style="width: 100%; padding: 0.5rem 0.85rem; background: var(--bg-hard); border: 1px solid var(--border-color); color: var(--fg-bright); font-family: var(--font-mono); font-size: 0.95rem; border-radius: 6px;" placeholder="Search projects...">
     </div>
   </div>
 </div>
@@ -37,7 +36,7 @@
 
   <div style="display: flex; gap: 1.5rem; margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
     {% if project.github_url %}
-    <a href="{{ project.github_url }}" target="_blank" rel="noopener" class="text-yellow">[GitHub]</a>
+    <a href="{{ project.github_url }}" target="_blank" rel="noopener" class="text-yellow">[GitHub Repository]</a>
     {% endif %}
     {% if project.demo_url %}
     <a href="{{ project.demo_url }}" target="_blank" rel="noopener" class="text-green">[Live Demo &rarr;]</a>

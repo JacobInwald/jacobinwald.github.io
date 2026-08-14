@@ -2,12 +2,12 @@
 
 {% block content %}
 <div style="margin-bottom: 1.5rem;">
-  <a href="/blog" class="text-blue">&larr; :e blog.md (back to index)</a>
+  <a href="/blog/" class="text-blue">&larr; Back to All Articles</a>
 </div>
 
 <div class="content-card" style="padding: 2.25rem;">
   <div style="font-size: 0.85rem; color: var(--fg-muted); margin-bottom: 0.5rem;">
-    # {{ post.date }} &bull; {{ post.read_time }}
+    Published {{ post.date }} &bull; {{ post.read_time }}
   </div>
   <h1 style="font-size: 2.2rem; color: var(--fg-bright); margin-bottom: 1rem;">{{ post.title }}</h1>
 
