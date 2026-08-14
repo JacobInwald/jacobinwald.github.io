@@ -1,10 +1,10 @@
 [
   {
     "id": "crate",
-    "title": "CRATE — Containerized Attacks & Testable Exploits",
-    "description": "Containerized Repository of Attacks and Testable Exploits. A set of containerized exploits for testing security hardening measures written for 4th year honours project at University of Edinburgh.",
-    "category": "Security / Systems",
-    "tags": ["C", "Docker", "Security", "Exploits", "Honours Project"],
+    "title": "CRATE — Containerizing Exploits (Honours Project)",
+    "description": "Containerized 8 CVE exploit/code pairs to analyze compiler security hardening in GCC. Built a reproducible framework using Docker to automate vulnerable builds from source for exploit testing. Awarded a First-Class grade.",
+    "category": "Security Research",
+    "tags": ["C", "Docker", "Makefile", "GCC", "Exploit Analysis"],
     "github_url": "https://github.com/JacobInwald/CRATE",
     "demo_url": null,
     "featured": true,
@@ -12,63 +12,27 @@
     "stars": 1
   },
   {
-    "id": "pwdtools-macgpu",
-    "title": "pwdtools-macgpu — Metal GPU MD5 Cracker",
-    "description": "GPU-accelerated MD5 hash cracker using Apple's Metal framework, achieving 2.6GH/s to 5.1GH/s throughput on Apple Silicon hardware.",
-    "category": "High Performance / GPU",
-    "tags": ["Objective-C", "Metal", "GPU", "Cryptography", "MD5"],
-    "github_url": "https://github.com/JacobInwald/pwdtools-macgpu",
-    "demo_url": null,
-    "featured": true,
-    "accent_color": "from-purple-500 to-indigo-600",
-    "stars": 1
-  },
-  {
-    "id": "ocralgebra",
-    "title": "OCRAlgebra — Neural Network Character Recognition",
-    "description": "Neural Network built from scratch without external ML libraries to perform optical character recognition on algebraic symbols.",
+    "id": "melanoma-classification",
+    "title": "Melanoma Classification (Multi-GPU Deep Learning)",
+    "description": "Trained and evaluated vision transformer models (ViT-L, Swin-B) and EfficientNet variants. Developed a distributed training framework for multi-GPU workloads on Slurm clusters, improving training efficiency by ~40%.",
     "category": "Machine Learning",
-    "tags": ["Machine Learning", "Neural Network", "OCR", "TeX", "Python"],
-    "github_url": "https://github.com/JacobInwald/OCRAlgebra",
+    "tags": ["Python", "Slurm", "Deep Learning", "Vision Transformers", "Multi-GPU"],
+    "github_url": "https://github.com/JacobInwald",
     "demo_url": null,
     "featured": true,
-    "accent_color": "from-blue-500 to-teal-600",
+    "accent_color": "from-blue-500 to-indigo-600",
     "stars": 1
   },
   {
     "id": "pwdtools",
-    "title": "pwdtools — Password Security & Analysis Suite",
-    "description": "A comprehensive suite of command-line tools for managing password security, entropy evaluation, and hash analysis.",
-    "category": "Security",
-    "tags": ["Python", "Security", "Passwords", "CLI"],
+    "title": "pwdtools — GPU Hash Cracking Engine",
+    "description": "Built a password analysis and hash cracking toolkit matching performance of hashcat. Implemented a GPU-accelerated brute-force engine via Apple's Metal framework achieving over 4 billion hashes per second.",
+    "category": "High Performance / Security",
+    "tags": ["Python", "Metal Framework", "Objective-C", "Cryptography", "GPU"],
     "github_url": "https://github.com/JacobInwald/pwdtools",
     "demo_url": null,
     "featured": true,
     "accent_color": "from-amber-500 to-yellow-600",
-    "stars": 1
-  },
-  {
-    "id": "pendulum",
-    "title": "pendulum — Genetic Algorithm Neural Network",
-    "description": "A pendulum balancing game paired with a neural network trained via genetic algorithms to achieve high scores.",
-    "category": "Artificial Intelligence",
-    "tags": ["Python", "Genetic Algorithms", "Neural Network", "AI"],
-    "github_url": "https://github.com/JacobInwald/pendulum",
-    "demo_url": null,
-    "featured": true,
-    "accent_color": "from-emerald-500 to-green-600",
-    "stars": 1
-  },
-  {
-    "id": "seam-carving",
-    "title": "Seam-Carving — Content-Aware Image Resizing",
-    "description": "An implementation of the seminal Seam Carving algorithm for content-aware image resizing using dynamic programming.",
-    "category": "Algorithms",
-    "tags": ["Python", "Dynamic Programming", "Computer Vision", "Algorithms"],
-    "github_url": "https://github.com/JacobInwald/Seam-Carving",
-    "demo_url": null,
-    "featured": true,
-    "accent_color": "from-indigo-500 to-purple-600",
     "stars": 1
   }
 ]

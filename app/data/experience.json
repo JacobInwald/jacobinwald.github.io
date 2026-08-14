@@ -1,26 +1,51 @@
 [
   {
-    "role": "Computer Science BSc (Honours)",
-    "company": "University of Edinburgh",
-    "period": "2021 - 2025",
-    "location": "Edinburgh, UK",
-    "description": "Graduating with a degree in Computer Science. Focused on systems security, operating systems, high-performance computing, machine learning, and software engineering.",
+    "role": "Software Engineer",
+    "company": "Darktrace",
+    "period": "09/2025 - Present",
+    "location": "Cambridge, CB1",
+    "description": "Headed core service database migrations, query optimization, and internal developer tooling.",
     "highlights": [
-      "Honours Thesis: CRATE (Containerized Repository of Attacks and Testable Exploits) for security hardening evaluation",
-      "Key Modules: Systems Security, Operating Systems, Machine Learning, Computer Vision, Distributed Systems",
-      "Represented the University of Edinburgh in competitive climbing (BUCS Nationals)"
+      "Headed the migration of a key service to PostgreSQL, refactoring it into a cleaner and more manageable architecture",
+      "Optimized database and query structure, improving API response times by a 10x factor",
+      "Developed automated testing workflows, custom Neovim plugins, and on-box data restoration tools to assist engineering team"
     ]
   },
   {
-    "role": "Software Engineering & Security Research",
-    "company": "Independent Projects & Open Source",
-    "period": "2020 - Present",
-    "location": "Edinburgh, UK",
-    "description": "Designing and building open-source systems, GPU acceleration tools, security analysis utilities, and machine learning models.",
+    "role": "Course Instructor",
+    "company": "University of Edinburgh",
+    "period": "09/2024 - 12/2024",
+    "location": "Edinburgh, EH1",
+    "description": "Delivered undergraduate tutorials in Haskell and computational logic for first-year Computer Science students.",
     "highlights": [
-      "Engineered pwdtools-macgpu: GPU-accelerated MD5 cracker reaching 5.1 GH/s using Apple Metal framework",
-      "Built custom neural networks from scratch for OCR (OCRAlgebra) and genetic algorithm control (pendulum)",
-      "Implemented dynamic programming algorithms for content-aware image resizing (Seam-Carving)"
+      "Delivered weekly tutorials to 10+ first-year students in Haskell and computational logic",
+      "Marked coursework assignments and provided structured feedback, guiding students through 1:1 support sessions",
+      "Achieved 100% student success with all tutorial participants attaining a grade of 2:1 or higher"
+    ]
+  },
+  {
+    "role": "Tech Lead — Cyber Summer Placement",
+    "company": "AtkinsRéalis",
+    "period": "07/2024 - 09/2024",
+    "location": "London, SW3",
+    "description": "Led technical development of OSINT intelligence data pipelines and automated LLM cyber risk assessment reports.",
+    "highlights": [
+      "Designed data pipelines to collect and structure Open Source Intelligence (OSINT) from trusted feeds",
+      "Leveraged LLMs to generate structured, client-ready cyber risk assessment reports",
+      "Presented technical outcomes to senior leadership and external enterprise stakeholders (including Sellafield)",
+      "Managed GitHub workflows and coordinated sprint development across the engineering team"
+    ]
+  },
+  {
+    "role": "BSc (Hons) Computer Science — First Class",
+    "company": "University of Edinburgh",
+    "period": "2021 - 2025",
+    "location": "Edinburgh, UK",
+    "description": "Graduated with 1st Class Honours in Computer Science. Specialized in Computer Security, Machine Learning, and Reasoning & Agents.",
+    "highlights": [
+      "Honours Research Thesis: Containerizing Exploits (CRATE) to analyze compiler security hardening in GCC",
+      "Competed in British University Climbing Series (BUCS) 2022–2024 and National Universities Lead & Speed Climbing 2023",
+      "Organized and delivered coaching sessions for the Edinburgh University Mountaineering Club"
     ]
   }
 ]

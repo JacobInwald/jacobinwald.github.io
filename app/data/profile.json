@@ -1,37 +1,37 @@
 {
   "name": "Jacob Inwald",
-  "title": "Software Engineer & Computer Science Graduate",
-  "headline": "Computer Science BSc graduate from the University of Edinburgh.",
-  "location": "Edinburgh, United Kingdom",
-  "bio": "Software engineer with a background in Computer Science from the University of Edinburgh (2021–2025). Interested in systems programming, high-performance computing, security research, and machine learning.",
-  "status": "Available for software engineering roles and projects",
+  "title": "Software Engineer at Darktrace",
+  "headline": "Software Engineer at Darktrace | First-Class CS Graduate from University of Edinburgh",
+  "location": "London / Cambridge, UK",
+  "bio": "Software Engineer at Darktrace with a First-Class Honours degree in Computer Science from the University of Edinburgh. Experienced in high-throughput backend services, database migrations, OSINT data pipelines, GPU-accelerated security tools, and deep learning.",
+  "status": "Software Engineer @ Darktrace",
   "stats": [
+    { "label": "Degree", "value": "BSc 1st Class" },
     { "label": "University", "value": "Edinburgh" },
-    { "label": "Degree", "value": "BSc CompSci" },
-    { "label": "Repositories", "value": "22+" },
-    { "label": "Primary Language", "value": "Python & C" }
+    { "label": "Company", "value": "Darktrace" },
+    { "label": "Hash Cracking", "value": ">4B / sec" }
   ],
   "social": {
     "github": "https://github.com/JacobInwald",
-    "linkedin": "https://linkedin.com/in/jacobinwald",
-    "email": "Jacob.Inwald@Hotmail.com"
+    "linkedin": "https://www.linkedin.com/in/jacob-inwald-6b7889268",
+    "email": "inwald.jacob@gmail.com"
   },
   "skill_categories": [
     {
       "name": "Languages & Core",
-      "skills": ["Python", "C", "Objective-C / Metal", "JavaScript", "SQL", "HTML/CSS"]
+      "skills": ["Python", "SQL", "C", "Objective-C / Metal", "Haskell", "JavaScript"]
     },
     {
-      "name": "Systems & Security",
-      "skills": ["Linux", "Docker", "GPU Acceleration", "Exploit Analysis", "Cryptography", "Git"]
+      "name": "Databases & Systems",
+      "skills": ["PostgreSQL", "Docker", "Linux", "AsyncIO", "API Design", "Neovim"]
     },
     {
-      "name": "Web & Backend",
-      "skills": ["FastAPI", "REST APIs", "Jinja2", "AsyncIO", "uv", "GitHub Actions"]
+      "name": "Security & Intelligence",
+      "skills": ["Cyber Security", "Compiler Hardening", "OSINT Data Pipelines", "LLM Risk Reports", "Cryptography"]
     },
     {
-      "name": "Machine Learning & Algorithms",
-      "skills": ["Neural Networks", "Genetic Algorithms", "Dynamic Programming", "Computer Vision", "OCR"]
+      "name": "Machine Learning & HPC",
+      "skills": ["Multi-GPU Training", "Slurm", "Vision Transformers (ViT/Swin)", "EfficientNet", "Deep Learning"]
     }
   ]
 }
