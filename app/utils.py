@@ -120,20 +120,41 @@ def fetch_hardcover_stats() -> dict[str, Any]:
             if response.status == 200:
                 res_data = json.loads(response.read().decode("utf-8"))
                 me = res_data.get("data", {}).get("me", [{}])
-                user_name = me[0].get("username") if (me and isinstance(me, list) and len(me) > 0 and isinstance(me[0], dict)) else HARDCOVER_USERNAME
+                user_name = HARDCOVER_USERNAME
+                if me and isinstance(me, list) and len(me) > 0 and isinstance(me[0], dict):
+                    user_name = me[0].get("username", HARDCOVER_USERNAME)
+
                 user_books = res_data.get("data", {}).get("user_books", [])
 
                 if isinstance(user_books, list) and len(user_books) > 0:
-                    books_read = [b for b in user_books if isinstance(b, dict) and b.get("status_id") == 3]
-                    currently_reading = [b for b in user_books if isinstance(b, dict) and b.get("status_id") == 2]
+                    books_read = [
+                        b for b in user_books
+                        if isinstance(b, dict) and b.get("status_id") == 3
+                    ]
+                    currently_reading = [
+                        b for b in user_books
+                        if isinstance(b, dict) and b.get("status_id") == 2
+                    ]
 
-                    pages = sum(b.get("book", {}).get("pages") or 0 for b in books_read if isinstance(b.get("book"), dict))
+                    pages = sum(
+                        b.get("book", {}).get("pages") or 0
+                        for b in books_read
+                        if isinstance(b.get("book"), dict)
+                    )
                     ratings = [b.get("rating") for b in books_read if b.get("rating")]
-                    avg_rating = str(round(sum(ratings) / len(ratings), 1)) if ratings else "4.1"
+                    avg_rating = (
+                        str(round(sum(ratings) / len(ratings), 1))
+                        if ratings
+                        else "4.1"
+                    )
 
                     formatted_reading = []
                     for item in currently_reading:
-                        book_info = item.get("book") if isinstance(item.get("book"), dict) else {}
+                        book_info = (
+                            item.get("book")
+                            if isinstance(item.get("book"), dict)
+                            else {}
+                        )
                         formatted_reading.append({
                             "title": book_info.get("title", "Unknown Title"),
                             "pages": book_info.get("pages", 0),
@@ -141,11 +162,19 @@ def fetch_hardcover_stats() -> dict[str, Any]:
 
                     formatted_reads = []
                     for item in books_read[:6]:
-                        book_info = item.get("book") if isinstance(item.get("book"), dict) else {}
+                        book_info = (
+                            item.get("book")
+                            if isinstance(item.get("book"), dict)
+                            else {}
+                        )
                         formatted_reads.append({
                             "title": book_info.get("title", "Unknown Title"),
                             "pages": book_info.get("pages", 0),
-                            "rating": str(item.get("rating")) if item.get("rating") else "N/A",
+                            "rating": (
+                                str(item.get("rating"))
+                                if item.get("rating")
+                                else "N/A"
+                            ),
                         })
 
                     result = {
@@ -154,8 +183,12 @@ def fetch_hardcover_stats() -> dict[str, Any]:
                         "books_read_count": len(books_read),
                         "pages_read_count": pages,
                         "avg_rating": avg_rating,
-                        "currently_reading": formatted_reading or fallback_stats["currently_reading"],
-                        "recent_reads": formatted_reads or fallback_stats["recent_reads"],
+                        "currently_reading": (
+                            formatted_reading or fallback_stats["currently_reading"]
+                        ),
+                        "recent_reads": (
+                            formatted_reads or fallback_stats["recent_reads"]
+                        ),
                         "status_notice": f"Live synced directly from Hardcover API (@{user_name})",
                     }
                     _HARDCOVER_CACHE = result

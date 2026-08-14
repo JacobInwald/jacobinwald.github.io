@@ -21,7 +21,11 @@ def test_projects_page():
 def test_blog_page():
     response = client.get("/blog")
     assert response.status_code == 200
-    assert "Articles &amp; Writing" in response.text or "Articles & Writing" in response.text or "blog.md" in response.text
+    assert (
+        "Articles &amp; Writing" in response.text
+        or "Articles & Writing" in response.text
+        or "blog.md" in response.text
+    )
     assert "Web Garden" in response.text or "Hardcover" in response.text
 
 
@@ -38,7 +42,11 @@ def test_post_detail_page():
 def test_experience_page():
     response = client.get("/experience")
     assert response.status_code == 200
-    assert "Experience &amp; Skills" in response.text or "Experience & Skills" in response.text or "Career & Academic Timeline" in response.text
+    assert (
+        "Experience &amp; Skills" in response.text
+        or "Experience & Skills" in response.text
+        or "Career & Academic Timeline" in response.text
+    )
 
 
 def test_contact_page():
