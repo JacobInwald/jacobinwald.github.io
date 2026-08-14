@@ -1,37 +1,26 @@
 [
   {
-    "role": "Senior Software Engineer",
-    "company": "Tech Innovations Inc.",
-    "period": "2023 - Present",
-    "location": "London, UK",
-    "description": "Leading the architecture of high-throughput backend services and web applications using Python, FastAPI, and Docker. Implemented automated CI/CD pipelines reducing deployment times by 60%.",
+    "role": "Computer Science BSc (Honours)",
+    "company": "University of Edinburgh",
+    "period": "2021 - 2025",
+    "location": "Edinburgh, UK",
+    "description": "Graduating with a degree in Computer Science. Focused on systems security, operating systems, high-performance computing, machine learning, and software engineering.",
     "highlights": [
-      "Architected microservices handling 5M+ daily requests",
-      "Designed RESTful & WebSocket APIs with full test coverage",
-      "Mentored junior engineers and led code review standards"
+      "Honours Thesis: CRATE (Containerized Repository of Attacks and Testable Exploits) for security hardening evaluation",
+      "Key Modules: Systems Security, Operating Systems, Machine Learning, Computer Vision, Distributed Systems",
+      "Represented the University of Edinburgh in competitive climbing (BUCS Nationals)"
     ]
   },
   {
-    "role": "Software Engineer",
-    "company": "Digital Solutions Lab",
-    "period": "2021 - 2023",
-    "location": "London, UK",
-    "description": "Developed full-stack web applications and data processing pipelines. Built responsive web interfaces paired with robust Python APIs.",
+    "role": "Software Engineering & Security Research",
+    "company": "Independent Projects & Open Source",
+    "period": "2020 - Present",
+    "location": "Edinburgh, UK",
+    "description": "Designing and building open-source systems, GPU acceleration tools, security analysis utilities, and machine learning models.",
     "highlights": [
-      "Built custom web dashboards using Jinja2, HTML5, and CSS3",
-      "Optimized SQL query performance by 40%",
-      "Automated testing suite achieving 95%+ coverage"
-    ]
-  },
-  {
-    "role": "BSc Computer Science",
-    "company": "University",
-    "period": "2018 - 2021",
-    "location": "United Kingdom",
-    "description": "Graduated with honors in Computer Science. Focused on Algorithms, Software Architecture, Web Development, and Distributed Systems.",
-    "highlights": [
-      "First Class Honours project on distributed consensus",
-      "President of Computer Science Society"
+      "Engineered pwdtools-macgpu: GPU-accelerated MD5 cracker reaching 5.1 GH/s using Apple Metal framework",
+      "Built custom neural networks from scratch for OCR (OCRAlgebra) and genetic algorithm control (pendulum)",
+      "Implemented dynamic programming algorithms for content-aware image resizing (Seam-Carving)"
     ]
   }
 ]
