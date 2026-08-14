@@ -132,34 +132,41 @@ def fetch_hardcover_stats() -> dict[str, Any]:
                         b for b in user_books if isinstance(b, dict) and b.get("status_id") == 2
                     ]
 
-                    pages = sum(
-                        b.get("book", {}).get("pages") or 0
-                        for b in books_read
-                        if isinstance(b.get("book"), dict)
-                    )
-                    ratings = [b.get("rating") for b in books_read if b.get("rating")]
+                    pages = 0
+                    ratings: list[float] = []
+                    for b in books_read:
+                        b_book = b.get("book")
+                        if isinstance(b_book, dict):
+                            pgs = b_book.get("pages")
+                            if isinstance(pgs, int):
+                                pages += pgs
+                        rtg = b.get("rating")
+                        if isinstance(rtg, (int, float)):
+                            ratings.append(float(rtg))
+
                     avg_rating = str(round(sum(ratings) / len(ratings), 1)) if ratings else "4.1"
 
-                    formatted_reading = []
+                    formatted_reading: list[dict[str, Any]] = []
                     for item in currently_reading:
-                        book_info = item.get("book") if isinstance(item.get("book"), dict) else {}
+                        raw_book = item.get("book") if isinstance(item, dict) else None
+                        book_dict = raw_book if isinstance(raw_book, dict) else {}
                         formatted_reading.append(
                             {
-                                "title": book_info.get("title", "Unknown Title"),
-                                "pages": book_info.get("pages", 0),
+                                "title": book_dict.get("title", "Unknown Title"),
+                                "pages": book_dict.get("pages", 0),
                             }
                         )
 
-                    formatted_reads = []
+                    formatted_reads: list[dict[str, Any]] = []
                     for item in books_read[:6]:
-                        book_info = item.get("book") if isinstance(item.get("book"), dict) else {}
+                        raw_book = item.get("book") if isinstance(item, dict) else None
+                        book_dict = raw_book if isinstance(raw_book, dict) else {}
+                        rtg_val = item.get("rating") if isinstance(item, dict) else None
                         formatted_reads.append(
                             {
-                                "title": book_info.get("title", "Unknown Title"),
-                                "pages": book_info.get("pages", 0),
-                                "rating": (
-                                    str(item.get("rating")) if item.get("rating") else "N/A"
-                                ),
+                                "title": book_dict.get("title", "Unknown Title"),
+                                "pages": book_dict.get("pages", 0),
+                                "rating": str(rtg_val) if rtg_val is not None else "N/A",
                             }
                         )
 
