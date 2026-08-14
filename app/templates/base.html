@@ -18,32 +18,38 @@
   <div class="nvim-workspace">
     <!-- Top Tabline -->
     <div class="nvim-tabline">
-      <a href="/" class="tab-item {% if active_page == 'home' %}active{% endif %}" id="tab-1">
-        <span class="tab-num">1</span>
-        <span class="tab-icon text-yellow">🐍</span> index.py <span class="tab-close">✕</span>
-      </a>
-      <a href="/projects" class="tab-item {% if active_page == 'projects' %}active{% endif %}" id="tab-2">
-        <span class="tab-num">2</span>
-        <span class="tab-icon text-orange">⚙</span> projects.json <span class="tab-close">✕</span>
-      </a>
-      <a href="/blog" class="tab-item {% if active_page == 'blog' %}active{% endif %}" id="tab-3">
-        <span class="tab-num">3</span>
-        <span class="tab-icon text-purple">📝</span> blog.md <span class="tab-close">✕</span>
-      </a>
-      <a href="/experience" class="tab-item {% if active_page == 'experience' %}active{% endif %}" id="tab-4">
-        <span class="tab-num">4</span>
-        <span class="tab-icon text-blue">💼</span> experience.json <span class="tab-close">✕</span>
-      </a>
-      <a href="/contact" class="tab-item {% if active_page == 'contact' %}active{% endif %}" id="tab-5">
-        <span class="tab-num">5</span>
-        <span class="tab-icon text-green">⚡</span> contact.sh <span class="tab-close">✕</span>
-      </a>
+      <button class="sidebar-toggle-btn" id="sidebar-toggle-btn" title="Toggle Explorer (<Space> e)">
+        <span>☰</span> <span style="font-size: 0.8rem;">Explorer</span>
+      </button>
+
+      <div class="tab-list-wrapper">
+        <a href="/" class="tab-item {% if active_page == 'home' %}active{% endif %}" id="tab-1">
+          <span class="tab-num">1</span>
+          <span class="tab-icon text-yellow">🐍</span> index.py <span class="tab-close">✕</span>
+        </a>
+        <a href="/projects" class="tab-item {% if active_page == 'projects' %}active{% endif %}" id="tab-2">
+          <span class="tab-num">2</span>
+          <span class="tab-icon text-orange">⚙</span> projects.json <span class="tab-close">✕</span>
+        </a>
+        <a href="/blog" class="tab-item {% if active_page == 'blog' %}active{% endif %}" id="tab-3">
+          <span class="tab-num">3</span>
+          <span class="tab-icon text-purple">📝</span> blog.md <span class="tab-close">✕</span>
+        </a>
+        <a href="/experience" class="tab-item {% if active_page == 'experience' %}active{% endif %}" id="tab-4">
+          <span class="tab-num">4</span>
+          <span class="tab-icon text-blue">💼</span> experience.json <span class="tab-close">✕</span>
+        </a>
+        <a href="/contact" class="tab-item {% if active_page == 'contact' %}active{% endif %}" id="tab-5">
+          <span class="tab-num">5</span>
+          <span class="tab-icon text-green">⚡</span> contact.sh <span class="tab-close">✕</span>
+        </a>
+      </div>
     </div>
 
-    <!-- Main Split Window: Left Tree Explorer + Right Full-Height Editor -->
+    <!-- Main Split Window: Fixed Left Explorer + Right Scrollable Editor -->
     <div class="nvim-main-split">
-      <!-- Left Sidebar Explorer with Search Bar -->
-      <aside class="nvim-explorer">
+      <!-- Fixed Left Sidebar Explorer -->
+      <aside class="nvim-explorer" id="nvim-explorer">
         <div class="explorer-header">
           <div class="explorer-title">
             <span><strong class="text-yellow">❯ Explorer</strong></span>
@@ -91,7 +97,7 @@
         </div>
       </aside>
 
-      <!-- Right Editor Pane (Full Height) -->
+      <!-- Right Editor Pane (Scrolls independently) -->
       <div class="nvim-editor-pane">
         <div class="line-numbers-gutter" id="line-numbers-gutter">
           <div class="current">1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div>
@@ -127,6 +133,10 @@
       </div>
       
       <div class="key-row">
+        <span>Toggle Explorer Sidebar</span>
+        <div><span class="key-cap">Space</span> <span class="key-cap">e</span></div>
+      </div>
+      <div class="key-row">
         <span>Scroll Down / Up</span>
         <div><span class="key-cap">j</span> / <span class="key-cap">k</span></div>
       </div>
@@ -152,7 +162,7 @@
       </div>
       
       <div style="margin-top: 1.5rem; color: var(--fg-muted); font-size: 0.9rem; text-align: center;">
-        Shortcuts are active anywhere on the site!
+        Shortcuts active everywhere!
       </div>
     </div>
   </div>

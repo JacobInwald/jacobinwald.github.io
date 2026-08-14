@@ -62,10 +62,41 @@ a:hover {
   align-items: center;
   background: var(--bg-hard);
   border-bottom: 1px solid var(--border-color);
-  padding-left: 280px;
-  overflow-x: auto;
+  position: sticky;
+  top: 0;
+  z-index: 100;
   user-select: none;
   height: 42px;
+}
+
+.sidebar-toggle-btn {
+  background: var(--bg-soft);
+  border: none;
+  border-right: 1px solid var(--border-color);
+  color: var(--gruv-yellow);
+  font-family: var(--font-mono);
+  font-weight: bold;
+  font-size: 0.9rem;
+  padding: 0 0.85rem;
+  height: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.sidebar-toggle-btn:hover {
+  background: var(--gruv-yellow);
+  color: #1d2021;
+}
+
+.tab-list-wrapper {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  height: 100%;
 }
 
 .tab-item {
@@ -80,6 +111,7 @@ a:hover {
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.15s ease;
+  height: 100%;
 }
 
 .tab-item:hover {
@@ -100,27 +132,42 @@ a:hover {
   font-weight: bold;
 }
 
-/* Main Split Container (Full Screen Height) */
+/* Main Split Container */
 .nvim-main-split {
   display: flex;
   flex: 1;
   min-height: calc(100vh - 74px);
+  position: relative;
 }
 
-/* Left Sidebar Explorer with Search */
+/* Fixed / Sticky Left Sidebar Explorer */
 .nvim-explorer {
   width: 280px;
+  height: calc(100vh - 74px);
+  position: sticky;
+  top: 42px;
   background: var(--bg-hard);
   border-right: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+  overflow-y: auto;
+  transition: margin-left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   user-select: none;
+  z-index: 90;
+}
+
+.nvim-explorer.collapsed {
+  margin-left: -280px;
 }
 
 .explorer-header {
   padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--border-color);
+  background: var(--bg-hard);
+  position: sticky;
+  top: 0;
+  z-index: 5;
 }
 
 .explorer-title {
@@ -151,7 +198,6 @@ a:hover {
 .tree-list {
   list-style: none;
   padding: 0.5rem 0;
-  overflow-y: auto;
   font-size: 0.95rem;
 }
 
@@ -189,7 +235,7 @@ a:hover {
   flex: 1;
   background: var(--bg-normal);
   display: flex;
-  overflow-y: auto;
+  min-width: 0;
 }
 
 .line-numbers-gutter {
@@ -227,6 +273,9 @@ a:hover {
   font-size: 0.85rem;
   user-select: none;
   border-top: 1px solid var(--border-color);
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
 }
 
 .lualine-pill {
@@ -311,17 +360,6 @@ a:hover {
   color: #1d2021;
 }
 
-.action-btn-primary {
-  background: var(--gruv-green);
-  color: #1d2021;
-  border-color: var(--gruv-green);
-}
-
-.action-btn-primary:hover {
-  background: var(--gruv-yellow);
-  color: #1d2021;
-}
-
 /* Modal Overlay */
 .modal-overlay {
   position: fixed;
@@ -369,6 +407,5 @@ a:hover {
 /* Responsive */
 @media (max-width: 850px) {
   .nvim-explorer { display: none; }
-  .nvim-tabline { padding-left: 0; }
   .editor-body { padding: 1.5rem; }
 }

@@ -2,17 +2,38 @@ document.addEventListener('DOMContentLoaded', () => {
   let mode = 'NORMAL';
   let gKeyPressCount = 0;
   let gKeyTimeout = null;
+  let spacePressed = false;
+  let spaceTimeout = null;
 
   const modeEl = document.getElementById('lualine-mode');
   const posEl = document.getElementById('lualine-pos');
   const timeEl = document.getElementById('lualine-time');
+  const explorer = document.getElementById('nvim-explorer');
+  const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
   const explorerSearch = document.getElementById('explorer-search');
   const projectSearchInput = document.getElementById('project-search');
   const helpModal = document.getElementById('vim-help-modal');
   const helpToggleBtn = document.getElementById('help-toggle');
   const closeHelpBtn = document.getElementById('close-help-btn');
 
-  // 1. Live Time Update
+  // 1. Sidebar Toggle Logic
+  function toggleSidebar() {
+    if (!explorer) return;
+    explorer.classList.toggle('collapsed');
+    const isCollapsed = explorer.classList.contains('collapsed');
+    localStorage.setItem('explorer-collapsed', isCollapsed ? 'true' : 'false');
+  }
+
+  // Restore saved sidebar collapsed state
+  if (localStorage.getItem('explorer-collapsed') === 'true' && explorer) {
+    explorer.classList.add('collapsed');
+  }
+
+  if (sidebarToggleBtn) {
+    sidebarToggleBtn.addEventListener('click', toggleSidebar);
+  }
+
+  // 2. Live Time Update
   function updateTime() {
     if (!timeEl) return;
     const now = new Date();
@@ -23,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(updateTime, 10000);
   updateTime();
 
-  // 2. Mode & Statusline Position
+  // 3. Statusline & Mode Handling
   function setMode(newMode) {
     mode = newMode;
     if (!modeEl) return;
@@ -54,21 +75,19 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', updateScrollPos);
   updateScrollPos();
 
-  // 3. Explorer Sidebar Live Search & Filtering
+  // 4. Explorer Sidebar Live Search
   if (explorerSearch) {
     explorerSearch.addEventListener('focus', () => setMode('SEARCH'));
     explorerSearch.addEventListener('blur', () => setMode('NORMAL'));
     explorerSearch.addEventListener('input', (e) => {
       const q = e.target.value.toLowerCase().trim();
       
-      // Filter explorer tree items
       const treeItems = document.querySelectorAll('#explorer-tree .tree-item');
       treeItems.forEach(item => {
         const name = item.dataset.name || item.textContent.toLowerCase();
         item.style.display = (!q || name.includes(q)) ? 'flex' : 'none';
       });
 
-      // Filter project cards if on projects page
       const projectCards = document.querySelectorAll('.project-card');
       projectCards.forEach(card => {
         const text = card.textContent.toLowerCase();
@@ -77,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 4. Vim Keyboard Shortcuts Engine
+  // 5. Vim Keyboard Engine (<Space> e sequence + j/k + 1..5)
   document.addEventListener('keydown', (e) => {
     const isEditing = ['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName);
 
@@ -87,7 +106,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (projectSearchInput) projectSearchInput.value = '';
       if (isEditing) document.activeElement.blur();
       
-      // Reset explorer tree item display
       document.querySelectorAll('#explorer-tree .tree-item').forEach(i => i.style.display = 'flex');
       document.querySelectorAll('.project-card').forEach(c => c.style.display = 'block');
       
@@ -98,6 +116,23 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isEditing) return;
 
     if (mode === 'NORMAL') {
+      // Check <Space> e key combination
+      if (e.code === 'Space') {
+        e.preventDefault();
+        spacePressed = true;
+        clearTimeout(spaceTimeout);
+        spaceTimeout = setTimeout(() => { spacePressed = false; }, 500);
+        return;
+      }
+
+      if (spacePressed && e.key === 'e') {
+        e.preventDefault();
+        toggleSidebar();
+        spacePressed = false;
+        clearTimeout(spaceTimeout);
+        return;
+      }
+
       switch (e.key) {
         case 'j':
           window.scrollBy({ top: 90, behavior: 'smooth' });
@@ -151,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 5. Help Modal Toggle
+  // 6. Help Modal Controls
   function toggleHelpModal() {
     if (!helpModal) return;
     helpModal.style.display = helpModal.style.display === 'flex' ? 'none' : 'flex';
