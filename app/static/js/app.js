@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const currentScrollLine = Math.min(
       exactLineCount,
-      Math.max(1, Math.floor(window.scrollY / lineHeight) + 1)
+      Math.max(1, Math.floor((editorPane ? editorPane.scrollTop : 0) / lineHeight) + 1)
     );
 
     let html = '';
@@ -150,9 +150,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateScrollPos() {
-    if (!posEl) return;
-    const total = document.documentElement.scrollHeight - window.innerHeight;
-    const current = window.scrollY;
+    if (!posEl || !editorPane) return;
+    const total = editorPane.scrollHeight - editorPane.clientHeight;
+    const current = editorPane.scrollTop;
     const pct = total > 0 ? Math.round((current / total) * 100) : 0;
     
     let label = `${pct}%`;
@@ -175,7 +175,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  window.addEventListener('scroll', updateScrollPos);
+  if (editorPane) {
+    editorPane.addEventListener('scroll', updateScrollPos);
+  }
   updateScrollPos();
 
   // 6. Live Search
@@ -320,26 +322,26 @@ document.addEventListener('DOMContentLoaded', () => {
             break;
         }
       } else {
-        // EDITOR FOCUS MODE
+        // EDITOR FOCUS MODE - Scroll inside editorPane buffer
         switch (e.key) {
           case 'j':
-            window.scrollBy({ top: 90, behavior: 'smooth' });
+            if (editorPane) editorPane.scrollBy({ top: 90, behavior: 'smooth' });
             break;
           case 'k':
-            window.scrollBy({ top: -90, behavior: 'smooth' });
+            if (editorPane) editorPane.scrollBy({ top: -90, behavior: 'smooth' });
             break;
           case 'g':
             gKeyPressCount++;
             if (gKeyPressCount === 1) {
               gKeyTimeout = setTimeout(() => { gKeyPressCount = 0; }, 500);
             } else if (gKeyPressCount >= 2) {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              if (editorPane) editorPane.scrollTo({ top: 0, behavior: 'smooth' });
               gKeyPressCount = 0;
               clearTimeout(gKeyTimeout);
             }
             break;
           case 'G':
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            if (editorPane) editorPane.scrollTo({ top: editorPane.scrollHeight, behavior: 'smooth' });
             break;
           case '/':
             e.preventDefault();

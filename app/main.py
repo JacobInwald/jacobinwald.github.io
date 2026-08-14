@@ -110,6 +110,8 @@ async def post_detail(request: Request, slug: str):
     if not post:
         raise HTTPException(status_code=404, detail="Article not found")
 
+    hardcover_stats = utils.fetch_hardcover_stats() if slug == "hardcover-reading-stats" else None
+
     return templates.TemplateResponse(
         request=request,
         name="post.html",
@@ -118,6 +120,7 @@ async def post_detail(request: Request, slug: str):
             "description": post.get("summary", SITE_DESCRIPTION),
             "profile": profile,
             "post": post,
+            "hardcover_stats": hardcover_stats,
             "active_page": "blog",
             "site_url": SITE_URL,
         },

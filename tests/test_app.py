@@ -22,13 +22,17 @@ def test_blog_page():
     response = client.get("/blog")
     assert response.status_code == 200
     assert "Articles &amp; Writing" in response.text or "Articles & Writing" in response.text or "blog.md" in response.text
-    assert "Welcome to My New Python-Powered Website" in response.text
+    assert "Web Garden" in response.text or "Hardcover" in response.text
 
 
 def test_post_detail_page():
-    response = client.get("/blog/welcome-to-my-site")
+    response = client.get("/blog/website-garden")
     assert response.status_code == 200
-    assert "Welcome to My New Python-Powered Website" in response.text
+    assert "Web Garden" in response.text
+
+    response2 = client.get("/blog/hardcover-reading-stats")
+    assert response2.status_code == 200
+    assert "Hardcover" in response2.text
 
 
 def test_experience_page():
