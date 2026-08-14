@@ -1,26 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div style="margin-bottom: 2rem;">
-  <a href="/blog" class="text-blue" style="font-size: 1.05rem;">&larr; :e blog.md (back to index)</a>
+<div style="margin-bottom: 1.5rem;">
+  <a href="/blog" class="text-blue">&larr; :e blog.md (back to index)</a>
 </div>
 
-<article style="background: var(--bg-soft); border: 1px solid var(--border-color); padding: 2.5rem; border-radius: var(--radius-md); max-width: 900px; margin: 0 auto;">
-  <header style="border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem; margin-bottom: 2rem;">
-    <div style="font-size: 0.95rem; color: var(--fg-muted); margin-bottom: 0.75rem;">
-      <span class="text-purple">-- [READING BUFFER] --</span> {{ post.date }} &bull; {{ post.read_time }}
-    </div>
-    <h1 style="font-size: 2.5rem; color: var(--fg-bright); margin-bottom: 1rem;">{{ post.title }}</h1>
-    
-    <div class="tags-wrap">
-      {% for tag in post.tags %}
-      <span class="tag-pill">{{ tag }}</span>
-      {% endfor %}
-    </div>
-  </header>
+<div class="content-card" style="padding: 2.25rem;">
+  <div style="font-size: 0.85rem; color: var(--fg-muted); margin-bottom: 0.5rem;">
+    # {{ post.date }} &bull; {{ post.read_time }}
+  </div>
+  <h1 style="font-size: 2.2rem; color: var(--fg-bright); margin-bottom: 1rem;">{{ post.title }}</h1>
 
-  <div class="post-article" style="font-size: 1.15rem; color: var(--fg-normal); line-height: 1.8;">
+  <div style="margin-bottom: 1.5rem;">
+    {% for tag in post.tags %}
+    <span class="badge-tag">{{ tag }}</span>
+    {% endfor %}
+  </div>
+
+  <div class="post-article" style="border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
     {{ post.content_html | safe }}
   </div>
-</article>
+</div>
 {% endblock %}

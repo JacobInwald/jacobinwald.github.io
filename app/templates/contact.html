@@ -1,38 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div style="max-width: 750px; margin: 0 auto;">
-  <h1 style="text-align: center; margin-bottom: 0.5rem;"><span class="text-orange">:Contact</span> execute</h1>
-  <p style="text-align: center; font-size: 1.15rem; color: var(--fg-muted); margin-bottom: 2.5rem;">
-    Submit an engineering inquiry, collaboration request, or message directly to buffer.
-  </p>
+<div style="max-width: 650px;">
+  <div class="code-comment"># contact.sh &mdash; Interactive Message Terminal Buffer</div>
+  <h1 style="font-size: 2rem; color: var(--gruv-yellow); margin: 0.5rem 0 1.5rem;">
+    <span class="text-orange">:execute</span> contact.sh
+  </h1>
 
-  <div style="background: var(--bg-soft); border: 2px solid var(--border-color); padding: 2.5rem; border-radius: var(--radius-md);">
+  <div class="content-card">
     <form id="contact-form">
-      <div style="margin-bottom: 1.5rem;">
-        <label for="name" style="display: block; font-weight: bold; font-size: 1rem; color: var(--gruv-yellow); margin-bottom: 0.5rem;">let name =</label>
-        <input type="text" id="name" style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-hard); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--fg-bright); font-family: var(--font-mono); font-size: 1.05rem;" placeholder='"Your Name"' required>
+      <div style="margin-bottom: 1.25rem;">
+        <label for="name" style="display: block; font-weight: bold; color: var(--gruv-yellow); margin-bottom: 0.35rem;">let name =</label>
+        <input type="text" id="name" style="width: 100%; padding: 0.65rem 0.85rem; background: var(--bg-hard); border: 1px solid var(--border-color); color: var(--fg-bright); font-family: var(--font-mono); font-size: 0.95rem; border-radius: 4px;" placeholder='"Your Name"' required>
       </div>
 
-      <div style="margin-bottom: 1.5rem;">
-        <label for="email" style="display: block; font-weight: bold; font-size: 1rem; color: var(--gruv-yellow); margin-bottom: 0.5rem;">let email =</label>
-        <input type="email" id="email" style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-hard); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--fg-bright); font-family: var(--font-mono); font-size: 1.05rem;" placeholder='"you@example.com"' required>
+      <div style="margin-bottom: 1.25rem;">
+        <label for="email" style="display: block; font-weight: bold; color: var(--gruv-yellow); margin-bottom: 0.35rem;">let email =</label>
+        <input type="email" id="email" style="width: 100%; padding: 0.65rem 0.85rem; background: var(--bg-hard); border: 1px solid var(--border-color); color: var(--fg-bright); font-family: var(--font-mono); font-size: 0.95rem; border-radius: 4px;" placeholder='"you@example.com"' required>
       </div>
 
-      <div style="margin-bottom: 1.5rem;">
-        <label for="subject" style="display: block; font-weight: bold; font-size: 1rem; color: var(--gruv-yellow); margin-bottom: 0.5rem;">let subject =</label>
-        <input type="text" id="subject" style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-hard); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--fg-bright); font-family: var(--font-mono); font-size: 1.05rem;" placeholder='"Project Inquiry / Hello"' required>
+      <div style="margin-bottom: 1.25rem;">
+        <label for="subject" style="display: block; font-weight: bold; color: var(--gruv-yellow); margin-bottom: 0.35rem;">let subject =</label>
+        <input type="text" id="subject" style="width: 100%; padding: 0.65rem 0.85rem; background: var(--bg-hard); border: 1px solid var(--border-color); color: var(--fg-bright); font-family: var(--font-mono); font-size: 0.95rem; border-radius: 4px;" placeholder='"Inquiry / Hello"' required>
       </div>
 
-      <div style="margin-bottom: 1.5rem;">
-        <label for="message" style="display: block; font-weight: bold; font-size: 1rem; color: var(--gruv-yellow); margin-bottom: 0.5rem;">let message = [[</label>
-        <textarea id="message" rows="6" style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-hard); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--fg-bright); font-family: var(--font-mono); font-size: 1.05rem;" placeholder="Write your message here..." required></textarea>
-        <span style="display: block; font-weight: bold; font-size: 1rem; color: var(--gruv-yellow); margin-top: 0.5rem;">]]</span>
+      <div style="margin-bottom: 1.25rem;">
+        <label for="message" style="display: block; font-weight: bold; color: var(--gruv-yellow); margin-bottom: 0.35rem;">let message = [[</label>
+        <textarea id="message" rows="5" style="width: 100%; padding: 0.65rem 0.85rem; background: var(--bg-hard); border: 1px solid var(--border-color); color: var(--fg-bright); font-family: var(--font-mono); font-size: 0.95rem; border-radius: 4px;" placeholder="Write message..." required></textarea>
+        <span style="display: block; font-weight: bold; color: var(--gruv-yellow); margin-top: 0.25rem;">]]</span>
       </div>
 
-      <div id="form-feedback" style="display: none; margin-bottom: 1.5rem; padding: 0.75rem 1rem; border-radius: var(--radius-sm); font-family: var(--font-mono);"></div>
+      <div id="form-feedback" style="display: none; margin-bottom: 1rem; color: var(--gruv-green);"></div>
 
-      <button type="submit" class="nvim-btn nvim-btn-primary" style="width: 100%; justify-content: center; font-size: 1.1rem;">
+      <button type="submit" class="action-btn" style="width: 100%; justify-content: center;">
         :w transmit_message() &rarr;
       </button>
     </form>
