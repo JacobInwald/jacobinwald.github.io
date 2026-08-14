@@ -131,38 +131,74 @@ a:hover {
   font-weight: bold;
 }
 
-/* Main Split Container */
+/* Main Split Container with Floating Gap */
 .nvim-main-split {
   display: flex;
   flex: 1;
   position: relative;
   align-items: stretch;
+  gap: 12px;
+  padding: 10px;
+  background: var(--bg-hard);
 }
 
-/* Fixed / Sticky Left Sidebar Explorer */
+/* Fixed / Sticky Left Sidebar Explorer with Rounded Corners */
 .nvim-explorer {
   width: 280px;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 94px);
   position: sticky;
-  top: 42px;
+  top: 52px;
   background: var(--bg-hard);
-  border-right: 1px solid var(--border-color);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
   overflow-y: auto;
-  transition: margin-left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: margin-left 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s, box-shadow 0.2s;
   user-select: none;
   z-index: 90;
 }
 
 .nvim-explorer.collapsed {
-  margin-left: -280px;
+  margin-left: -292px;
 }
 
 html.explorer-is-collapsed .nvim-explorer {
-  margin-left: -280px !important;
+  margin-left: -292px !important;
   transition: none !important;
+}
+
+/* Right Editor Window with Rounded Corners */
+.nvim-editor-pane {
+  flex: 1;
+  background: var(--bg-normal);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  position: relative;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+}
+
+/* Active Window Focus: Highlight EVERY Edge of the Buffer */
+.nvim-explorer.focus-active {
+  border: 2px solid var(--gruv-yellow) !important;
+  box-shadow: 0 0 18px rgba(250, 189, 47, 0.15);
+}
+
+.nvim-editor-pane.focus-active {
+  border: 2px solid var(--gruv-yellow) !important;
+  box-shadow: 0 0 18px rgba(250, 189, 47, 0.15);
+}
+
+/* Suppress active focus border when only the page buffer is open (Explorer collapsed) */
+.nvim-explorer.collapsed ~ .nvim-editor-pane.focus-active,
+html.explorer-is-collapsed .nvim-editor-pane.focus-active {
+  border-color: var(--border-color) !important;
+  box-shadow: none !important;
 }
 
 .explorer-header {
@@ -221,6 +257,7 @@ html.explorer-is-collapsed .nvim-explorer {
   color: var(--fg-muted);
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
+  border-left: 3px solid transparent;
 }
 
 .tree-item:hover {
@@ -234,14 +271,11 @@ html.explorer-is-collapsed .nvim-explorer {
   font-weight: bold;
 }
 
-/* Right Editor Window */
-.nvim-editor-pane {
-  flex: 1;
-  background: var(--bg-normal);
-  display: flex;
-  min-width: 0;
-  align-items: flex-start;
-  position: relative;
+.tree-item.tree-keyboard-focused {
+  background: var(--bg-soft) !important;
+  border-left: 3px solid var(--gruv-yellow) !important;
+  color: var(--gruv-yellow) !important;
+  font-weight: bold;
 }
 
 .line-numbers-gutter {
@@ -277,7 +311,7 @@ html.explorer-is-collapsed .nvim-explorer {
   margin: 0 auto;
 }
 
-/* Authentic Powerline Lualine Status Bar matching screenshot */
+/* Authentic Powerline Lualine Status Bar */
 .lualine-bar {
   display: flex;
   align-items: center;

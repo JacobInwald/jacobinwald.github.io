@@ -58,9 +58,9 @@
       </div>
     </div>
 
-    <!-- Main Split Window: Fixed Left Explorer + Right Scrollable Editor -->
+    <!-- Main Split Window: Floating Gap + Rounded Buffer Splits -->
     <div class="nvim-main-split">
-      <!-- Fixed Left Sidebar Explorer -->
+      <!-- Left Sidebar Explorer (Rounded Corners, All-Edge Highlight on Focus) -->
       <aside class="nvim-explorer" id="nvim-explorer">
         <div class="explorer-header">
           <div class="explorer-title">
@@ -111,8 +111,8 @@
         </div>
       </aside>
 
-      <!-- Right Editor Pane (Scrolls independently) -->
-      <div class="nvim-editor-pane">
+      <!-- Right Editor Pane (Rounded Corners, All-Edge Highlight on Focus) -->
+      <div class="nvim-editor-pane focus-active" id="nvim-editor-pane">
         <div class="line-numbers-gutter" id="line-numbers-gutter">
           <!-- Dynamically generated all the way down by JS -->
         </div>
@@ -122,14 +122,14 @@
       </div>
     </div>
 
-    <!-- Powerline Lualine Status Bar matching user screenshot -->
+    <!-- Powerline Lualine Status Bar -->
     <footer class="lualine-bar">
       <div class="lualine-section-left">
         <div class="lualine-mode-block" id="lualine-mode">NORMAL</div>
         <div class="lualine-branch-block">
           <i class="fa-solid fa-code-branch"></i> jacob/main/nvim
         </div>
-        <div class="lualine-file-block">
+        <div class="lualine-file-block" id="lualine-buffer-info">
           <i class="fa-solid fa-bars-staggered"></i> {{ active_page }}.buffer
         </div>
       </div>
@@ -155,26 +155,30 @@
         <h2 style="margin: 0; color: var(--gruv-yellow); font-family: var(--font-mono);"><i class="fa-solid fa-keyboard"></i> Vim Keybindings</h2>
         <button class="action-btn" id="close-help-btn">Esc</button>
       </div>
-      
+
+      <div class="key-row">
+        <span>Switch Tabs Left / Right</span>
+        <div><span class="key-cap">Shift</span> <span class="key-cap">H</span> / <span class="key-cap">Shift</span> <span class="key-cap">L</span></div>
+      </div>
+      <div class="key-row">
+        <span>Switch Focus Explorer / Editor</span>
+        <div><span class="key-cap">Ctrl</span> <span class="key-cap">H</span> / <span class="key-cap">Ctrl</span> <span class="key-cap">L</span></div>
+      </div>
+      <div class="key-row">
+        <span>Active Buffer Highlight</span>
+        <div>All 4 edges highlighted on active rounded split</div>
+      </div>
+      <div class="key-row">
+        <span>Explorer Mode Nav / Select</span>
+        <div><span class="key-cap">j</span>/<span class="key-cap">k</span> to move, <span class="key-cap">Enter</span> to open</div>
+      </div>
+      <div class="key-row">
+        <span>Editor Mode Scroll</span>
+        <div><span class="key-cap">j</span>/<span class="key-cap">k</span> down/up, <span class="key-cap">gg</span>/<span class="key-cap">G</span> top/bottom</div>
+      </div>
       <div class="key-row">
         <span>Toggle Explorer Sidebar</span>
         <div><span class="key-cap">Space</span> <span class="key-cap">e</span></div>
-      </div>
-      <div class="key-row">
-        <span>Scroll Down / Up</span>
-        <div><span class="key-cap">j</span> / <span class="key-cap">k</span></div>
-      </div>
-      <div class="key-row">
-        <span>Jump to Top of Page</span>
-        <div><span class="key-cap">gg</span></div>
-      </div>
-      <div class="key-row">
-        <span>Jump to Bottom of Page</span>
-        <div><span class="key-cap">G</span></div>
-      </div>
-      <div class="key-row">
-        <span>Switch Page Buffers (1 to 5)</span>
-        <div><span class="key-cap">1</span> .. <span class="key-cap">5</span></div>
       </div>
       <div class="key-row">
         <span>Focus Explorer Search</span>
@@ -186,7 +190,7 @@
       </div>
       
       <div style="margin-top: 1.5rem; color: var(--fg-muted); font-size: 0.9rem; text-align: center;">
-        Shortcuts active everywhere!
+        Full Neovim Window Split & Tab Control Active!
       </div>
     </div>
   </div>

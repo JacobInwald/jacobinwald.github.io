@@ -1,14 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
   let mode = 'NORMAL';
+  let activeFocus = 'EDITOR'; // 'EDITOR' | 'EXPLORER'
   let gKeyPressCount = 0;
   let gKeyTimeout = null;
   let spacePressed = false;
   let spaceTimeout = null;
+  let treeKeyboardIndex = -1;
 
+  const tabs = ['/', '/projects', '/blog', '/experience', '/contact'];
+  
   const modeEl = document.getElementById('lualine-mode');
   const posEl = document.getElementById('lualine-pos');
   const timeEl = document.getElementById('lualine-time');
+  const bufferInfoEl = document.getElementById('lualine-buffer-info');
   const explorer = document.getElementById('nvim-explorer');
+  const editorPane = document.getElementById('nvim-editor-pane');
   const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
   const explorerSearch = document.getElementById('explorer-search');
   const projectSearchInput = document.getElementById('project-search');
@@ -18,7 +24,60 @@ document.addEventListener('DOMContentLoaded', () => {
   const gutter = document.getElementById('line-numbers-gutter');
   const editorBody = document.querySelector('.editor-body');
 
-  // 1. Line Numbers Calculation
+  // 1. Set Active Window Focus (Explorer vs Editor) & Highlight Borders
+  function setFocus(targetFocus) {
+    activeFocus = targetFocus;
+    if (activeFocus === 'EXPLORER') {
+      if (explorer && explorer.classList.contains('collapsed')) {
+        toggleSidebar();
+      }
+      if (explorer) explorer.classList.add('focus-active');
+      if (editorPane) editorPane.classList.remove('focus-active');
+      if (bufferInfoEl) bufferInfoEl.innerHTML = '<i class="fa-solid fa-folder-open"></i> [EXPLORER FOCUS]';
+
+      // Highlight initial tree item if not set
+      const visibleItems = getVisibleTreeItems();
+      if (visibleItems.length > 0 && treeKeyboardIndex === -1) {
+        setTreeItemFocus(0);
+      }
+    } else {
+      if (editorPane) editorPane.classList.add('focus-active');
+      if (explorer) explorer.classList.remove('focus-active');
+      if (bufferInfoEl) {
+        const path = window.location.pathname === '/' ? 'index' : window.location.pathname.replace(/^\//, '');
+        bufferInfoEl.innerHTML = `<i class="fa-solid fa-bars-staggered"></i> ${path}.buffer`;
+      }
+      clearTreeItemFocus();
+    }
+  }
+
+  function getVisibleTreeItems() {
+    return Array.from(document.querySelectorAll('#explorer-tree .tree-item')).filter(
+      item => item.style.display !== 'none'
+    );
+  }
+
+  function setTreeItemFocus(idx) {
+    const visibleItems = getVisibleTreeItems();
+    if (visibleItems.length === 0) return;
+    
+    treeKeyboardIndex = Math.max(0, Math.min(visibleItems.length - 1, idx));
+    visibleItems.forEach((item, i) => {
+      if (i === treeKeyboardIndex) {
+        item.classList.add('tree-keyboard-focused');
+        item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      } else {
+        item.classList.remove('tree-keyboard-focused');
+      }
+    });
+  }
+
+  function clearTreeItemFocus() {
+    treeKeyboardIndex = -1;
+    document.querySelectorAll('#explorer-tree .tree-item').forEach(i => i.classList.remove('tree-keyboard-focused'));
+  }
+
+  // 2. Line Numbers Calculation
   function generateLineNumbers() {
     if (!gutter || !editorBody) return;
 
@@ -44,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
   generateLineNumbers();
   window.addEventListener('resize', generateLineNumbers);
 
-  // 2. Sidebar Toggle
+  // 3. Sidebar Toggle
   function toggleSidebar() {
     if (!explorer) return;
     explorer.classList.toggle('collapsed');
@@ -64,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sidebarToggleBtn.addEventListener('click', toggleSidebar);
   }
 
-  // 3. Time Update
+  // 4. Live Time Update
   function updateTime() {
     if (!timeEl) return;
     const now = new Date();
@@ -75,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(updateTime, 10000);
   updateTime();
 
-  // 4. Statusline Mode & Scroll Pos (Matching screenshot: 39% 189:16)
+  // 5. Statusline Mode & Scroll Pos
   function setMode(newMode) {
     mode = newMode;
     if (!modeEl) return;
@@ -118,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', updateScrollPos);
   updateScrollPos();
 
-  // 5. Live Search
+  // 6. Live Search
   if (explorerSearch) {
     explorerSearch.addEventListener('focus', () => setMode('SEARCH'));
     explorerSearch.addEventListener('blur', () => setMode('NORMAL'));
@@ -136,10 +195,31 @@ document.addEventListener('DOMContentLoaded', () => {
         const text = card.textContent.toLowerCase();
         card.style.display = (!q || text.includes(q)) ? 'block' : 'none';
       });
+
+      if (activeFocus === 'EXPLORER') setTreeItemFocus(0);
     });
   }
 
-  // 6. Vim Shortcuts
+  // 7. Tab Switching Helpers (H / L)
+  function navigateTab(direction) {
+    let currentPath = window.location.pathname;
+    if (currentPath.endsWith('/') && currentPath.length > 1) {
+      currentPath = currentPath.slice(0, -1);
+    }
+    
+    let currIdx = tabs.indexOf(currentPath);
+    if (currIdx === -1) currIdx = 0;
+
+    let targetIdx;
+    if (direction === 'left') {
+      targetIdx = (currIdx - 1 + tabs.length) % tabs.length;
+    } else {
+      targetIdx = (currIdx + 1) % tabs.length;
+    }
+    window.location.href = tabs[targetIdx];
+  }
+
+  // 8. Master Neovim Keyboard Shortcuts Engine
   document.addEventListener('keydown', (e) => {
     const isEditing = ['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName);
 
@@ -152,13 +232,39 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('#explorer-tree .tree-item').forEach(i => i.style.display = 'flex');
       document.querySelectorAll('.project-card').forEach(c => c.style.display = 'block');
       
+      setFocus('EDITOR');
       setMode('NORMAL');
       return;
     }
 
     if (isEditing) return;
 
+    // Ctrl + H / Ctrl + L for switching window split focus
+    if (e.ctrlKey && (e.key === 'h' || e.key === 'H')) {
+      e.preventDefault();
+      setFocus('EXPLORER');
+      return;
+    }
+    if (e.ctrlKey && (e.key === 'l' || e.key === 'L')) {
+      e.preventDefault();
+      setFocus('EDITOR');
+      return;
+    }
+
+    // Shift + H / H for Tab Left, Shift + L / L for Tab Right
+    if (e.key === 'H' || (e.shiftKey && (e.key === 'h' || e.key === 'H'))) {
+      e.preventDefault();
+      navigateTab('left');
+      return;
+    }
+    if (e.key === 'L' || (e.shiftKey && (e.key === 'l' || e.key === 'L'))) {
+      e.preventDefault();
+      navigateTab('right');
+      return;
+    }
+
     if (mode === 'NORMAL') {
+      // Space e to toggle Explorer
       if (e.code === 'Space') {
         e.preventDefault();
         spacePressed = true;
@@ -175,59 +281,100 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      switch (e.key) {
-        case 'j':
-          window.scrollBy({ top: 90, behavior: 'smooth' });
-          break;
-        case 'k':
-          window.scrollBy({ top: -90, behavior: 'smooth' });
-          break;
-        case 'g':
-          gKeyPressCount++;
-          if (gKeyPressCount === 1) {
-            gKeyTimeout = setTimeout(() => { gKeyPressCount = 0; }, 500);
-          } else if (gKeyPressCount >= 2) {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            gKeyPressCount = 0;
-            clearTimeout(gKeyTimeout);
-          }
-          break;
-        case 'G':
-          window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-          break;
-        case '/':
-          e.preventDefault();
-          if (explorerSearch) {
-            explorerSearch.focus();
-          } else if (projectSearchInput) {
-            projectSearchInput.focus();
-          }
-          break;
-        case '?':
-          e.preventDefault();
-          toggleHelpModal();
-          break;
+      // Context-aware Vim Keybindings (Explorer Focus vs Editor Focus)
+      if (activeFocus === 'EXPLORER') {
+        const visibleItems = getVisibleTreeItems();
+        if (visibleItems.length === 0) return;
 
-        case '1':
-          window.location.href = '/';
-          break;
-        case '2':
-          window.location.href = '/projects';
-          break;
-        case '3':
-          window.location.href = '/blog';
-          break;
-        case '4':
-          window.location.href = '/experience';
-          break;
-        case '5':
-          window.location.href = '/contact';
-          break;
+        switch (e.key) {
+          case 'j':
+          case 'ArrowDown':
+            e.preventDefault();
+            setTreeItemFocus(treeKeyboardIndex + 1);
+            break;
+          case 'k':
+          case 'ArrowUp':
+            e.preventDefault();
+            setTreeItemFocus(treeKeyboardIndex - 1);
+            break;
+          case 'Enter':
+          case 'l':
+            e.preventDefault();
+            if (treeKeyboardIndex >= 0 && visibleItems[treeKeyboardIndex]) {
+              visibleItems[treeKeyboardIndex].click();
+            }
+            break;
+          case 'g':
+            gKeyPressCount++;
+            if (gKeyPressCount === 1) {
+              gKeyTimeout = setTimeout(() => { gKeyPressCount = 0; }, 500);
+            } else if (gKeyPressCount >= 2) {
+              setTreeItemFocus(0);
+              gKeyPressCount = 0;
+              clearTimeout(gKeyTimeout);
+            }
+            break;
+          case 'G':
+            setTreeItemFocus(visibleItems.length - 1);
+            break;
+        }
+      } else {
+        // EDITOR FOCUS MODE
+        switch (e.key) {
+          case 'j':
+            window.scrollBy({ top: 90, behavior: 'smooth' });
+            break;
+          case 'k':
+            window.scrollBy({ top: -90, behavior: 'smooth' });
+            break;
+          case 'g':
+            gKeyPressCount++;
+            if (gKeyPressCount === 1) {
+              gKeyTimeout = setTimeout(() => { gKeyPressCount = 0; }, 500);
+            } else if (gKeyPressCount >= 2) {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              gKeyPressCount = 0;
+              clearTimeout(gKeyTimeout);
+            }
+            break;
+          case 'G':
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            break;
+          case '/':
+            e.preventDefault();
+            if (explorerSearch) {
+              explorerSearch.focus();
+            } else if (projectSearchInput) {
+              projectSearchInput.focus();
+            }
+            break;
+          case '?':
+            e.preventDefault();
+            toggleHelpModal();
+            break;
+
+          // Quick 1..5 Buffer Nav
+          case '1':
+            window.location.href = '/';
+            break;
+          case '2':
+            window.location.href = '/projects';
+            break;
+          case '3':
+            window.location.href = '/blog';
+            break;
+          case '4':
+            window.location.href = '/experience';
+            break;
+          case '5':
+            window.location.href = '/contact';
+            break;
+        }
       }
     }
   });
 
-  // 7. Modal
+  // 9. Help Modal
   function toggleHelpModal() {
     if (!helpModal) return;
     helpModal.style.display = helpModal.style.display === 'flex' ? 'none' : 'flex';
