@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="margin-bottom: 2rem;">
+  <a href="/blog" class="link-btn">&larr; Back to all articles</a>
+</div>
+
+<header class="post-header">
+  <div class="post-meta">
+    <span>Published {{ post.date }}</span>
+    <span>&bull;</span>
+    <span>{{ post.read_time }}</span>
+  </div>
+  <h1 class="hero-title" style="font-size: 2.75rem; margin-bottom: 1.5rem;">{{ post.title }}</h1>
+  
+  <div style="display: flex; gap: 0.5rem; justify-content: center;">
+    {% for tag in post.tags %}
+    <span class="tag-item">{{ tag }}</span>
+    {% endfor %}
+  </div>
+</header>
+
+<article class="post-article card" style="padding: 2.5rem;">
+  {{ post.content_html | safe }}
+</article>
+{% endblock %}

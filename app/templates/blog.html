@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section style="margin-bottom: 3rem;">
+  <h1 class="hero-title">Technical Blog & Articles</h1>
+  <p class="hero-description">
+    Insights into Python web application design, performance optimizations, and cloud infrastructure.
+  </p>
+</section>
+
+<div class="grid-2">
+  {% for post in posts %}
+  <div class="card">
+    <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+      {{ post.date }} &bull; {{ post.read_time }}
+    </div>
+    <h2 class="card-title">
+      <a href="/blog/{{ post.slug }}">{{ post.title }}</a>
+    </h2>
+    <p class="card-description">{{ post.summary }}</p>
+
+    <div class="tag-list">
+      {% for tag in post.tags %}
+      <span class="tag-item">{{ tag }}</span>
+      {% endfor %}
+    </div>
+    
+    <div class="card-footer">
+      <a href="/blog/{{ post.slug }}" class="link-btn">Read Full Article &rarr;</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

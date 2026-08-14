@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section style="margin-bottom: 3rem;">
+  <h1 class="hero-title">Software Projects & Systems</h1>
+  <p class="hero-description">
+    Explore open source software, Python web applications, microservices, and automation pipelines.
+  </p>
+
+  <!-- Filter & Search Toolbar -->
+  <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; margin-top: 2rem;">
+    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+      <button class="btn btn-secondary filter-btn active" data-filter="all">All</button>
+      {% for cat in categories %}
+      <button class="btn btn-secondary filter-btn" data-filter="{{ cat }}">{{ cat }}</button>
+      {% endfor %}
+    </div>
+
+    <div style="max-width: 300px; width: 100%;">
+      <input type="text" id="project-search" class="form-input" placeholder="Search projects or technologies...">
+    </div>
+  </div>
+</section>
+
+<!-- Projects Grid -->
+<div class="grid-3">
+  {% for project in projects %}
+  <div class="card project-card" data-category="{{ project.category }}">
+    <span class="card-tag">{{ project.category }}</span>
+    <h3 class="card-title">{{ project.title }}</h3>
+    <p class="card-description">{{ project.description }}</p>
+    
+    <div class="tag-list">
+      {% for tag in project.tags %}
+      <span class="tag-item">{{ tag }}</span>
+      {% endfor %}
+    </div>
+
+    <div class="card-footer">
+      {% if project.github_url %}
+      <a href="{{ project.github_url }}" target="_blank" rel="noopener" class="link-btn">GitHub</a>
+      {% endif %}
+      {% if project.demo_url %}
+      <a href="{{ project.demo_url }}" target="_blank" rel="noopener" class="link-btn">Live Demo &rarr;</a>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

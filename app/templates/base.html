@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}">
+  <meta name="author" content="{{ profile.name }}">
+  
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site_url }}">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="{{ description }}">
+  <link rel="canonical" href="{{ site_url }}">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/static/css/main.css">
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml">
+</head>
+<body>
+  <!-- Navigation Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="/" class="brand-logo" id="nav-brand">
+        <div class="logo-badge">JI</div>
+        <span>{{ profile.name }}</span>
+      </a>
+      
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/" class="nav-link {% if active_page == 'home' %}active{% endif %}" id="nav-home">Home</a></li>
+          <li><a href="/projects" class="nav-link {% if active_page == 'projects' %}active{% endif %}" id="nav-projects">Projects</a></li>
+          <li><a href="/blog" class="nav-link {% if active_page == 'blog' %}active{% endif %}" id="nav-blog">Blog</a></li>
+          <li><a href="/experience" class="nav-link {% if active_page == 'experience' %}active{% endif %}" id="nav-experience">Experience</a></li>
+          <li><a href="/contact" class="nav-link {% if active_page == 'contact' %}active{% endif %}" id="nav-contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn-icon" id="theme-toggle" aria-label="Toggle Dark/Light Mode">
+          <span id="theme-icon">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-text">
+        &copy; 2026 {{ profile.name }}. Built with <strong>Python & FastAPI</strong>.
+      </div>
+      <div style="display: flex; gap: 1rem;">
+        {% if profile.social.github %}
+        <a href="{{ profile.social.github }}" target="_blank" rel="noopener" class="link-btn">GitHub</a>
+        {% endif %}
+        {% if profile.social.linkedin %}
+        <a href="{{ profile.social.linkedin }}" target="_blank" rel="noopener" class="link-btn">LinkedIn</a>
+        {% endif %}
+        <a href="/rss.xml" class="link-btn">RSS Feed</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "name": "Jacob Inwald",
+  "title": "Software Engineer & Systems Architect",
+  "headline": "Building elegant, scalable web applications & cloud software solutions.",
+  "location": "London, United Kingdom",
+  "bio": "I am a passionate software engineer specializing in Python, modern web development, API design, and cloud workflows. I design high-performance applications with clean architecture and delightful user experiences.",
+  "status": "Open to new engineering challenges & collaborations",
+  "stats": [
+    { "label": "Years Experience", "value": "5+" },
+    { "label": "Projects Completed", "value": "30+" },
+    { "label": "Code Commits", "value": "2.5k+" },
+    { "label": "Uptime", "value": "99.9%" }
+  ],
+  "social": {
+    "github": "https://github.com/JacobInwald",
+    "linkedin": "https://linkedin.com/in/jacobinwald",
+    "email": "Jacob.Inwald@Hotmail.com"
+  },
+  "skill_categories": [
+    {
+      "name": "Backend & Core",
+      "skills": ["Python", "FastAPI", "Flask", "Django", "REST APIs", "AsyncIO", "Pydantic"]
+    },
+    {
+      "name": "Frontend & Design",
+      "skills": ["HTML5", "CSS3 / Vanilla CSS", "JavaScript (ES6+)", "Responsive Design", "Jinja2", "UI/UX"]
+    },
+    {
+      "name": "DevOps & Cloud",
+      "skills": ["Docker", "GitHub Actions", "uv / Package Management", "Linux", "CI/CD Pipelines", "Git"]
+    },
+    {
+      "name": "Databases & Tools",
+      "skills": ["PostgreSQL", "SQLite", "Redis", "pytest", "Ruff", "VS Code"]
+    }
+  ]
+}

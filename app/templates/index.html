@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+  <div>
+    <div class="hero-tag">
+      <span class="pulse-dot"></span>
+      {{ profile.status }}
+    </div>
+    <h1 class="hero-title">
+      Hi, I'm <span class="text-gradient">{{ profile.name }}</span>.<br>
+      {{ profile.title }}.
+    </h1>
+    <p class="hero-description">
+      {{ profile.bio }}
+    </p>
+    <div class="hero-cta">
+      <a href="/projects" class="btn btn-primary" id="hero-cta-projects">
+        View Projects
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
+      <a href="/contact" class="btn btn-secondary" id="hero-cta-contact">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-widget">
+    <div class="widget-header">
+      <div class="window-dots">
+        <span class="dot dot-red"></span>
+        <span class="dot dot-yellow"></span>
+        <span class="dot dot-green"></span>
+      </div>
+      <span style="font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono);">app/main.py</span>
+    </div>
+    <div class="code-block">
+      <div><span class="code-keyword">from</span> fastapi <span class="code-keyword">import</span> FastAPI</div>
+      <div><span class="code-keyword">import</span> uvicorn</div>
+      <br>
+      <div><span class="code-var">app</span> = FastAPI(title=<span class="code-str">"{{ profile.name }} Site"</span>)</div>
+      <br>
+      <div><span class="code-func">@app.get</span>(<span class="code-str">"/"</span>)</div>
+      <div><span class="code-keyword">async def</span> <span class="code-func">index</span>():</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> {</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">"engineer"</span>: <span class="code-str">"{{ profile.name }}"</span>,</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">"location"</span>: <span class="code-str">"{{ profile.location }}"</span>,</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">"status"</span>: <span class="code-str">"online"</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Grid -->
+<section class="stats-grid">
+  {% for stat in profile.stats %}
+  <div class="stat-box">
+    <div class="stat-value">{{ stat.value }}</div>
+    <div class="stat-label">{{ stat.label }}</div>
+  </div>
+  {% endfor %}
+</section>
+
+<!-- Featured Projects -->
+<section style="margin-bottom: 4rem;">
+  <div class="section-title-wrap">
+    <div>
+      <h2 class="section-title">Featured Projects</h2>
+      <p class="section-subtitle">A collection of open source tools, Python applications, and cloud systems.</p>
+    </div>
+    <a href="/projects" class="link-btn">View All Projects &rarr;</a>
+  </div>
+
+  <div class="grid-3">
+    {% for project in projects %}
+    <div class="card">
+      <span class="card-tag">{{ project.category }}</span>
+      <h3 class="card-title">{{ project.title }}</h3>
+      <p class="card-description">{{ project.description }}</p>
+      
+      <div class="tag-list">
+        {% for tag in project.tags %}
+        <span class="tag-item">{{ tag }}</span>
+        {% endfor %}
+      </div>
+
+      <div class="card-footer">
+        {% if project.github_url %}
+        <a href="{{ project.github_url }}" target="_blank" rel="noopener" class="link-btn">GitHub</a>
+        {% endif %}
+        {% if project.demo_url %}
+        <a href="{{ project.demo_url }}" target="_blank" rel="noopener" class="link-btn">Live Demo &rarr;</a>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Latest Articles -->
+<section>
+  <div class="section-title-wrap">
+    <div>
+      <h2 class="section-title">Recent Writing</h2>
+      <p class="section-subtitle">Articles on Python engineering, performance, and web architecture.</p>
+    </div>
+    <a href="/blog" class="link-btn">Browse All Posts &rarr;</a>
+  </div>
+
+  <div class="grid-2">
+    {% for post in posts %}
+    <div class="card">
+      <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+        {{ post.date }} &bull; {{ post.read_time }}
+      </div>
+      <h3 class="card-title">
+        <a href="/blog/{{ post.slug }}">{{ post.title }}</a>
+      </h3>
+      <p class="card-description">{{ post.summary }}</p>
+      
+      <div class="card-footer">
+        <a href="/blog/{{ post.slug }}" class="link-btn">Read Article &rarr;</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

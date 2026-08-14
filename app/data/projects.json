@@ -1,0 +1,50 @@
+[
+  {
+    "id": "jacobinwald-site",
+    "title": "Personal Website & Blog Engine",
+    "description": "High-performance Python web application built with FastAPI, Jinja2, uv, and automated GitHub Actions publishing pipelines.",
+    "category": "Web Application",
+    "tags": ["Python", "FastAPI", "Jinja2", "uv", "GitHub Actions"],
+    "github_url": "https://github.com/JacobInwald/jacobinwald.github.io",
+    "demo_url": "https://jacobinwald.github.io",
+    "featured": true,
+    "accent_color": "from-indigo-500 to-purple-600",
+    "stars": 12
+  },
+  {
+    "id": "fast-api-microservices",
+    "title": "Async Microservice Toolkit",
+    "description": "A production-grade Python async microservice boilerplate with openapi validation, telemetry, rate limiting, and Docker integration.",
+    "category": "Backend",
+    "tags": ["Python", "FastAPI", "AsyncIO", "Docker", "PostgreSQL"],
+    "github_url": "https://github.com/JacobInwald",
+    "demo_url": null,
+    "featured": true,
+    "accent_color": "from-emerald-500 to-teal-600",
+    "stars": 45
+  },
+  {
+    "id": "cloud-pipeline-automation",
+    "title": "Cloud CI/CD Pipeline Automation",
+    "description": "Automated deployment workflows using GitHub Actions and Python scripts for multi-environment cloud publishing.",
+    "category": "DevOps",
+    "tags": ["GitHub Actions", "Python", "Docker", "DevOps"],
+    "github_url": "https://github.com/JacobInwald",
+    "demo_url": null,
+    "featured": true,
+    "accent_color": "from-amber-500 to-orange-600",
+    "stars": 28
+  },
+  {
+    "id": "data-stream-processor",
+    "title": "Real-time Event Stream Processor",
+    "description": "Lightweight Python event streamer parsing high-throughput log queues with sub-millisecond latency.",
+    "category": "Python",
+    "tags": ["Python", "AsyncIO", "Redis", "Streaming"],
+    "github_url": "https://github.com/JacobInwald",
+    "demo_url": null,
+    "featured": false,
+    "accent_color": "from-cyan-500 to-blue-600",
+    "stars": 19
+  }
+]

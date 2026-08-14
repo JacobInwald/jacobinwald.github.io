@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - SITE_URL=http://localhost:8000
+    volumes:
+      - ./app:/app/app
+    restart: unless-stopped

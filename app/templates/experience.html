@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section style="margin-bottom: 3.5rem;">
+  <h1 class="hero-title">Career & Experience</h1>
+  <p class="hero-description">
+    A summary of software engineering roles, key projects, and technical skills.
+  </p>
+</section>
+
+<!-- Timeline & Skills split -->
+<div style="display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 3rem;">
+  <div>
+    <h2 class="section-title" style="margin-bottom: 2rem;">Experience Timeline</h2>
+    
+    <div class="timeline">
+      {% for item in experience %}
+      <div class="timeline-item">
+        <div class="timeline-period">{{ item.period }}</div>
+        <div class="timeline-role">{{ item.role }}</div>
+        <div class="timeline-company">{{ item.company }} &bull; {{ item.location }}</div>
+        <p style="color: var(--text-secondary); margin-bottom: 1rem;">{{ item.description }}</p>
+        
+        <ul style="padding-left: 1.25rem; color: var(--text-secondary); font-size: 0.95rem;">
+          {% for hl in item.highlights %}
+          <li style="margin-bottom: 0.35rem;">{{ hl }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div>
+    <h2 class="section-title" style="margin-bottom: 2rem;">Technical Skills</h2>
+    
+    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+      {% for cat in profile.skill_categories %}
+      <div class="card">
+        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: var(--accent-primary);">
+          {{ cat.name }}
+        </h3>
+        <div class="tag-list" style="margin-bottom: 0;">
+          {% for skill in cat.skills %}
+          <span class="tag-item">{{ skill }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
