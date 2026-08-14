@@ -31,7 +31,6 @@
 }
 
 html, body {
-  min-height: 100vh;
   background-color: var(--bg-hard);
   color: var(--fg-normal);
   font-family: var(--font-mono);
@@ -136,8 +135,8 @@ a:hover {
 .nvim-main-split {
   display: flex;
   flex: 1;
-  min-height: calc(100vh - 74px);
   position: relative;
+  align-items: stretch;
 }
 
 /* Fixed / Sticky Left Sidebar Explorer */
@@ -236,21 +235,28 @@ a:hover {
   background: var(--bg-normal);
   display: flex;
   min-width: 0;
+  align-items: flex-start; /* Prevents gutter from stretching parent height */
+  position: relative;
 }
 
 .line-numbers-gutter {
   width: 55px;
-  padding: 2rem 0.6rem 2rem 0;
+  padding-top: 2rem;
   text-align: right;
+  padding-right: 0.6rem;
   color: var(--fg-dim);
   font-size: 0.9rem;
   user-select: none;
   background: var(--bg-normal);
   border-right: 1px solid rgba(255, 255, 255, 0.03);
+  flex-shrink: 0;
+  overflow: hidden; /* Stops line elements from stretching height */
+  pointer-events: none;
 }
 
 .line-numbers-gutter div {
   line-height: 1.8;
+  height: 28.8px;
 }
 
 .line-numbers-gutter div.current {
@@ -260,7 +266,7 @@ a:hover {
 
 .editor-body {
   flex: 1;
-  padding: 2rem 3rem 4rem;
+  padding: 2rem 3rem 2rem;
   max-width: 1100px;
 }
 
@@ -320,6 +326,10 @@ a:hover {
   border-radius: 8px;
   margin-bottom: 1.75rem;
   transition: all 0.2s ease;
+}
+
+.content-card:last-child {
+  margin-bottom: 0;
 }
 
 .content-card:hover {

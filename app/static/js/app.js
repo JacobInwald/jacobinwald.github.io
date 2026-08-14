@@ -15,8 +15,37 @@ document.addEventListener('DOMContentLoaded', () => {
   const helpModal = document.getElementById('vim-help-modal');
   const helpToggleBtn = document.getElementById('help-toggle');
   const closeHelpBtn = document.getElementById('close-help-btn');
+  const gutter = document.getElementById('line-numbers-gutter');
+  const editorBody = document.querySelector('.editor-body');
 
-  // 1. Sidebar Toggle Logic
+  // 1. Calculate Line Numbers Strictly Based on Content Height Without Feedback Loops
+  function generateLineNumbers() {
+    if (!gutter || !editorBody) return;
+
+    const contentHeight = editorBody.clientHeight;
+    const lineHeight = 28.8; // Exact height per line
+    const exactLineCount = Math.max(1, Math.round(contentHeight / lineHeight));
+    
+    // Only update innerHTML if line count actually changed to prevent DOM thrashing
+    if (gutter.children.length === exactLineCount) return;
+
+    const currentScrollLine = Math.min(
+      exactLineCount,
+      Math.max(1, Math.floor(window.scrollY / lineHeight) + 1)
+    );
+
+    let html = '';
+    for (let i = 1; i <= exactLineCount; i++) {
+      const isCurrent = i === currentScrollLine;
+      html += `<div class="${isCurrent ? 'current' : ''}">${i}</div>`;
+    }
+    gutter.innerHTML = html;
+  }
+
+  generateLineNumbers();
+  window.addEventListener('resize', generateLineNumbers);
+
+  // 2. Sidebar Toggle Logic
   function toggleSidebar() {
     if (!explorer) return;
     explorer.classList.toggle('collapsed');
@@ -24,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('explorer-collapsed', isCollapsed ? 'true' : 'false');
   }
 
-  // Restore saved sidebar collapsed state
   if (localStorage.getItem('explorer-collapsed') === 'true' && explorer) {
     explorer.classList.add('collapsed');
   }
@@ -33,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sidebarToggleBtn.addEventListener('click', toggleSidebar);
   }
 
-  // 2. Live Time Update
+  // 3. Live Time Update
   function updateTime() {
     if (!timeEl) return;
     const now = new Date();
@@ -44,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(updateTime, 10000);
   updateTime();
 
-  // 3. Statusline & Mode Handling
+  // 4. Statusline & Mode Handling
   function setMode(newMode) {
     mode = newMode;
     if (!modeEl) return;
@@ -68,14 +96,27 @@ document.addEventListener('DOMContentLoaded', () => {
     if (current === 0) label = 'Top';
     else if (pct >= 99) label = 'Bot';
 
-    const line = Math.floor(current / 28) + 1;
+    const line = Math.floor(current / 28.8) + 1;
     posEl.textContent = `Ln ${line}, ${label}`;
+
+    // Highlight current line number in gutter
+    if (gutter && gutter.children.length > 0) {
+      const lineDivs = gutter.children;
+      const targetIdx = Math.min(lineDivs.length - 1, line - 1);
+      for (let i = 0; i < lineDivs.length; i++) {
+        if (i === targetIdx) {
+          lineDivs[i].classList.add('current');
+        } else {
+          lineDivs[i].classList.remove('current');
+        }
+      }
+    }
   }
 
   window.addEventListener('scroll', updateScrollPos);
   updateScrollPos();
 
-  // 4. Explorer Sidebar Live Search
+  // 5. Explorer Sidebar Live Search
   if (explorerSearch) {
     explorerSearch.addEventListener('focus', () => setMode('SEARCH'));
     explorerSearch.addEventListener('blur', () => setMode('NORMAL'));
@@ -96,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 5. Vim Keyboard Engine (<Space> e sequence + j/k + 1..5)
+  // 6. Vim Keyboard Engine (<Space> e + j/k + 1..5)
   document.addEventListener('keydown', (e) => {
     const isEditing = ['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName);
 
@@ -186,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 6. Help Modal Controls
+  // 7. Help Modal Controls
   function toggleHelpModal() {
     if (!helpModal) return;
     helpModal.style.display = helpModal.style.display === 'flex' ? 'none' : 'flex';
