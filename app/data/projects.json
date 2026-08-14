@@ -1,50 +1,74 @@
 [
   {
-    "id": "jacobinwald-site",
-    "title": "Personal Website & Blog Engine",
-    "description": "High-performance Python web application built with FastAPI, Jinja2, uv, and automated GitHub Actions publishing pipelines.",
-    "category": "Web Application",
-    "tags": ["Python", "FastAPI", "Jinja2", "uv", "GitHub Actions"],
-    "github_url": "https://github.com/JacobInwald/jacobinwald.github.io",
-    "demo_url": "https://jacobinwald.github.io",
+    "id": "crate",
+    "title": "CRATE — Containerized Attacks & Testable Exploits",
+    "description": "Containerized Repository of Attacks and Testable Exploits. A set of containerized exploits for testing security hardening measures written for 4th year honours project at University of Edinburgh.",
+    "category": "Security / Systems",
+    "tags": ["C", "Docker", "Security", "Exploits", "Honours Project"],
+    "github_url": "https://github.com/JacobInwald/CRATE",
+    "demo_url": null,
+    "featured": true,
+    "accent_color": "from-red-500 to-orange-600",
+    "stars": 1
+  },
+  {
+    "id": "pwdtools-macgpu",
+    "title": "pwdtools-macgpu — Metal GPU MD5 Cracker",
+    "description": "GPU-accelerated MD5 hash cracker using Apple's Metal framework, achieving 2.6GH/s to 5.1GH/s throughput on Apple Silicon hardware.",
+    "category": "High Performance / GPU",
+    "tags": ["Objective-C", "Metal", "GPU", "Cryptography", "MD5"],
+    "github_url": "https://github.com/JacobInwald/pwdtools-macgpu",
+    "demo_url": null,
+    "featured": true,
+    "accent_color": "from-purple-500 to-indigo-600",
+    "stars": 1
+  },
+  {
+    "id": "ocralgebra",
+    "title": "OCRAlgebra — Neural Network Character Recognition",
+    "description": "Neural Network built from scratch without external ML libraries to perform optical character recognition on algebraic symbols.",
+    "category": "Machine Learning",
+    "tags": ["Machine Learning", "Neural Network", "OCR", "TeX", "Python"],
+    "github_url": "https://github.com/JacobInwald/OCRAlgebra",
+    "demo_url": null,
+    "featured": true,
+    "accent_color": "from-blue-500 to-teal-600",
+    "stars": 1
+  },
+  {
+    "id": "pwdtools",
+    "title": "pwdtools — Password Security & Analysis Suite",
+    "description": "A comprehensive suite of command-line tools for managing password security, entropy evaluation, and hash analysis.",
+    "category": "Security",
+    "tags": ["Python", "Security", "Passwords", "CLI"],
+    "github_url": "https://github.com/JacobInwald/pwdtools",
+    "demo_url": null,
+    "featured": true,
+    "accent_color": "from-amber-500 to-yellow-600",
+    "stars": 1
+  },
+  {
+    "id": "pendulum",
+    "title": "pendulum — Genetic Algorithm Neural Network",
+    "description": "A pendulum balancing game paired with a neural network trained via genetic algorithms to achieve high scores.",
+    "category": "Artificial Intelligence",
+    "tags": ["Python", "Genetic Algorithms", "Neural Network", "AI"],
+    "github_url": "https://github.com/JacobInwald/pendulum",
+    "demo_url": null,
+    "featured": true,
+    "accent_color": "from-emerald-500 to-green-600",
+    "stars": 1
+  },
+  {
+    "id": "seam-carving",
+    "title": "Seam-Carving — Content-Aware Image Resizing",
+    "description": "An implementation of the seminal Seam Carving algorithm for content-aware image resizing using dynamic programming.",
+    "category": "Algorithms",
+    "tags": ["Python", "Dynamic Programming", "Computer Vision", "Algorithms"],
+    "github_url": "https://github.com/JacobInwald/Seam-Carving",
+    "demo_url": null,
     "featured": true,
     "accent_color": "from-indigo-500 to-purple-600",
-    "stars": 12
-  },
-  {
-    "id": "fast-api-microservices",
-    "title": "Async Microservice Toolkit",
-    "description": "A production-grade Python async microservice boilerplate with openapi validation, telemetry, rate limiting, and Docker integration.",
-    "category": "Backend",
-    "tags": ["Python", "FastAPI", "AsyncIO", "Docker", "PostgreSQL"],
-    "github_url": "https://github.com/JacobInwald",
-    "demo_url": null,
-    "featured": true,
-    "accent_color": "from-emerald-500 to-teal-600",
-    "stars": 45
-  },
-  {
-    "id": "cloud-pipeline-automation",
-    "title": "Cloud CI/CD Pipeline Automation",
-    "description": "Automated deployment workflows using GitHub Actions and Python scripts for multi-environment cloud publishing.",
-    "category": "DevOps",
-    "tags": ["GitHub Actions", "Python", "Docker", "DevOps"],
-    "github_url": "https://github.com/JacobInwald",
-    "demo_url": null,
-    "featured": true,
-    "accent_color": "from-amber-500 to-orange-600",
-    "stars": 28
-  },
-  {
-    "id": "data-stream-processor",
-    "title": "Real-time Event Stream Processor",
-    "description": "Lightweight Python event streamer parsing high-throughput log queues with sub-millisecond latency.",
-    "category": "Python",
-    "tags": ["Python", "AsyncIO", "Redis", "Streaming"],
-    "github_url": "https://github.com/JacobInwald",
-    "demo_url": null,
-    "featured": false,
-    "accent_color": "from-cyan-500 to-blue-600",
-    "stars": 19
+    "stars": 1
   }
 ]

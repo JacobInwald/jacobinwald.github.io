@@ -50,6 +50,7 @@ async def home(request: Request):
 
 
 @app.get("/projects", response_class=HTMLResponse)
+@app.get("/projects/", response_class=HTMLResponse)
 async def projects_page(request: Request):
     profile = utils.load_profile()
     projects = utils.load_projects()
@@ -77,6 +78,7 @@ async def projects_page(request: Request):
 
 
 @app.get("/blog", response_class=HTMLResponse)
+@app.get("/blog/", response_class=HTMLResponse)
 async def blog_page(request: Request):
     profile = utils.load_profile()
     posts = utils.load_posts()
@@ -101,6 +103,7 @@ async def blog_page(request: Request):
 
 
 @app.get("/blog/{slug}", response_class=HTMLResponse)
+@app.get("/blog/{slug}/", response_class=HTMLResponse)
 async def post_detail(request: Request, slug: str):
     profile = utils.load_profile()
     post = utils.load_post_by_slug(slug)
@@ -122,6 +125,7 @@ async def post_detail(request: Request, slug: str):
 
 
 @app.get("/experience", response_class=HTMLResponse)
+@app.get("/experience/", response_class=HTMLResponse)
 async def experience_page(request: Request):
     profile = utils.load_profile()
     experience = utils.load_experience()
@@ -144,6 +148,7 @@ async def experience_page(request: Request):
 
 
 @app.get("/contact", response_class=HTMLResponse)
+@app.get("/contact/", response_class=HTMLResponse)
 async def contact_page(request: Request):
     profile = utils.load_profile()
 

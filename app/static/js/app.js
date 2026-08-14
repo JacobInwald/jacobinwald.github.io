@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let spaceTimeout = null;
   let treeKeyboardIndex = -1;
 
-  const tabs = ['/', '/projects', '/blog', '/experience', '/contact'];
+  const tabs = ['/', '/projects/', '/blog/', '/experience/', '/contact/'];
   
   const modeEl = document.getElementById('lualine-mode');
   const posEl = document.getElementById('lualine-pos');
@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (editorPane) editorPane.classList.remove('focus-active');
       if (bufferInfoEl) bufferInfoEl.innerHTML = '<i class="fa-solid fa-folder-open"></i> [EXPLORER FOCUS]';
 
-      // Highlight initial tree item if not set
       const visibleItems = getVisibleTreeItems();
       if (visibleItems.length > 0 && treeKeyboardIndex === -1) {
         setTreeItemFocus(0);
@@ -44,7 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (editorPane) editorPane.classList.add('focus-active');
       if (explorer) explorer.classList.remove('focus-active');
       if (bufferInfoEl) {
-        const path = window.location.pathname === '/' ? 'index' : window.location.pathname.replace(/^\//, '');
+        let path = window.location.pathname;
+        if (path.endsWith('/') && path.length > 1) path = path.slice(0, -1);
+        path = path === '/' ? 'index' : path.replace(/^\//, '');
         bufferInfoEl.innerHTML = `<i class="fa-solid fa-bars-staggered"></i> ${path}.buffer`;
       }
       clearTreeItemFocus();
@@ -203,8 +204,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 7. Tab Switching Helpers (H / L)
   function navigateTab(direction) {
     let currentPath = window.location.pathname;
-    if (currentPath.endsWith('/') && currentPath.length > 1) {
-      currentPath = currentPath.slice(0, -1);
+    if (!currentPath.endsWith('/')) {
+      currentPath = currentPath + '/';
     }
     
     let currIdx = tabs.indexOf(currentPath);
@@ -358,16 +359,16 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = '/';
             break;
           case '2':
-            window.location.href = '/projects';
+            window.location.href = '/projects/';
             break;
           case '3':
-            window.location.href = '/blog';
+            window.location.href = '/blog/';
             break;
           case '4':
-            window.location.href = '/experience';
+            window.location.href = '/experience/';
             break;
           case '5':
-            window.location.href = '/contact';
+            window.location.href = '/contact/';
             break;
         }
       }
