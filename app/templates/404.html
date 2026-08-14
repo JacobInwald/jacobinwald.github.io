@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section style="text-align: center; padding: 4rem 1rem;">
-  <div style="font-size: 6rem; font-weight: 800; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-    404
+<div style="text-align: center; padding: 4rem 1rem;">
+  <div style="font-size: 5rem; font-weight: 800; color: var(--gruv-red); font-family: var(--font-mono);">
+    E484: Can't open file
   </div>
-  <h1 class="hero-title" style="margin-bottom: 1rem;">Page Not Found</h1>
-  <p class="hero-description" style="margin-bottom: 2rem;">
-    The page you are looking for doesn't exist or has been moved.
+  <h1 style="font-size: 2.25rem; color: var(--fg-bright); margin-bottom: 1rem;">404 Page Not Found</h1>
+  <p style="font-size: 1.25rem; color: var(--fg-muted); margin-bottom: 2rem;">
+    The requested buffer or filepath does not exist in this workspace.
   </p>
-  <a href="/" class="btn btn-primary">&larr; Return Home</a>
-</section>
+  <a href="/" class="nvim-btn nvim-btn-primary" style="font-size: 1.1rem;">:e home.py &rarr; Return Home</a>
+</div>
 {% endblock %}

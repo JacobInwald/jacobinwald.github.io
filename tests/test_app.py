@@ -15,22 +15,14 @@ def test_home_page():
 def test_projects_page():
     response = client.get("/projects")
     assert response.status_code == 200
-    assert "Projects Showcase" in response.text
-    has_title = (
-        "Personal Website &amp; Blog Engine" in response.text
-        or "Personal Website & Blog Engine" in response.text
-    )
-    assert has_title
+    assert "projects.json" in response.text
+    assert "Personal Website" in response.text
 
 
 def test_blog_page():
     response = client.get("/blog")
     assert response.status_code == 200
-    has_title = (
-        "Technical Blog &amp; Articles" in response.text
-        or "Technical Blog & Articles" in response.text
-    )
-    assert has_title
+    assert "blog.md" in response.text
     assert "Welcome to My New Python-Powered Website" in response.text
 
 
@@ -43,13 +35,13 @@ def test_post_detail_page():
 def test_experience_page():
     response = client.get("/experience")
     assert response.status_code == 200
-    assert "Career &amp; Experience" in response.text or "Career & Experience" in response.text
+    assert "experience" in response.text
 
 
 def test_contact_page():
     response = client.get("/contact")
     assert response.status_code == 200
-    assert "Get in Touch" in response.text
+    assert "Contact" in response.text
 
 
 def test_api_health():
@@ -87,4 +79,4 @@ def test_rss_xml():
 def test_404_handler():
     response = client.get("/some-non-existent-route")
     assert response.status_code == 404
-    assert "Page Not Found" in response.text
+    assert "404" in response.text

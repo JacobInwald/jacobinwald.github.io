@@ -1,34 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section style="margin-bottom: 3rem;">
-  <h1 class="hero-title">Technical Blog & Articles</h1>
-  <p class="hero-description">
-    Insights into Python web application design, performance optimizations, and cloud infrastructure.
+<div class="section-box">
+  <h1 style="margin-bottom: 0.5rem;"><span class="text-purple">:buffer</span> blog.md</h1>
+  <p style="font-size: 1.15rem; color: var(--fg-muted); margin-bottom: 2.5rem;">
+    Technical writeups, Python guides, and web architecture posts.
   </p>
-</section>
 
-<div class="grid-2">
-  {% for post in posts %}
-  <div class="card">
-    <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
-      {{ post.date }} &bull; {{ post.read_time }}
-    </div>
-    <h2 class="card-title">
-      <a href="/blog/{{ post.slug }}">{{ post.title }}</a>
-    </h2>
-    <p class="card-description">{{ post.summary }}</p>
+  <div class="grid-cards" style="grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));">
+    {% for post in posts %}
+    <div class="nvim-card">
+      <div style="font-size: 0.9rem; color: var(--fg-muted); margin-bottom: 0.5rem;">
+        <span class="text-purple">#</span> {{ post.date }} &bull; {{ post.read_time }}
+      </div>
+      <h2 class="card-title-text" style="font-size: 1.4rem;">
+        <a href="/blog/{{ post.slug }}" class="text-bright">{{ post.title }}</a>
+      </h2>
+      <p class="card-desc">{{ post.summary }}</p>
 
-    <div class="tag-list">
-      {% for tag in post.tags %}
-      <span class="tag-item">{{ tag }}</span>
-      {% endfor %}
+      <div class="tags-wrap">
+        {% for tag in post.tags %}
+        <span class="tag-pill">{{ tag }}</span>
+        {% endfor %}
+      </div>
+      
+      <div style="border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: auto;">
+        <a href="/blog/{{ post.slug }}" class="text-yellow">:open blog/{{ post.slug }}.md &rarr;</a>
+      </div>
     </div>
-    
-    <div class="card-footer">
-      <a href="/blog/{{ post.slug }}" class="link-btn">Read Full Article &rarr;</a>
-    </div>
+    {% endfor %}
   </div>
-  {% endfor %}
 </div>
 {% endblock %}

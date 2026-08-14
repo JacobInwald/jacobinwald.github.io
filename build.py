@@ -3,6 +3,7 @@
 Static Site Generator (SSG) Build Script.
 Renders FastAPI routes to static HTML/XML files in `dist/` for GitHub Pages publishing.
 """
+
 import shutil
 import sys
 
@@ -15,7 +16,7 @@ from app.utils import load_posts
 
 def build_site() -> None:
     print("🚀 Starting build process...")
-    
+
     # 1. Clean and recreate dist/ directory
     if DIST_DIR.exists():
         shutil.rmtree(DIST_DIR)
