@@ -1,50 +1,38 @@
 [
   {
-    "id": "jacobinwald-site",
-    "title": "Personal Website & Blog Engine",
-    "description": "High-performance Python web application built with FastAPI, Jinja2, uv, and automated GitHub Actions publishing pipelines.",
-    "category": "Web Application",
-    "tags": ["Python", "FastAPI", "Jinja2", "uv", "GitHub Actions"],
-    "github_url": "https://github.com/JacobInwald/jacobinwald.github.io",
-    "demo_url": "https://jacobinwald.github.io",
+    "id": "crate",
+    "title": "CRATE — Containerizing Exploits (Honours Project)",
+    "description": "Containerized 8 CVE exploit/code pairs to analyze compiler security hardening in GCC. Built a reproducible framework using Docker to automate vulnerable builds from source for exploit testing. Awarded a First-Class grade.",
+    "category": "Security Research",
+    "tags": ["C", "Docker", "Makefile", "GCC", "Exploit Analysis"],
+    "github_url": "https://github.com/JacobInwald/CRATE",
+    "demo_url": null,
     "featured": true,
-    "accent_color": "from-indigo-500 to-purple-600",
-    "stars": 12
+    "accent_color": "from-red-500 to-orange-600",
+    "stars": 1
   },
   {
-    "id": "fast-api-microservices",
-    "title": "Async Microservice Toolkit",
-    "description": "A production-grade Python async microservice boilerplate with openapi validation, telemetry, rate limiting, and Docker integration.",
-    "category": "Backend",
-    "tags": ["Python", "FastAPI", "AsyncIO", "Docker", "PostgreSQL"],
+    "id": "melanoma-classification",
+    "title": "Melanoma Classification (Multi-GPU Deep Learning)",
+    "description": "Trained and evaluated vision transformer models (ViT-L, Swin-B) and EfficientNet variants. Developed a distributed training framework for multi-GPU workloads on Slurm clusters, improving training efficiency by ~40%.",
+    "category": "Machine Learning",
+    "tags": ["Python", "Slurm", "Deep Learning", "Vision Transformers", "Multi-GPU"],
     "github_url": "https://github.com/JacobInwald",
     "demo_url": null,
     "featured": true,
-    "accent_color": "from-emerald-500 to-teal-600",
-    "stars": 45
+    "accent_color": "from-blue-500 to-indigo-600",
+    "stars": 1
   },
   {
-    "id": "cloud-pipeline-automation",
-    "title": "Cloud CI/CD Pipeline Automation",
-    "description": "Automated deployment workflows using GitHub Actions and Python scripts for multi-environment cloud publishing.",
-    "category": "DevOps",
-    "tags": ["GitHub Actions", "Python", "Docker", "DevOps"],
-    "github_url": "https://github.com/JacobInwald",
+    "id": "pwdtools",
+    "title": "pwdtools — GPU Hash Cracking Engine",
+    "description": "Built a password analysis and hash cracking toolkit matching performance of hashcat. Implemented a GPU-accelerated brute-force engine via Apple's Metal framework achieving over 4 billion hashes per second.",
+    "category": "High Performance / Security",
+    "tags": ["Python", "Metal Framework", "Objective-C", "Cryptography", "GPU"],
+    "github_url": "https://github.com/JacobInwald/pwdtools",
     "demo_url": null,
     "featured": true,
-    "accent_color": "from-amber-500 to-orange-600",
-    "stars": 28
-  },
-  {
-    "id": "data-stream-processor",
-    "title": "Real-time Event Stream Processor",
-    "description": "Lightweight Python event streamer parsing high-throughput log queues with sub-millisecond latency.",
-    "category": "Python",
-    "tags": ["Python", "AsyncIO", "Redis", "Streaming"],
-    "github_url": "https://github.com/JacobInwald",
-    "demo_url": null,
-    "featured": false,
-    "accent_color": "from-cyan-500 to-blue-600",
-    "stars": 19
+    "accent_color": "from-amber-500 to-yellow-600",
+    "stars": 1
   }
 ]

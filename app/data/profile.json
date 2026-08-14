@@ -1,37 +1,37 @@
 {
   "name": "Jacob Inwald",
-  "title": "Software Engineer & Systems Architect",
-  "headline": "Building elegant, scalable web applications & cloud software solutions.",
-  "location": "London, United Kingdom",
-  "bio": "I am a passionate software engineer specializing in Python, modern web development, API design, and cloud workflows. I design high-performance applications with clean architecture and delightful user experiences.",
-  "status": "Open to new engineering challenges & collaborations",
+  "title": "Software Engineer at Darktrace",
+  "headline": "Software Engineer at Darktrace | First-Class CS Graduate from University of Edinburgh",
+  "location": "London / Cambridge, UK",
+  "bio": "Software Engineer at Darktrace with a First-Class Honours degree in Computer Science from the University of Edinburgh. Experienced in high-throughput backend services, database migrations, OSINT data pipelines, GPU-accelerated security tools, and deep learning.",
+  "status": "Software Engineer @ Darktrace",
   "stats": [
-    { "label": "Years Experience", "value": "5+" },
-    { "label": "Projects Completed", "value": "30+" },
-    { "label": "Code Commits", "value": "2.5k+" },
-    { "label": "Uptime", "value": "99.9%" }
+    { "label": "Degree", "value": "BSc 1st Class" },
+    { "label": "University", "value": "Edinburgh" },
+    { "label": "Company", "value": "Darktrace" },
+    { "label": "Hash Cracking", "value": ">4B / sec" }
   ],
   "social": {
     "github": "https://github.com/JacobInwald",
-    "linkedin": "https://linkedin.com/in/jacobinwald",
-    "email": "Jacob.Inwald@Hotmail.com"
+    "linkedin": "https://www.linkedin.com/in/jacob-inwald-6b7889268",
+    "email": "inwald.jacob@gmail.com"
   },
   "skill_categories": [
     {
-      "name": "Backend & Core",
-      "skills": ["Python", "FastAPI", "Flask", "Django", "REST APIs", "AsyncIO", "Pydantic"]
+      "name": "Languages & Core",
+      "skills": ["Python", "Rust", "SQL", "C", "Objective-C / Metal", "Haskell", "JavaScript"]
     },
     {
-      "name": "Frontend & Design",
-      "skills": ["HTML5", "CSS3 / Vanilla CSS", "JavaScript (ES6+)", "Responsive Design", "Jinja2", "UI/UX"]
+      "name": "Databases & Systems",
+      "skills": ["PostgreSQL", "Docker", "Linux", "AsyncIO", "API Design", "Neovim"]
     },
     {
-      "name": "DevOps & Cloud",
-      "skills": ["Docker", "GitHub Actions", "uv / Package Management", "Linux", "CI/CD Pipelines", "Git"]
+      "name": "Security & Intelligence",
+      "skills": ["Cyber Security", "Compiler Hardening", "OSINT Data Pipelines", "LLM Risk Reports", "Cryptography"]
     },
     {
-      "name": "Databases & Tools",
-      "skills": ["PostgreSQL", "SQLite", "Redis", "pytest", "Ruff", "VS Code"]
+      "name": "Machine Learning & HPC",
+      "skills": ["Multi-GPU Training", "Slurm", "Vision Transformers (ViT/Swin)", "EfficientNet", "Deep Learning"]
     }
   ]
 }

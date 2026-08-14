@@ -31,6 +31,8 @@
 }
 
 html, body {
+  height: 100%;
+  overflow: hidden;
   background-color: var(--bg-hard);
   color: var(--fg-normal);
   font-family: var(--font-mono);
@@ -47,25 +49,26 @@ a:hover {
   color: var(--gruv-yellow);
 }
 
-/* Master IDE Workspace Layout */
+/* Master IDE Workspace Layout - 100vh Fixed Frame */
 .nvim-workspace {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
   background: var(--bg-hard);
 }
 
-/* Top Tab Bar */
+/* Top Tab Bar - Fixed 42px Height */
 .nvim-tabline {
   display: flex;
   align-items: center;
   background: var(--bg-hard);
   border-bottom: 1px solid var(--border-color);
-  position: sticky;
-  top: 0;
-  z-index: 100;
   user-select: none;
   height: 42px;
+  flex-shrink: 0;
+  z-index: 100;
 }
 
 .sidebar-toggle-btn {
@@ -131,23 +134,23 @@ a:hover {
   font-weight: bold;
 }
 
-/* Main Split Container with Floating Gap */
+/* Main Split Container - Fills Remaining Viewport Between Tabline and Statusbar */
 .nvim-main-split {
   display: flex;
   flex: 1;
+  min-height: 0;
   position: relative;
   align-items: stretch;
   gap: 12px;
   padding: 10px;
   background: var(--bg-hard);
+  overflow: hidden;
 }
 
-/* Fixed / Sticky Left Sidebar Explorer with Rounded Corners */
+/* Left Sidebar Explorer with Independent Internal Scrolling */
 .nvim-explorer {
   width: 280px;
-  height: calc(100vh - 94px);
-  position: sticky;
-  top: 52px;
+  height: 100%;
   background: var(--bg-hard);
   border: 2px solid var(--border-color);
   border-radius: 8px;
@@ -169,9 +172,10 @@ html.explorer-is-collapsed .nvim-explorer {
   transition: none !important;
 }
 
-/* Right Editor Window with Rounded Corners */
+/* Right Editor Window with Independent Internal Scrolling */
 .nvim-editor-pane {
   flex: 1;
+  height: 100%;
   background: var(--bg-normal);
   border: 2px solid var(--border-color);
   border-radius: 8px;
@@ -180,7 +184,7 @@ html.explorer-is-collapsed .nvim-explorer {
   align-items: flex-start;
   position: relative;
   transition: border-color 0.2s, box-shadow 0.2s;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 /* Active Window Focus: Highlight EVERY Edge of the Buffer */
@@ -311,18 +315,17 @@ html.explorer-is-collapsed .nvim-editor-pane.focus-active {
   margin: 0 auto;
 }
 
-/* Authentic Powerline Lualine Status Bar */
+/* Authentic Powerline Lualine Status Bar - Locked at Bottom of Flex Workspace */
 .lualine-bar {
   display: flex;
   align-items: center;
   height: 28px;
+  flex-shrink: 0;
   background: #282828;
   font-size: 0.85rem;
   font-family: var(--font-mono);
   user-select: none;
   border-top: 1px solid var(--border-color);
-  position: sticky;
-  bottom: 0;
   z-index: 100;
   overflow: hidden;
 }

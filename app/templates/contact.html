@@ -2,38 +2,39 @@
 
 {% block content %}
 <div style="max-width: 850px; margin: 0 auto;">
-  <div class="code-comment"># contact.sh &mdash; Interactive Message Terminal Buffer</div>
   <h1 style="font-size: 2rem; color: var(--gruv-yellow); margin: 0.5rem 0 1.5rem;">
-    <span class="text-orange">:execute</span> contact.sh
+    Get in Touch
   </h1>
+  <p style="color: var(--fg-muted); margin-bottom: 1.5rem;">
+    Feel free to reach out for engineering opportunities, security research collaborations, or general inquiries.
+  </p>
 
   <div class="content-card">
     <form id="contact-form">
       <div style="margin-bottom: 1.25rem;">
-        <label for="name" style="display: block; font-weight: bold; color: var(--gruv-yellow); margin-bottom: 0.35rem;">let name =</label>
-        <input type="text" id="name" style="width: 100%; padding: 0.65rem 0.85rem; background: var(--bg-hard); border: 1px solid var(--border-color); color: var(--fg-bright); font-family: var(--font-mono); font-size: 0.95rem; border-radius: 4px;" placeholder='"Your Name"' required>
+        <label for="name" style="display: block; font-weight: bold; color: var(--fg-bright); margin-bottom: 0.35rem;">Name</label>
+        <input type="text" id="name" style="width: 100%; padding: 0.65rem 0.85rem; background: var(--bg-hard); border: 1px solid var(--border-color); color: var(--fg-bright); font-family: var(--font-mono); font-size: 0.95rem; border-radius: 6px;" placeholder="Your Name" required>
       </div>
 
       <div style="margin-bottom: 1.25rem;">
-        <label for="email" style="display: block; font-weight: bold; color: var(--gruv-yellow); margin-bottom: 0.35rem;">let email =</label>
-        <input type="email" id="email" style="width: 100%; padding: 0.65rem 0.85rem; background: var(--bg-hard); border: 1px solid var(--border-color); color: var(--fg-bright); font-family: var(--font-mono); font-size: 0.95rem; border-radius: 4px;" placeholder='"you@example.com"' required>
+        <label for="email" style="display: block; font-weight: bold; color: var(--fg-bright); margin-bottom: 0.35rem;">Email Address</label>
+        <input type="email" id="email" style="width: 100%; padding: 0.65rem 0.85rem; background: var(--bg-hard); border: 1px solid var(--border-color); color: var(--fg-bright); font-family: var(--font-mono); font-size: 0.95rem; border-radius: 6px;" placeholder="you@example.com" required>
       </div>
 
       <div style="margin-bottom: 1.25rem;">
-        <label for="subject" style="display: block; font-weight: bold; color: var(--gruv-yellow); margin-bottom: 0.35rem;">let subject =</label>
-        <input type="text" id="subject" style="width: 100%; padding: 0.65rem 0.85rem; background: var(--bg-hard); border: 1px solid var(--border-color); color: var(--fg-bright); font-family: var(--font-mono); font-size: 0.95rem; border-radius: 4px;" placeholder='"Inquiry / Hello"' required>
+        <label for="subject" style="display: block; font-weight: bold; color: var(--fg-bright); margin-bottom: 0.35rem;">Subject</label>
+        <input type="text" id="subject" style="width: 100%; padding: 0.65rem 0.85rem; background: var(--bg-hard); border: 1px solid var(--border-color); color: var(--fg-bright); font-family: var(--font-mono); font-size: 0.95rem; border-radius: 6px;" placeholder="Inquiry / Hello" required>
       </div>
 
       <div style="margin-bottom: 1.25rem;">
-        <label for="message" style="display: block; font-weight: bold; color: var(--gruv-yellow); margin-bottom: 0.35rem;">let message = [[</label>
-        <textarea id="message" rows="5" style="width: 100%; padding: 0.65rem 0.85rem; background: var(--bg-hard); border: 1px solid var(--border-color); color: var(--fg-bright); font-family: var(--font-mono); font-size: 0.95rem; border-radius: 4px;" placeholder="Write message..." required></textarea>
-        <span style="display: block; font-weight: bold; color: var(--gruv-yellow); margin-top: 0.25rem;">]]</span>
+        <label for="message" style="display: block; font-weight: bold; color: var(--fg-bright); margin-bottom: 0.35rem;">Message</label>
+        <textarea id="message" rows="5" style="width: 100%; padding: 0.65rem 0.85rem; background: var(--bg-hard); border: 1px solid var(--border-color); color: var(--fg-bright); font-family: var(--font-mono); font-size: 0.95rem; border-radius: 6px;" placeholder="Write your message here..." required></textarea>
       </div>
 
       <div id="form-feedback" style="display: none; margin-bottom: 1rem; color: var(--gruv-green);"></div>
 
       <button type="submit" class="action-btn" style="width: 100%; justify-content: center;">
-        :w transmit_message() &rarr;
+        Send Message &rarr;
       </button>
     </form>
   </div>

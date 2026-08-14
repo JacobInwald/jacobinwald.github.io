@@ -2,12 +2,12 @@
 
 {% block content %}
 <div style="margin-bottom: 1.5rem;">
-  <a href="/blog" class="text-blue">&larr; :e blog.md (back to index)</a>
+  <a href="/blog/" class="text-blue">&larr; Back to All Articles</a>
 </div>
 
 <div class="content-card" style="padding: 2.25rem;">
   <div style="font-size: 0.85rem; color: var(--fg-muted); margin-bottom: 0.5rem;">
-    # {{ post.date }} &bull; {{ post.read_time }}
+    Published {{ post.date }} &bull; {{ post.read_time }}
   </div>
   <h1 style="font-size: 2.2rem; color: var(--fg-bright); margin-bottom: 1rem;">{{ post.title }}</h1>
 
@@ -16,6 +16,73 @@
     <span class="badge-tag">{{ tag }}</span>
     {% endfor %}
   </div>
+
+  {% if hardcover_stats %}
+  <!-- Live Hardcover GraphQL Reading Stats Dashboard -->
+  <div style="background: var(--bg-soft); border: 2px solid var(--gruv-yellow); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+    <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem; margin-bottom: 1.25rem;">
+      <h3 style="margin: 0; color: var(--gruv-yellow); font-size: 1.2rem;">
+        <i class="fa-solid fa-book-open"></i> Hardcover Stats (@{{ hardcover_stats.username }})
+      </h3>
+      {% if hardcover_stats.api_configured %}
+      <span class="badge-tag" style="margin: 0; color: var(--gruv-green);"><i class="fa-solid fa-sync"></i> API Synced</span>
+      {% else %}
+      <span class="badge-tag" style="margin: 0; color: var(--gruv-orange);">Offline / Default</span>
+      {% endif %}
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; text-align: center; margin-bottom: 1.5rem;">
+      <div style="background: var(--bg-hard); padding: 1rem; border-radius: 6px; border: 1px solid var(--border-color);">
+        <div style="font-size: 1.8rem; font-weight: 800; color: var(--gruv-yellow);">{{ hardcover_stats.books_read_count }}</div>
+        <div style="font-size: 0.8rem; color: var(--fg-muted);">Books Read</div>
+      </div>
+      <div style="background: var(--bg-hard); padding: 1rem; border-radius: 6px; border: 1px solid var(--border-color);">
+        <div style="font-size: 1.8rem; font-weight: 800; color: var(--gruv-orange);">{{ "{:,}".format(hardcover_stats.pages_read_count) }}</div>
+        <div style="font-size: 0.8rem; color: var(--fg-muted);">Pages Read</div>
+      </div>
+      <div style="background: var(--bg-hard); padding: 1rem; border-radius: 6px; border: 1px solid var(--border-color);">
+        <div style="font-size: 1.8rem; font-weight: 800; color: var(--gruv-blue);">{{ hardcover_stats.avg_rating }} / 5</div>
+        <div style="font-size: 0.8rem; color: var(--fg-muted);">Avg Rating</div>
+      </div>
+    </div>
+
+    {% if hardcover_stats.currently_reading %}
+    <h4 style="color: var(--fg-bright); margin-bottom: 0.75rem;"><i class="fa-solid fa-book-reader"></i> Currently Reading</h4>
+    <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;">
+      {% for book in hardcover_stats.currently_reading %}
+      <div style="background: var(--bg-hard); border: 1px solid var(--border-color); border-radius: 6px; padding: 0.85rem 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+          <strong>{{ book.title }}</strong>
+          <span style="color: var(--gruv-yellow); font-size: 0.85rem; font-weight: bold;">In Progress</span>
+        </div>
+        {% if book.pages %}
+        <div style="color: var(--fg-muted); font-size: 0.85rem;">{{ book.pages }} pages</div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if hardcover_stats.recent_reads %}
+    <h4 style="color: var(--fg-bright); margin-bottom: 0.75rem;"><i class="fa-solid fa-circle-check"></i> Recent Library Additions &amp; Completed Books</h4>
+    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+      {% for book in hardcover_stats.recent_reads %}
+      <div style="background: var(--bg-hard); border: 1px solid var(--border-color); border-radius: 6px; padding: 0.85rem 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
+          <strong>{{ book.title }}</strong>
+          <span style="color: var(--gruv-green); font-size: 0.85rem; font-weight: bold;">
+            {% if book.rating %}Rated {{ book.rating }} ★{% else %}Finished{% endif %}
+          </span>
+        </div>
+        {% if book.pages %}
+        <div style="color: var(--fg-muted); font-size: 0.85rem;">{{ book.pages }} pages</div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
 
   <div class="post-article" style="border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
     {{ post.content_html | safe }}

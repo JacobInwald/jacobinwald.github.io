@@ -50,6 +50,7 @@ async def home(request: Request):
 
 
 @app.get("/projects", response_class=HTMLResponse)
+@app.get("/projects/", response_class=HTMLResponse)
 async def projects_page(request: Request):
     profile = utils.load_profile()
     projects = utils.load_projects()
@@ -77,6 +78,7 @@ async def projects_page(request: Request):
 
 
 @app.get("/blog", response_class=HTMLResponse)
+@app.get("/blog/", response_class=HTMLResponse)
 async def blog_page(request: Request):
     profile = utils.load_profile()
     posts = utils.load_posts()
@@ -101,11 +103,14 @@ async def blog_page(request: Request):
 
 
 @app.get("/blog/{slug}", response_class=HTMLResponse)
+@app.get("/blog/{slug}/", response_class=HTMLResponse)
 async def post_detail(request: Request, slug: str):
     profile = utils.load_profile()
     post = utils.load_post_by_slug(slug)
     if not post:
         raise HTTPException(status_code=404, detail="Article not found")
+
+    hardcover_stats = utils.fetch_hardcover_stats() if slug == "hardcover-reading-stats" else None
 
     return templates.TemplateResponse(
         request=request,
@@ -115,6 +120,7 @@ async def post_detail(request: Request, slug: str):
             "description": post.get("summary", SITE_DESCRIPTION),
             "profile": profile,
             "post": post,
+            "hardcover_stats": hardcover_stats,
             "active_page": "blog",
             "site_url": SITE_URL,
         },
@@ -122,6 +128,7 @@ async def post_detail(request: Request, slug: str):
 
 
 @app.get("/experience", response_class=HTMLResponse)
+@app.get("/experience/", response_class=HTMLResponse)
 async def experience_page(request: Request):
     profile = utils.load_profile()
     experience = utils.load_experience()
@@ -144,6 +151,7 @@ async def experience_page(request: Request):
 
 
 @app.get("/contact", response_class=HTMLResponse)
+@app.get("/contact/", response_class=HTMLResponse)
 async def contact_page(request: Request):
     profile = utils.load_profile()
 

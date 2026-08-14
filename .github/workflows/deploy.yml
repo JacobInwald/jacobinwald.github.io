@@ -39,6 +39,8 @@ jobs:
         run: uv sync
 
       - name: Build Static Site with Python
+        env:
+          HARDCOVER_API_KEY: ${{ secrets.HARDCOVER_API_KEY }}
         run: uv run python build.py
 
       - name: Setup GitHub Pages

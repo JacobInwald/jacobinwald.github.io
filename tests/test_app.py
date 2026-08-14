@@ -15,42 +15,44 @@ def test_home_page():
 def test_projects_page():
     response = client.get("/projects")
     assert response.status_code == 200
-    has_title = (
-        "Software Projects &amp; Systems" in response.text
-        or "Software Projects & Systems" in response.text
-        or "projects.json" in response.text
-    )
-    assert has_title
+    assert "Projects Showcase" in response.text or "projects.json" in response.text
 
 
 def test_blog_page():
     response = client.get("/blog")
     assert response.status_code == 200
-    has_title = (
-        "Technical Blog &amp; Articles" in response.text
-        or "Technical Blog & Articles" in response.text
+    assert (
+        "Articles &amp; Writing" in response.text
+        or "Articles & Writing" in response.text
         or "blog.md" in response.text
     )
-    assert has_title
-    assert "Welcome to My New Python-Powered Website" in response.text
+    assert "Web Garden" in response.text or "Hardcover" in response.text
 
 
 def test_post_detail_page():
-    response = client.get("/blog/welcome-to-my-site")
+    response = client.get("/blog/website-garden")
     assert response.status_code == 200
-    assert "Welcome to My New Python-Powered Website" in response.text
+    assert "Web Garden" in response.text
+
+    response2 = client.get("/blog/hardcover-reading-stats")
+    assert response2.status_code == 200
+    assert "Hardcover" in response2.text
 
 
 def test_experience_page():
     response = client.get("/experience")
     assert response.status_code == 200
-    assert "Career &amp; Experience" in response.text or "Career & Experience" in response.text
+    assert (
+        "Experience &amp; Skills" in response.text
+        or "Experience & Skills" in response.text
+        or "Career & Academic Timeline" in response.text
+    )
 
 
 def test_contact_page():
     response = client.get("/contact")
     assert response.status_code == 200
-    assert "contact.sh" in response.text or "contact" in response.text
+    assert "Get in Touch" in response.text or "contact" in response.text
 
 
 def test_api_health():

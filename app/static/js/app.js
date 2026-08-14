@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let spaceTimeout = null;
   let treeKeyboardIndex = -1;
 
-  const tabs = ['/', '/projects', '/blog', '/experience', '/contact'];
+  const tabs = ['/', '/projects/', '/blog/', '/experience/', '/contact/'];
   
   const modeEl = document.getElementById('lualine-mode');
   const posEl = document.getElementById('lualine-pos');
@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (editorPane) editorPane.classList.remove('focus-active');
       if (bufferInfoEl) bufferInfoEl.innerHTML = '<i class="fa-solid fa-folder-open"></i> [EXPLORER FOCUS]';
 
-      // Highlight initial tree item if not set
       const visibleItems = getVisibleTreeItems();
       if (visibleItems.length > 0 && treeKeyboardIndex === -1) {
         setTreeItemFocus(0);
@@ -44,7 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (editorPane) editorPane.classList.add('focus-active');
       if (explorer) explorer.classList.remove('focus-active');
       if (bufferInfoEl) {
-        const path = window.location.pathname === '/' ? 'index' : window.location.pathname.replace(/^\//, '');
+        let path = window.location.pathname;
+        if (path.endsWith('/') && path.length > 1) path = path.slice(0, -1);
+        path = path === '/' ? 'index' : path.replace(/^\//, '');
         bufferInfoEl.innerHTML = `<i class="fa-solid fa-bars-staggered"></i> ${path}.buffer`;
       }
       clearTreeItemFocus();
@@ -89,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const currentScrollLine = Math.min(
       exactLineCount,
-      Math.max(1, Math.floor(window.scrollY / lineHeight) + 1)
+      Math.max(1, Math.floor((editorPane ? editorPane.scrollTop : 0) / lineHeight) + 1)
     );
 
     let html = '';
@@ -149,9 +150,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateScrollPos() {
-    if (!posEl) return;
-    const total = document.documentElement.scrollHeight - window.innerHeight;
-    const current = window.scrollY;
+    if (!posEl || !editorPane) return;
+    const total = editorPane.scrollHeight - editorPane.clientHeight;
+    const current = editorPane.scrollTop;
     const pct = total > 0 ? Math.round((current / total) * 100) : 0;
     
     let label = `${pct}%`;
@@ -174,7 +175,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  window.addEventListener('scroll', updateScrollPos);
+  if (editorPane) {
+    editorPane.addEventListener('scroll', updateScrollPos);
+  }
   updateScrollPos();
 
   // 6. Live Search
@@ -203,8 +206,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 7. Tab Switching Helpers (H / L)
   function navigateTab(direction) {
     let currentPath = window.location.pathname;
-    if (currentPath.endsWith('/') && currentPath.length > 1) {
-      currentPath = currentPath.slice(0, -1);
+    if (!currentPath.endsWith('/')) {
+      currentPath = currentPath + '/';
     }
     
     let currIdx = tabs.indexOf(currentPath);
@@ -319,26 +322,26 @@ document.addEventListener('DOMContentLoaded', () => {
             break;
         }
       } else {
-        // EDITOR FOCUS MODE
+        // EDITOR FOCUS MODE - Scroll inside editorPane buffer
         switch (e.key) {
           case 'j':
-            window.scrollBy({ top: 90, behavior: 'smooth' });
+            if (editorPane) editorPane.scrollBy({ top: 90, behavior: 'smooth' });
             break;
           case 'k':
-            window.scrollBy({ top: -90, behavior: 'smooth' });
+            if (editorPane) editorPane.scrollBy({ top: -90, behavior: 'smooth' });
             break;
           case 'g':
             gKeyPressCount++;
             if (gKeyPressCount === 1) {
               gKeyTimeout = setTimeout(() => { gKeyPressCount = 0; }, 500);
             } else if (gKeyPressCount >= 2) {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              if (editorPane) editorPane.scrollTo({ top: 0, behavior: 'smooth' });
               gKeyPressCount = 0;
               clearTimeout(gKeyTimeout);
             }
             break;
           case 'G':
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            if (editorPane) editorPane.scrollTo({ top: editorPane.scrollHeight, behavior: 'smooth' });
             break;
           case '/':
             e.preventDefault();
@@ -358,16 +361,16 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = '/';
             break;
           case '2':
-            window.location.href = '/projects';
+            window.location.href = '/projects/';
             break;
           case '3':
-            window.location.href = '/blog';
+            window.location.href = '/blog/';
             break;
           case '4':
-            window.location.href = '/experience';
+            window.location.href = '/experience/';
             break;
           case '5':
-            window.location.href = '/contact';
+            window.location.href = '/contact/';
             break;
         }
       }
