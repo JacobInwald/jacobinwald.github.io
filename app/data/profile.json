@@ -19,7 +19,7 @@
   "skill_categories": [
     {
       "name": "Languages & Core",
-      "skills": ["Python", "SQL", "C", "Objective-C / Metal", "Haskell", "JavaScript"]
+      "skills": ["Python", "Rust", "SQL", "C", "Objective-C / Metal", "Haskell", "JavaScript"]
     },
     {
       "name": "Databases & Systems",
