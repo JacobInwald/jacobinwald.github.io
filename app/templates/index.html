@@ -1,18 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div style="margin-bottom: 2rem;">
-  <div><span class="code-keyword">import</span> profile</div>
-  <br>
-  <div><span class="code-comment"># Overview & Background</span></div>
-  <div><span class="code-var">developer</span> = {</div>
-  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"name"</span>: <span class="code-string">"{{ profile.name }}"</span>,</div>
-  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"title"</span>: <span class="code-string">"{{ profile.title }}"</span>,</div>
-  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"location"</span>: <span class="code-string">"{{ profile.location }}"</span>,</div>
-  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"status"</span>: <span class="code-string">"{{ profile.status }}"</span>,</div>
-  <div>}</div>
-</div>
-
 <div class="content-card">
   <h1 style="font-size: 2.2rem; color: var(--fg-bright); margin-bottom: 0.5rem;">
     {{ profile.name }}
@@ -87,7 +75,7 @@
   {% for post in posts %}
   <div class="content-card">
     <div style="font-size: 0.85rem; color: var(--fg-muted); margin-bottom: 0.35rem;">
-      # {{ post.date }} &bull; {{ post.read_time }}
+      Published {{ post.date }} &bull; {{ post.read_time }}
     </div>
     <h3 style="font-size: 1.25rem; margin: 0 0 0.5rem;"><a href="/blog/{{ post.slug }}/" class="text-bright">{{ post.title }}</a></h3>
     <p style="color: var(--fg-muted); margin-bottom: 0.75rem;">{{ post.summary }}</p>
