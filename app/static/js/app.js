@@ -1,39 +1,109 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Mode State
   let mode = 'NORMAL';
   let gKeyPressCount = 0;
   let gKeyTimeout = null;
 
-  const vimStatusPill = document.getElementById('vim-status-bar');
+  const modeEl = document.getElementById('lualine-mode');
+  const posEl = document.getElementById('lualine-pos');
+  const timeEl = document.getElementById('lualine-time');
+  const explorerSearch = document.getElementById('explorer-search');
+  const projectSearchInput = document.getElementById('project-search');
   const helpModal = document.getElementById('vim-help-modal');
   const helpToggleBtn = document.getElementById('help-toggle');
   const closeHelpBtn = document.getElementById('close-help-btn');
-  const projectSearchInput = document.getElementById('project-search');
 
-  // 1. Vim Keyboard Engine
+  // 1. Live Time Update
+  function updateTime() {
+    if (!timeEl) return;
+    const now = new Date();
+    const hrs = String(now.getHours()).padStart(2, '0');
+    const mins = String(now.getMinutes()).padStart(2, '0');
+    timeEl.textContent = `🕒 ${hrs}:${mins}`;
+  }
+  setInterval(updateTime, 10000);
+  updateTime();
+
+  // 2. Mode & Statusline Position
+  function setMode(newMode) {
+    mode = newMode;
+    if (!modeEl) return;
+    modeEl.textContent = `-- ${mode} --`;
+    if (mode === 'SEARCH') {
+      modeEl.style.background = 'var(--gruv-yellow)';
+      modeEl.style.color = '#1d2021';
+    } else {
+      modeEl.style.background = 'var(--gruv-green)';
+      modeEl.style.color = '#1d2021';
+    }
+  }
+
+  function updateScrollPos() {
+    if (!posEl) return;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    const current = window.scrollY;
+    const pct = total > 0 ? Math.round((current / total) * 100) : 0;
+    
+    let label = `${pct}%`;
+    if (current === 0) label = 'Top';
+    else if (pct >= 99) label = 'Bot';
+
+    const line = Math.floor(current / 28) + 1;
+    posEl.textContent = `Ln ${line}, ${label}`;
+  }
+
+  window.addEventListener('scroll', updateScrollPos);
+  updateScrollPos();
+
+  // 3. Explorer Sidebar Live Search & Filtering
+  if (explorerSearch) {
+    explorerSearch.addEventListener('focus', () => setMode('SEARCH'));
+    explorerSearch.addEventListener('blur', () => setMode('NORMAL'));
+    explorerSearch.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      
+      // Filter explorer tree items
+      const treeItems = document.querySelectorAll('#explorer-tree .tree-item');
+      treeItems.forEach(item => {
+        const name = item.dataset.name || item.textContent.toLowerCase();
+        item.style.display = (!q || name.includes(q)) ? 'flex' : 'none';
+      });
+
+      // Filter project cards if on projects page
+      const projectCards = document.querySelectorAll('.project-card');
+      projectCards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = (!q || text.includes(q)) ? 'block' : 'none';
+      });
+    });
+  }
+
+  // 4. Vim Keyboard Shortcuts Engine
   document.addEventListener('keydown', (e) => {
-    // Ignore keybindings when user is typing in form inputs (unless Esc is pressed)
-    const isEditingText = ['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName);
+    const isEditing = ['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName);
 
     if (e.key === 'Escape') {
       closeHelpModal();
-      if (isEditingText) document.activeElement.blur();
+      if (explorerSearch) explorerSearch.value = '';
+      if (projectSearchInput) projectSearchInput.value = '';
+      if (isEditing) document.activeElement.blur();
+      
+      // Reset explorer tree item display
+      document.querySelectorAll('#explorer-tree .tree-item').forEach(i => i.style.display = 'flex');
+      document.querySelectorAll('.project-card').forEach(c => c.style.display = 'block');
+      
       setMode('NORMAL');
       return;
     }
 
-    if (isEditingText) {
-      return;
-    }
+    if (isEditing) return;
 
-    // NORMAL Mode Shortcuts
     if (mode === 'NORMAL') {
       switch (e.key) {
         case 'j':
-          window.scrollBy({ top: 80, behavior: 'smooth' });
+          window.scrollBy({ top: 90, behavior: 'smooth' });
           break;
         case 'k':
-          window.scrollBy({ top: -80, behavior: 'smooth' });
+          window.scrollBy({ top: -90, behavior: 'smooth' });
           break;
         case 'g':
           gKeyPressCount++;
@@ -48,21 +118,11 @@ document.addEventListener('DOMContentLoaded', () => {
         case 'G':
           window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
           break;
-        case 'd':
-          if (e.ctrlKey) {
-            e.preventDefault();
-            window.scrollBy({ top: window.innerHeight / 2, behavior: 'smooth' });
-          }
-          break;
-        case 'u':
-          if (e.ctrlKey) {
-            e.preventDefault();
-            window.scrollBy({ top: -window.innerHeight / 2, behavior: 'smooth' });
-          }
-          break;
         case '/':
-          if (projectSearchInput) {
-            e.preventDefault();
+          e.preventDefault();
+          if (explorerSearch) {
+            explorerSearch.focus();
+          } else if (projectSearchInput) {
             projectSearchInput.focus();
           }
           break;
@@ -71,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
           toggleHelpModal();
           break;
 
-        // Quick Page Switch Keys 1..5
+        // Quick Buffer Nav 1..5
         case '1':
           window.location.href = '/';
           break;
@@ -91,116 +151,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  function setMode(newMode) {
-    mode = newMode;
-  }
-
-  // 2. Help Modal Controls
-  function toggleHelpModal(show) {
+  // 5. Help Modal Toggle
+  function toggleHelpModal() {
     if (!helpModal) return;
-    const shouldShow = show !== undefined ? show : helpModal.style.display !== 'flex';
-    helpModal.style.display = shouldShow ? 'flex' : 'none';
+    helpModal.style.display = helpModal.style.display === 'flex' ? 'none' : 'flex';
   }
 
   function closeHelpModal() {
     if (helpModal) helpModal.style.display = 'none';
   }
 
-  if (helpToggleBtn) helpToggleBtn.addEventListener('click', () => toggleHelpModal());
-  if (closeHelpBtn) closeHelpBtn.addEventListener('click', () => closeHelpModal());
-
-  // 3. Gruvbox Theme Switcher
-  const themeToggle = document.getElementById('theme-toggle');
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme');
-      const next = current === 'gruvbox-light' ? 'gruvbox-dark' : 'gruvbox-light';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('gruvbox-theme', next);
-    });
-  }
-
-  const savedTheme = localStorage.getItem('gruvbox-theme') || 'gruvbox-dark';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-
-  // 4. Project Search & Filter
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const projectCards = document.querySelectorAll('.project-card');
-
-  function filterProjects() {
-    const activeFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
-    const query = projectSearchInput ? projectSearchInput.value.toLowerCase().trim() : '';
-
-    projectCards.forEach(card => {
-      const category = card.dataset.category || '';
-      const text = card.textContent.toLowerCase();
-
-      const matchesCategory = activeFilter === 'all' || category.toLowerCase() === activeFilter.toLowerCase();
-      const matchesSearch = !query || text.includes(query);
-
-      card.style.display = (matchesCategory && matchesSearch) ? 'flex' : 'none';
-    });
-  }
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      filterProjects();
-    });
-  });
-
-  if (projectSearchInput) {
-    projectSearchInput.addEventListener('input', filterProjects);
-  }
-
-  // 5. Contact Form Submission
-  const contactForm = document.getElementById('contact-form');
-  const formFeedback = document.getElementById('form-feedback');
-
-  if (contactForm) {
-    contactForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const submitBtn = contactForm.querySelector('button[type="submit"]');
-      const originalText = submitBtn.innerHTML;
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = 'Sending...';
-
-      const formData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        subject: document.getElementById('subject').value,
-        message: document.getElementById('message').value
-      };
-
-      try {
-        const response = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          formFeedback.style.display = 'block';
-          formFeedback.className = 'form-feedback success';
-          formFeedback.style.color = 'var(--gruv-green)';
-          formFeedback.textContent = result.message || 'Message sent successfully!';
-          contactForm.reset();
-        } else {
-          throw new Error('Failed to send message');
-        }
-      } catch (err) {
-        formFeedback.style.display = 'block';
-        formFeedback.className = 'form-feedback success';
-        formFeedback.style.color = 'var(--gruv-green)';
-        formFeedback.textContent = 'Message sent! Thank you for getting in touch.';
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalText;
-      }
-    });
-  }
+  if (helpToggleBtn) helpToggleBtn.addEventListener('click', toggleHelpModal);
+  if (closeHelpBtn) closeHelpBtn.addEventListener('click', closeHelpModal);
 });

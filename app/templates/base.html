@@ -18,63 +18,80 @@
   <div class="nvim-workspace">
     <!-- Top Tabline -->
     <div class="nvim-tabline">
-      <a href="/" class="tab-item {% if active_page == 'home' %}active{% endif %}">
-        <span class="tab-icon text-yellow">🐍</span> main.py <span class="tab-close">✕</span>
+      <a href="/" class="tab-item {% if active_page == 'home' %}active{% endif %}" id="tab-1">
+        <span class="tab-num">1</span>
+        <span class="tab-icon text-yellow">🐍</span> index.py <span class="tab-close">✕</span>
       </a>
-      <a href="/projects" class="tab-item {% if active_page == 'projects' %}active{% endif %}">
+      <a href="/projects" class="tab-item {% if active_page == 'projects' %}active{% endif %}" id="tab-2">
+        <span class="tab-num">2</span>
         <span class="tab-icon text-orange">⚙</span> projects.json <span class="tab-close">✕</span>
       </a>
-      <a href="/blog" class="tab-item {% if active_page == 'blog' %}active{% endif %}">
+      <a href="/blog" class="tab-item {% if active_page == 'blog' %}active{% endif %}" id="tab-3">
+        <span class="tab-num">3</span>
         <span class="tab-icon text-purple">📝</span> blog.md <span class="tab-close">✕</span>
       </a>
-      <a href="/experience" class="tab-item {% if active_page == 'experience' %}active{% endif %}">
+      <a href="/experience" class="tab-item {% if active_page == 'experience' %}active{% endif %}" id="tab-4">
+        <span class="tab-num">4</span>
         <span class="tab-icon text-blue">💼</span> experience.json <span class="tab-close">✕</span>
       </a>
-      <a href="/contact" class="tab-item {% if active_page == 'contact' %}active{% endif %}">
+      <a href="/contact" class="tab-item {% if active_page == 'contact' %}active{% endif %}" id="tab-5">
+        <span class="tab-num">5</span>
         <span class="tab-icon text-green">⚡</span> contact.sh <span class="tab-close">✕</span>
       </a>
     </div>
 
-    <!-- Main Split Window: Left Tree Explorer + Right Editor -->
+    <!-- Main Split Window: Left Tree Explorer + Right Full-Height Editor -->
     <div class="nvim-main-split">
-      <!-- Left Sidebar Explorer (as seen in screenshot) -->
+      <!-- Left Sidebar Explorer with Search Bar -->
       <aside class="nvim-explorer">
         <div class="explorer-header">
-          <span class="text-orange">❯</span> <strong>Explorer</strong> h <span style="margin-left: auto;">38/38</span>
+          <div class="explorer-title">
+            <span><strong class="text-yellow">❯ Explorer</strong></span>
+            <button id="help-toggle" style="background: transparent; border: none; color: var(--gruv-yellow); font-family: var(--font-mono); font-weight: bold; cursor: pointer;">[? Keys]</button>
+          </div>
+          <input type="text" id="explorer-search" class="explorer-search-input" placeholder="/ filter pages or content..." autocomplete="off">
         </div>
-        <div class="tree-list">
-          <div class="tree-dir-title">📁 data</div>
-          <ul>
-            <li class="tree-dir-title" style="padding-left: 1.5rem;">📁 posts</li>
-            <ul>
-              <li><a href="/blog/building-fast-python-web-apps" class="tree-item" style="padding-left: 2.25rem;">📝 building-fast-python-web-ap?</a></li>
-              <li><a href="/blog/welcome-to-my-site" class="tree-item" style="padding-left: 2.25rem;">📝 welcome-to-my-site.md</a></li>
-            </ul>
-            <li><a href="/experience" class="tree-item" style="padding-left: 1.5rem;">⚙ experience.json</a></li>
-            <li><a href="/" class="tree-item" style="padding-left: 1.5rem;">⚙ profile.json</a></li>
-            <li><a href="/projects" class="tree-item" style="padding-left: 1.5rem;">⚙ projects.json</a></li>
-          </ul>
 
-          <div class="tree-dir-title">📁 static</div>
-          <div class="tree-dir-title">📁 templates</div>
-          
-          <a href="/" class="tree-item {% if active_page == 'home' %}selected{% endif %}">🐍 __init__.py</a>
-          <a href="/" class="tree-item {% if active_page == 'home' %}selected{% endif %}">🐍 config.py</a>
-          <a href="/" class="tree-item {% if active_page == 'home' %}selected{% endif %}">🐍 main.py</a>
-          <a href="/" class="tree-item {% if active_page == 'home' %}selected{% endif %}">🐍 utils.py</a>
-          <div class="tree-dir-title">📁 tests</div>
-          <a href="/blog" class="tree-item"> .gitignore</a>
-          <a href="/experience" class="tree-item">🐳 Dockerfile</a>
-          <a href="/contact" class="tree-item">⚖ LICENSE</a>
-          <a href="/experience" class="tree-item">🛠 Makefile</a>
-          <a href="/blog" class="tree-item">📜 README.md</a>
-          <a href="/projects" class="tree-item">🐍 build.py</a>
-          <a href="/contact" class="tree-item">❗ docker-compose.yml</a>
-          <a href="/" class="tree-item">📦 pyproject.toml</a>
+        <div class="tree-list" id="explorer-tree">
+          <div class="tree-section-header">📁 PAGES</div>
+          <a href="/" class="tree-item {% if active_page == 'home' %}selected{% endif %}" data-name="index.py home">
+            <span class="text-yellow">🐍</span> index.py
+          </a>
+          <a href="/projects" class="tree-item {% if active_page == 'projects' %}selected{% endif %}" data-name="projects.json projects">
+            <span class="text-orange">⚙</span> projects.json
+          </a>
+          <a href="/blog" class="tree-item {% if active_page == 'blog' %}selected{% endif %}" data-name="blog.md blog posts articles">
+            <span class="text-purple">📝</span> blog.md
+          </a>
+          <a href="/experience" class="tree-item {% if active_page == 'experience' %}selected{% endif %}" data-name="experience.json timeline career skills">
+            <span class="text-blue">💼</span> experience.json
+          </a>
+          <a href="/contact" class="tree-item {% if active_page == 'contact' %}selected{% endif %}" data-name="contact.sh contact email form">
+            <span class="text-green">⚡</span> contact.sh
+          </a>
+
+          <div class="tree-section-header" style="margin-top: 0.75rem;">📁 ARTICLES</div>
+          <a href="/blog/welcome-to-my-site" class="tree-item" data-name="welcome to my new python-powered website">
+            <span class="text-purple">📝</span> welcome-to-my-site.md
+          </a>
+          <a href="/blog/building-fast-python-web-apps" class="tree-item" data-name="building high performance web apps python uv fastapi">
+            <span class="text-purple">📝</span> building-fast-python-web-apps.md
+          </a>
+
+          <div class="tree-section-header" style="margin-top: 0.75rem;">📁 SYSTEM</div>
+          <a href="/projects" class="tree-item" data-name="makefile">
+            <span class="text-muted">🛠</span> Makefile
+          </a>
+          <a href="/blog" class="tree-item" data-name="readme.md">
+            <span class="text-muted">📜</span> README.md
+          </a>
+          <a href="/" class="tree-item" data-name="pyproject.toml">
+            <span class="text-muted">📦</span> pyproject.toml
+          </a>
         </div>
       </aside>
 
-      <!-- Right Editor Pane -->
+      <!-- Right Editor Pane (Full Height) -->
       <div class="nvim-editor-pane">
         <div class="line-numbers-gutter" id="line-numbers-gutter">
           <div class="current">1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div>
@@ -87,39 +104,57 @@
       </div>
     </div>
 
-    <!-- Bottom Terminal Window Split (matching screenshot) -->
-    <div class="nvim-terminal-pane">
-      <div class="terminal-title">
-        <span>1: pinwald@archlinux:~/Projects/jacobinwald.github.io</span>
-        <span style="font-weight: normal; font-size: 0.8rem; color: var(--fg-muted);">press j/k to scroll, 1..5 for tabs, ? for help</span>
-      </div>
-      <div class="terminal-logs">
-        <div><span class="text-green">INFO:</span>&nbsp;&nbsp;&nbsp;&nbsp;Application startup complete.</div>
-        <div><span class="text-green">INFO:</span>&nbsp;&nbsp;&nbsp;&nbsp;127.0.0.1:55616 - <span class="text-yellow">"GET / HTTP/1.1"</span> <span class="text-green">200 OK</span></div>
-        <div><span class="text-green">INFO:</span>&nbsp;&nbsp;&nbsp;&nbsp;127.0.0.1:55616 - <span class="text-yellow">"GET /static/css/main.css HTTP/1.1"</span> <span class="text-green">200 OK</span></div>
-        <div><span class="text-green">INFO:</span>&nbsp;&nbsp;&nbsp;&nbsp;127.0.0.1:55618 - <span class="text-yellow">"GET /static/js/app.js HTTP/1.1"</span> <span class="text-green">200 OK</span></div>
-        <div><span class="text-green">INFO:</span>&nbsp;&nbsp;&nbsp;&nbsp;127.0.0.1:58364 - <span class="text-yellow">"GET /projects HTTP/1.1"</span> <span class="text-green">200 OK</span></div>
-        <div><span class="text-green">INFO:</span>&nbsp;&nbsp;&nbsp;&nbsp;127.0.0.1:58364 - <span class="text-yellow">"GET /blog HTTP/1.1"</span> <span class="text-green">200 OK</span></div>
-        <div><span class="text-green">INFO:</span>&nbsp;&nbsp;&nbsp;&nbsp;127.0.0.1:58364 - <span class="text-yellow">"GET /experience HTTP/1.1"</span> <span class="text-green">200 OK</span></div>
-        <div style="margin-top: 0.25rem;">
-          <span class="text-green">pinwald@archlinux</span>:<span class="text-blue">~/Projects/jacobinwald.github.io</span>$&nbsp;<span class="typing-cursor">█</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Lualine Statusline at Bottom (exact matching screenshot) -->
+    <!-- Lualine Status Bar at Bottom -->
     <footer class="lualine-bar">
-      <div class="lualine-pill pill-mode">TERMINAL</div>
-      <div class="lualine-pill pill-git"> jacob/main/nvim</div>
-      <div class="lualine-pill pill-term">term:.../bin/bash</div>
+      <div class="lualine-pill pill-mode" id="lualine-mode">-- NORMAL --</div>
+      <div class="lualine-pill pill-git"> main</div>
+      <div class="lualine-pill" style="color: var(--fg-bright);">{{ active_page }}.buffer</div>
       
       <div class="lualine-right-group">
-        <div class="lualine-pill">a</div>
-        <div class="lualine-pill text-orange"> 31</div>
-        <div class="lualine-pill pill-pos" id="lualine-pos">Bot 163:1</div>
-        <div class="lualine-pill pill-time">🕒 19:10</div>
+        <div class="lualine-pill" style="color: var(--gruv-aqua);">utf-8</div>
+        <div class="lualine-pill pill-pos" id="lualine-pos">Ln 1, Top</div>
+        <div class="lualine-pill pill-time" id="lualine-time">🕒 19:14</div>
       </div>
     </footer>
+  </div>
+
+  <!-- Vim Shortcuts Modal -->
+  <div class="modal-overlay" id="vim-help-modal">
+    <div class="vim-modal-box">
+      <div class="modal-header">
+        <h2 style="margin: 0; color: var(--gruv-yellow); font-family: var(--font-mono);">⌨ Vim Keybindings</h2>
+        <button class="action-btn" id="close-help-btn">Esc</button>
+      </div>
+      
+      <div class="key-row">
+        <span>Scroll Down / Up</span>
+        <div><span class="key-cap">j</span> / <span class="key-cap">k</span></div>
+      </div>
+      <div class="key-row">
+        <span>Jump to Top of Page</span>
+        <div><span class="key-cap">gg</span></div>
+      </div>
+      <div class="key-row">
+        <span>Jump to Bottom of Page</span>
+        <div><span class="key-cap">G</span></div>
+      </div>
+      <div class="key-row">
+        <span>Switch Page Buffers (1 to 5)</span>
+        <div><span class="key-cap">1</span> .. <span class="key-cap">5</span></div>
+      </div>
+      <div class="key-row">
+        <span>Focus Explorer Search</span>
+        <div><span class="key-cap">/</span></div>
+      </div>
+      <div class="key-row">
+        <span>Close Modal / Exit Search</span>
+        <div><span class="key-cap">Esc</span></div>
+      </div>
+      
+      <div style="margin-top: 1.5rem; color: var(--fg-muted); font-size: 0.9rem; text-align: center;">
+        Shortcuts are active anywhere on the site!
+      </div>
+    </div>
   </div>
 
   <script src="/static/js/app.js"></script>
