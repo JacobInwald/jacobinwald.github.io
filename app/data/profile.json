@@ -2,14 +2,14 @@
   "name": "Jacob Inwald",
   "title": "Software Engineer at Darktrace",
   "headline": "Software Engineer at Darktrace | First-Class CS Graduate from University of Edinburgh",
-  "location": "London / Cambridge, UK",
+  "location": "Cambridge, UK",
   "bio": "Software Engineer at Darktrace with a First-Class Honours degree in Computer Science from the University of Edinburgh. Experienced in high-throughput backend services, database migrations, OSINT data pipelines, GPU-accelerated security tools, and deep learning.",
   "status": "Software Engineer @ Darktrace",
   "stats": [
-    { "label": "Degree", "value": "BSc 1st Class" },
+    { "label": "Degree", "value": "BSc (Hons) 1st" },
     { "label": "University", "value": "Edinburgh" },
     { "label": "Company", "value": "Darktrace" },
-    { "label": "Hash Cracking", "value": ">4B / sec" }
+    { "label": "Location", "value": "Cambridge" }
   ],
   "social": {
     "github": "https://github.com/JacobInwald",

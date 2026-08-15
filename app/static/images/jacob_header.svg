@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 446.5 120.0" width="100%" height="auto" style="max-width: 480px; display: block; margin: 0 auto;">
+  <g>
+    <rect x="66.10" y="-0.40" width="19.80" height="20.80" fill="#fabd2f" />
+    <path d="M 85.50 10.00 H 90.25 V 20.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <rect x="113.60" y="-0.40" width="48.30" height="20.80" fill="#fabd2f" />
+    <path d="M 161.50 10.00 H 166.25 V 20.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <rect x="199.10" y="-0.40" width="57.80" height="20.80" fill="#fabd2f" />
+    <path d="M 256.50 10.00 H 261.25 V 20.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <rect x="284.60" y="-0.40" width="57.80" height="20.80" fill="#fabd2f" />
+    <path d="M 342.00 10.00 H 346.75 V 20.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <rect x="370.10" y="-0.40" width="57.80" height="20.80" fill="#fabd2f" />
+    <path d="M 427.50 10.00 H 432.25 V 20.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <rect x="66.10" y="19.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <line x1="90.25" y1="19.60" x2="90.25" y2="40.40" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <rect x="104.10" y="19.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <path d="M 133.00 30.00 H 128.25 V 40.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <line x1="132.60" y1="30.00" x2="152.40" y2="30.00" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <rect x="151.60" y="19.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <path d="M 171.00 30.00 H 175.75 V 40.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <rect x="189.60" y="19.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <path d="M 218.50 30.00 H 213.75 V 40.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <line x1="218.10" y1="30.00" x2="256.90" y2="30.00" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <path d="M 256.50 30.00 H 261.25 V 20.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <rect x="275.10" y="19.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <path d="M 304.00 30.00 H 299.25 V 40.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <line x1="303.60" y1="30.00" x2="332.90" y2="30.00" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <rect x="332.10" y="19.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <path d="M 351.50 30.00 H 356.25 V 40.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <rect x="370.10" y="19.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <path d="M 399.00 30.00 H 394.25 V 40.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <line x1="398.60" y1="30.00" x2="418.40" y2="30.00" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <rect x="417.60" y="19.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <path d="M 437.00 30.00 H 441.75 V 40.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <rect x="66.10" y="39.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <line x1="90.25" y1="39.60" x2="90.25" y2="60.40" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <rect x="104.10" y="39.60" width="67.30" height="20.80" fill="#fabd2f" />
+    <line x1="175.75" y1="39.60" x2="175.75" y2="60.40" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <rect x="189.60" y="39.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <line x1="213.75" y1="39.60" x2="213.75" y2="60.40" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <rect x="275.10" y="39.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <line x1="299.25" y1="39.60" x2="299.25" y2="60.40" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <rect x="332.10" y="39.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <line x1="356.25" y1="39.60" x2="356.25" y2="60.40" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <rect x="370.10" y="39.60" width="57.80" height="20.80" fill="#fabd2f" />
+    <path d="M 437.00 50.00 H 432.25 V 60.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <path d="M 437.00 50.00 H 441.75 V 40.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <rect x="18.60" y="59.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <rect x="66.10" y="59.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <line x1="90.25" y1="59.60" x2="90.25" y2="80.40" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <rect x="104.10" y="59.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <path d="M 133.00 70.00 H 128.25 V 80.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <line x1="132.60" y1="70.00" x2="152.40" y2="70.00" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <rect x="151.60" y="59.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <line x1="175.75" y1="59.60" x2="175.75" y2="80.40" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <rect x="189.60" y="59.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <line x1="213.75" y1="59.60" x2="213.75" y2="80.40" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <rect x="275.10" y="59.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <line x1="299.25" y1="59.60" x2="299.25" y2="80.40" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <rect x="332.10" y="59.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <line x1="356.25" y1="59.60" x2="356.25" y2="80.40" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <rect x="370.10" y="59.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <path d="M 399.00 70.00 H 394.25 V 80.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <line x1="398.60" y1="70.00" x2="418.40" y2="70.00" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <rect x="417.60" y="59.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <path d="M 437.00 70.00 H 441.75 V 80.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <path d="M 28.50 90.00 H 23.75 V 80.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <rect x="28.10" y="79.60" width="48.30" height="20.80" fill="#fabd2f" />
+    <path d="M 85.50 90.00 H 80.75 V 100.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <path d="M 85.50 90.00 H 90.25 V 80.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <rect x="104.10" y="79.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <line x1="128.25" y1="79.60" x2="128.25" y2="100.40" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <rect x="151.60" y="79.60" width="19.80" height="20.80" fill="#fabd2f" />
+    <line x1="175.75" y1="79.60" x2="175.75" y2="100.40" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <path d="M 199.50 90.00 H 194.75 V 80.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <rect x="199.10" y="79.60" width="57.80" height="20.80" fill="#fabd2f" />
+    <path d="M 256.50 90.00 H 261.25 V 100.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <path d="M 285.00 90.00 H 280.25 V 80.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <rect x="284.60" y="79.60" width="57.80" height="20.80" fill="#fabd2f" />
+    <path d="M 351.50 90.00 H 346.75 V 100.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <path d="M 351.50 90.00 H 356.25 V 80.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <rect x="370.10" y="79.60" width="57.80" height="20.80" fill="#fabd2f" />
+    <path d="M 437.00 90.00 H 432.25 V 100.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <path d="M 437.00 90.00 H 441.75 V 80.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <path d="M 38.00 110.00 H 33.25 V 100.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <line x1="37.60" y1="110.00" x2="76.40" y2="110.00" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <path d="M 76.00 110.00 H 80.75 V 100.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <path d="M 114.00 110.00 H 109.25 V 100.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <line x1="113.60" y1="110.00" x2="123.90" y2="110.00" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <path d="M 123.50 110.00 H 128.25 V 100.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <path d="M 161.50 110.00 H 156.75 V 100.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <line x1="161.10" y1="110.00" x2="171.40" y2="110.00" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <path d="M 171.00 110.00 H 175.75 V 100.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <path d="M 209.00 110.00 H 204.25 V 100.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <line x1="208.60" y1="110.00" x2="256.90" y2="110.00" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <path d="M 256.50 110.00 H 261.25 V 100.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <path d="M 294.50 110.00 H 289.75 V 100.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <line x1="294.10" y1="110.00" x2="342.40" y2="110.00" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <path d="M 342.00 110.00 H 346.75 V 100.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <path d="M 380.00 110.00 H 375.25 V 100.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+    <line x1="379.60" y1="110.00" x2="427.90" y2="110.00" stroke="#fabd2f" stroke-width="2.4" stroke-linecap="square" />
+    <path d="M 427.50 110.00 H 432.25 V 100.00" stroke="#fabd2f" stroke-width="2.4" fill="none" />
+  </g>
+</svg>

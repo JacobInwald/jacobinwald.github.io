@@ -25,8 +25,8 @@
   },
   {
     "id": "pwdtools",
-    "title": "pwdtools — GPU Hash Cracking Engine",
-    "description": "Built a password analysis and hash cracking toolkit matching performance of hashcat. Implemented a GPU-accelerated brute-force engine via Apple's Metal framework achieving over 4 billion hashes per second.",
+    "title": "pwdtools — GPU Security & Cryptography Toolkit",
+    "description": "Built a password security analysis and hash verification suite utilizing Apple's Metal framework for GPU acceleration and high-throughput cryptographic operations.",
     "category": "High Performance / Security",
     "tags": ["Python", "Metal Framework", "Objective-C", "Cryptography", "GPU"],
     "github_url": "https://github.com/JacobInwald/pwdtools",
