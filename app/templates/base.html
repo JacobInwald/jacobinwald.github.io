@@ -15,7 +15,7 @@
   <!-- Font Awesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="/static/css/main.css">
+  <link rel="stylesheet" href="/static/css/main.css?v=39">
 
   <!-- Prevent Explorer Flicker on Page Navigation -->
   <script>
@@ -34,26 +34,46 @@
         <i class="fa-solid fa-bars"></i> <span style="font-size: 0.85rem;">Explorer</span>
       </button>
 
-      <div class="tab-list-wrapper">
-        <a href="/" class="tab-item {% if active_page == 'home' %}active{% endif %}" id="tab-1">
+      <div class="tab-list-wrapper" id="tab-list-wrapper">
+        <a href="/" class="tab-item {% if active_page == 'home' %}active{% endif %}" id="tab-1" data-path="/">
           <span class="tab-num">1</span>
-          <i class="fa-brands fa-python tab-icon text-yellow"></i> index.py <i class="fa-solid fa-xmark tab-close"></i>
+          <div class="tab-label-group">
+            <i class="fa-brands fa-python tab-icon text-yellow"></i>
+            <span class="tab-text">overview.py</span>
+            <i class="fa-solid fa-xmark tab-close" data-path="/"></i>
+          </div>
         </a>
-        <a href="/projects/" class="tab-item {% if active_page == 'projects' %}active{% endif %}" id="tab-2">
+        <a href="/projects/" class="tab-item {% if active_page == 'projects' %}active{% endif %}" id="tab-2" data-path="/projects/">
           <span class="tab-num">2</span>
-          <i class="fa-solid fa-file-code tab-icon text-orange"></i> projects.json <i class="fa-solid fa-xmark tab-close"></i>
+          <div class="tab-label-group">
+            <i class="fa-solid fa-file-code tab-icon text-orange"></i>
+            <span class="tab-text">projects.json</span>
+            <i class="fa-solid fa-xmark tab-close" data-path="/projects/"></i>
+          </div>
         </a>
-        <a href="/blog/" class="tab-item {% if active_page == 'blog' %}active{% endif %}" id="tab-3">
+        <a href="/blog/" class="tab-item {% if active_page == 'blog' %}active{% endif %}" id="tab-3" data-path="/blog/">
           <span class="tab-num">3</span>
-          <i class="fa-brands fa-markdown tab-icon text-purple"></i> blog.md <i class="fa-solid fa-xmark tab-close"></i>
+          <div class="tab-label-group">
+            <i class="fa-brands fa-markdown tab-icon text-purple"></i>
+            <span class="tab-text">blog.md</span>
+            <i class="fa-solid fa-xmark tab-close" data-path="/blog/"></i>
+          </div>
         </a>
-        <a href="/experience/" class="tab-item {% if active_page == 'experience' %}active{% endif %}" id="tab-4">
+        <a href="/experience/" class="tab-item {% if active_page == 'experience' %}active{% endif %}" id="tab-4" data-path="/experience/">
           <span class="tab-num">4</span>
-          <i class="fa-solid fa-briefcase tab-icon text-blue"></i> experience.json <i class="fa-solid fa-xmark tab-close"></i>
+          <div class="tab-label-group">
+            <i class="fa-solid fa-briefcase tab-icon text-blue"></i>
+            <span class="tab-text">experience.json</span>
+            <i class="fa-solid fa-xmark tab-close" data-path="/experience/"></i>
+          </div>
         </a>
-        <a href="/contact/" class="tab-item {% if active_page == 'contact' %}active{% endif %}" id="tab-5">
+        <a href="/contact/" class="tab-item {% if active_page == 'contact' %}active{% endif %}" id="tab-5" data-path="/contact/">
           <span class="tab-num">5</span>
-          <i class="fa-solid fa-terminal tab-icon text-green"></i> contact.sh <i class="fa-solid fa-xmark tab-close"></i>
+          <div class="tab-label-group">
+            <i class="fa-solid fa-terminal tab-icon text-green"></i>
+            <span class="tab-text">contact.sh</span>
+            <i class="fa-solid fa-xmark tab-close" data-path="/contact/"></i>
+          </div>
         </a>
       </div>
     </div>
@@ -74,19 +94,19 @@
 
         <div class="tree-list" id="explorer-tree">
           <div class="tree-section-header"><i class="fa-solid fa-folder-open"></i> PAGES</div>
-          <a href="/" class="tree-item {% if active_page == 'home' %}selected{% endif %}" data-name="index.py home">
-            <i class="fa-brands fa-python text-yellow"></i> index.py
+          <a href="/" class="tree-item {% if active_page == 'home' %}selected{% endif %}" data-name="overview.py overview home index" data-path="/">
+            <i class="fa-brands fa-python text-yellow"></i> overview.py
           </a>
-          <a href="/projects/" class="tree-item {% if active_page == 'projects' %}selected{% endif %}" data-name="projects.json projects">
+          <a href="/projects/" class="tree-item {% if active_page == 'projects' %}selected{% endif %}" data-name="projects.json projects" data-path="/projects/">
             <i class="fa-solid fa-file-code text-orange"></i> projects.json
           </a>
-          <a href="/blog/" class="tree-item {% if active_page == 'blog' %}selected{% endif %}" data-name="blog.md blog posts articles">
+          <a href="/blog/" class="tree-item {% if active_page == 'blog' %}selected{% endif %}" data-name="blog.md blog posts articles" data-path="/blog/">
             <i class="fa-brands fa-markdown text-purple"></i> blog.md
           </a>
-          <a href="/experience/" class="tree-item {% if active_page == 'experience' %}selected{% endif %}" data-name="experience.json timeline career skills">
+          <a href="/experience/" class="tree-item {% if active_page == 'experience' %}selected{% endif %}" data-name="experience.json timeline career skills" data-path="/experience/">
             <i class="fa-solid fa-briefcase text-blue"></i> experience.json
           </a>
-          <a href="/contact/" class="tree-item {% if active_page == 'contact' %}selected{% endif %}" data-name="contact.sh contact email form">
+          <a href="/contact/" class="tree-item {% if active_page == 'contact' %}selected{% endif %}" data-name="contact.sh contact email form" data-path="/contact/">
             <i class="fa-solid fa-terminal text-green"></i> contact.sh
           </a>
 
@@ -106,7 +126,29 @@
           <!-- Dynamically generated all the way down by JS -->
         </div>
         <div class="editor-body">
-          {% block content %}{% endblock %}
+          <!-- LazyVim Welcome Screen Dashboard (Shown when ALL tabs are closed) -->
+          <div class="lazyvim-dashboard" id="lazyvim-dashboard" style="display: none;">
+            <div class="lazyvim-header-wrap">
+              <img src="/static/images/jacob_header.svg?v=1" class="lazyvim-header-img" alt="JACOB">
+            </div>
+            <div class="lazyvim-subhead">
+              <strong>Jacob Inwald</strong> — Software Engineer @ Darktrace<br>
+              <span style="color: var(--fg-muted);">Cambridge, UK • First-Class BSc (Hons) Edinburgh</span>
+            </div>
+
+            <div class="lazyvim-buttons">
+              <a href="/" class="lazyvim-btn" data-path="/"><span class="key-hint">[o]</span> <i class="fa-brands fa-python text-yellow"></i> Open Overview <span class="path-hint">overview.py</span></a>
+              <a href="/projects/" class="lazyvim-btn" data-path="/projects/"><span class="key-hint">[p]</span> <i class="fa-solid fa-file-code text-orange"></i> View Projects <span class="path-hint">projects.json</span></a>
+              <a href="/blog/" class="lazyvim-btn" data-path="/blog/"><span class="key-hint">[b]</span> <i class="fa-brands fa-markdown text-purple"></i> Read Articles <span class="path-hint">blog.md</span></a>
+              <a href="/experience/" class="lazyvim-btn" data-path="/experience/"><span class="key-hint">[e]</span> <i class="fa-solid fa-briefcase text-blue"></i> Experience & Skills <span class="path-hint">experience.json</span></a>
+              <a href="/contact/" class="lazyvim-btn" data-path="/contact/"><span class="key-hint">[c]</span> <i class="fa-solid fa-terminal text-green"></i> Contact Me <span class="path-hint">contact.sh</span></a>
+              <button class="lazyvim-btn" id="lazyvim-help-btn"><span class="key-hint">[?]</span> <i class="fa-solid fa-keyboard text-yellow"></i> Vim Keybindings <span class="path-hint">Shift+?</span></button>
+            </div>
+          </div>
+
+          <div class="editor-content-wrapper" id="editor-content-wrapper">
+            {% block content %}{% endblock %}
+          </div>
         </div>
       </div>
     </div>
@@ -146,6 +188,14 @@
       </div>
 
       <div class="key-row">
+        <span>Close Current Buffer</span>
+        <div><span class="key-cap">Space</span> <span class="key-cap">b</span> <span class="key-cap">d</span></div>
+      </div>
+      <div class="key-row">
+        <span>Close Other Buffers</span>
+        <div><span class="key-cap">Space</span> <span class="key-cap">b</span> <span class="key-cap">o</span></div>
+      </div>
+      <div class="key-row">
         <span>Switch Tabs Left / Right</span>
         <div><span class="key-cap">Shift</span> <span class="key-cap">H</span> / <span class="key-cap">Shift</span> <span class="key-cap">L</span></div>
       </div>
@@ -154,8 +204,8 @@
         <div><span class="key-cap">Ctrl</span> <span class="key-cap">H</span> / <span class="key-cap">Ctrl</span> <span class="key-cap">L</span></div>
       </div>
       <div class="key-row">
-        <span>Active Buffer Highlight</span>
-        <div>All 4 edges highlighted on active rounded split</div>
+        <span>Toggle Explorer Sidebar</span>
+        <div><span class="key-cap">Space</span> <span class="key-cap">e</span></div>
       </div>
       <div class="key-row">
         <span>Explorer Mode Nav / Select</span>
@@ -164,10 +214,6 @@
       <div class="key-row">
         <span>Editor Mode Scroll</span>
         <div><span class="key-cap">j</span>/<span class="key-cap">k</span> down/up, <span class="key-cap">gg</span>/<span class="key-cap">G</span> top/bottom</div>
-      </div>
-      <div class="key-row">
-        <span>Toggle Explorer Sidebar</span>
-        <div><span class="key-cap">Space</span> <span class="key-cap">e</span></div>
       </div>
       <div class="key-row">
         <span>Focus Explorer Search</span>
@@ -184,6 +230,6 @@
     </div>
   </div>
 
-  <script src="/static/js/app.js"></script>
+  <script src="/static/js/app.js?v=39"></script>
 </body>
 </html>
